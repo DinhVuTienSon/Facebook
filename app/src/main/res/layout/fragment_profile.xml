@@ -1,0 +1,336 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/background"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="250dp"
+        android:importantForAccessibility="no"
+        android:scaleType="centerCrop"
+        android:src="@drawable/background"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:ignore="ImageContrastCheck" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/avatar"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:layout_marginStart="10dp"
+        android:scaleType="centerCrop"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.CircularBorder"
+        app:strokeColor="@color/black"
+        app:strokeWidth="10dp"
+        android:layout_marginTop="130dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:src="@drawable/trump"/>
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="@string/trump"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.039"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/avatar" />
+
+    <TextView
+        android:id="@+id/follow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/follow"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="@id/name"
+        app:layout_constraintHorizontal_bias="0.209"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/name" />
+
+    <TextView
+        android:id="@+id/quote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_weight="9"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:text="@string/sologan"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/follow" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bio1"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="328dp"
+        android:text="Details"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/quote" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/address"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/bio1"
+        android:weightSum="8">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="0dp"
+            android:layout_weight="1"
+            android:importantForAccessibility="no"
+            android:padding="0dp"
+            android:scaleType="fitStart"
+            android:src="@drawable/baseline_house_24" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/address"
+            android:textSize="18sp"
+            android:layout_gravity="center"
+            android:layout_weight="6"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/country"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/address"
+        android:weightSum="8">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:scaleType="fitStart"
+            android:layout_marginEnd="0dp"
+            android:layout_weight="1"
+            android:padding="0dp"
+            android:src="@drawable/baseline_location_on_24"
+            android:importantForAccessibility="no" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/country"
+            android:textSize="18sp"
+            android:layout_gravity="center"
+            android:layout_weight="6"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/workplace"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/country"
+        android:weightSum="8">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:scaleType="fitStart"
+            android:layout_marginEnd="0dp"
+            android:layout_weight="1"
+            android:padding="0dp"
+            android:src="@drawable/baseline_work_24"
+            android:importantForAccessibility="no" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/workplace"
+            android:textSize="18sp"
+            android:layout_gravity="center"
+            android:layout_weight="6"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/school"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/workplace"
+        android:weightSum="8">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:scaleType="fitStart"
+            android:layout_marginEnd="0dp"
+            android:layout_weight="1"
+            android:padding="0dp"
+            android:src="@drawable/baseline_school_24"
+            android:importantForAccessibility="no" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/school"
+            android:textSize="18sp"
+            android:layout_gravity="center"
+            android:layout_weight="7"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/website"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/school"
+        android:weightSum="8">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:scaleType="fitStart"
+            android:layout_marginEnd="0dp"
+            android:layout_weight="1"
+            android:padding="0dp"
+            android:src="@drawable/baseline_link_24"
+            android:importantForAccessibility="no" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/web"
+            android:textSize="18sp"
+            android:layout_gravity="center"
+            android:layout_weight="7"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/bio2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="324dp"
+        android:text="Friends"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/website" />
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/p1"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:layout_constraintLeft_toLeftOf="@id/bio2"
+        app:layout_constraintTop_toBottomOf="@id/bio2">
+
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/border"
+            android:importantForAccessibility="no"
+            android:scaleType="fitCenter"
+            android:src="@drawable/desantis"
+            tools:layout_editor_absoluteX="16dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/friend1"
+            android:textAlignment="center"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/p2"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:layout_constraintRight_toLeftOf="@id/p2"
+        app:layout_constraintTop_toBottomOf="@id/bio2">
+
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/border"
+            android:importantForAccessibility="no"
+            android:scaleType="fitCenter"
+            android:src="@drawable/desantis"
+            tools:layout_editor_absoluteX="16dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/friend1"
+            android:textAlignment="center"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btnEdit"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@color/fb_blue"
+        android:padding="10dp"
+        android:text="@string/edit"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/p1"
+        tools:layout_editor_absoluteX="45dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

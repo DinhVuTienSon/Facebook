@@ -1,3 +1,27 @@
 <resources>
     <string name="app_name">Facebook</string>
+    <string name="logo_name">Facebook Logo</string>
+    <string name="name">Username or Email</string>
+    <string name="pwd">Password</string>
+    <string name="fpwd">Forgot Password?</string>
+    <string name="register">Sign Up for Facebook</string>
+    <string name="login">Login</string>
+    <string name="friend">Friends</string>
+    <string name="trump">Donald J.Trump</string>
+    <string name="follow"><b>34 millions </b>followers</string>
+    <string name="edit">Edit Profile</string>
+    <string name="address">Lives in <b>Mar-a-lago, Palm Beach, Florida</b></string>
+    <string name="country">Comes from <b>Florida, United States</b></string>
+    <string name="workplace"><b>Former President of the United States</b></string>
+    <string name="school">Graduated from <b>Pennsylvania's Wharton School</b></string>
+    <string name="sologan">This is the official Facebook page for Donald J.Trump</string>
+    <string name="web">donaldjtrump.com<a href="https://www.donaldjtrump.com/" /></string>
+    <string name="friend1"><b>Ron Desantis</b></string>
+
 </resources>
+
+
+
+
+
+
