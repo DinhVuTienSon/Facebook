@@ -1,6 +1,5 @@
 package vn.edu.usth.facebook;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +17,9 @@ import vn.edu.usth.facebook.model.Post;
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     private ArrayList<Post> posts;
-    private Context context;
+    private HomeFragment context;
 
-    public PostAdapter(ArrayList<Post> posts, Context context) {
+    public PostAdapter(ArrayList<Post> posts, HomeFragment context) {
         this.posts = posts;
         this.context = context;
     }
@@ -28,7 +27,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     @NonNull
     @Override
     public PostAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_home, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_row, parent, false);
         return new PostAdapter.ViewHolder(view);
     }
 

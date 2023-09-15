@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -33,7 +34,6 @@ import org.json.JSONObject;
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
-    private ArrayList<Post> posts;
     private ProgressBar progressBar;
 //    private RequestQueue mRequestQueue;
 
@@ -48,9 +48,11 @@ public class MainActivity extends AppCompatActivity {
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.home) {
-                    replaceFragment(new HomeFragment());
+//                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                replaceFragment(new HomeFragment());
+//                MainActivity.this.startActivities(new Intent[]{intent});
 //                progressBar = findViewById(R.id.idLoadingPB);
-                getFacebookFeeds();
+
             } else if (item.getItemId() == R.id.friends) {
                 replaceFragment(new FriendsFragment());
             } else if (item.getItemId() == R.id.notification) {
@@ -71,48 +73,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    private void getFacebookFeeds() {
 
-        posts = new ArrayList<>();
-//        mRequestQueue = Volley.newRequestQueue(MainActivity.this);
-//        mRequestQueue.getCache().clear();
-//        String url = "";
-//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-
-//            public void onResponse(JSONObject response) {
-//                progressBar.setVisibility(View.GONE);
-//                try {
-//                    String authorName = response.getString("authorName");
-//                    String authorImage = response.getString("authorImage");
-//                    JSONArray feedsArray = response.getJSONArray("feeds");
-        for (int i = 0; i < 10; i++) {
-            String authorName = "ST";
-            String authorImage = "https://picsum.photos/600/300?random&";
-            String postDate = "now";
-            String postDescription = "testing";
-            String postImage = "https://picsum.photos/600/300?random&";
-            String postLikes = "2";
-            String postComments = "3";
-
-//                        JSONObject feedsObj = feedsArray.getJSONObject(i);
-//                        String postDate = feedsObj.getString("postDate");
-//                        String postDescription = feedsObj.getString("postDescription");
-//                        String postImage = feedsObj.getString("postImage");
-//                        String postLikes = feedsObj.getString("postLikes");
-//                        String postComments = feedsObj.getString("postComments");
-            Post postModal = new Post(authorImage, authorName, postDate, postDescription, postImage, postLikes, postComments);
-            posts.add(postModal);
-            PostAdapter adapter = new PostAdapter(posts, MainActivity.this);
-            RecyclerView recyclerView = findViewById(R.id.recyclerView);
-
-            LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.this, RecyclerView.VERTICAL, false);
-
-            recyclerView.setLayoutManager(layoutManager);
-            recyclerView.setAdapter(adapter);
-
-
-        }
-    }
 }
 //                } catch (JSONException e) {
 //                    e.printStackTrace();
