@@ -2,14 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".HomeFragment"
-    app:layout_constraintTop_toBottomOf="@+id/bottomNavigationView"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent">
-
+    android:layout_height="match_parent">
     <androidx.cardview.widget.CardView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -201,55 +194,40 @@
 
                 </LinearLayout>
             </LinearLayout>
-            <!--        <ImageView-->
-            <!--            android:id="@+id/photo"-->
-            <!--            android:layout_width="0dp"-->
-            <!--            android:layout_height="200dp"-->
-            <!--            android:scaleType="centerCrop"-->
-            <!--            app:layout_constraintEnd_toEndOf="parent"-->
-            <!--            app:layout_constraintLeft_toLeftOf="parent"-->
-            <!--            app:layout_constraintRight_toRightOf="parent"-->
-            <!--            app:layout_constraintStart_toStartOf="parent"-->
-            <!--            app:layout_constraintTop_toTopOf="parent" />-->
+    <!--        <ImageView-->
+    <!--            android:id="@+id/photo"-->
+    <!--            android:layout_width="0dp"-->
+    <!--            android:layout_height="200dp"-->
+    <!--            android:scaleType="centerCrop"-->
+    <!--            app:layout_constraintEnd_toEndOf="parent"-->
+    <!--            app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--            app:layout_constraintRight_toRightOf="parent"-->
+    <!--            app:layout_constraintStart_toStartOf="parent"-->
+    <!--            app:layout_constraintTop_toTopOf="parent" />-->
 
-            <!--        <TextView-->
-            <!--            android:id="@+id/username"-->
-            <!--            android:layout_width="wrap_content"-->
-            <!--            android:layout_height="wrap_content"-->
-            <!--            android:padding="10dp"-->
-            <!--            android:text="testing"-->
-            <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--            app:layout_constraintEnd_toEndOf="parent"-->
-            <!--            app:layout_constraintHorizontal_bias="0.0"-->
-            <!--            app:layout_constraintStart_toStartOf="parent"-->
-            <!--            app:layout_constraintTop_toBottomOf="@+id/photo" />-->
+    <!--        <TextView-->
+    <!--            android:id="@+id/username"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:padding="10dp"-->
+    <!--            android:text="testing"-->
+    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--            app:layout_constraintEnd_toEndOf="parent"-->
+    <!--            app:layout_constraintHorizontal_bias="0.0"-->
+    <!--            app:layout_constraintStart_toStartOf="parent"-->
+    <!--            app:layout_constraintTop_toBottomOf="@+id/photo" />-->
 
-            <!--        <TextView-->
-            <!--            android:id="@+id/text"-->
-            <!--            android:layout_width="wrap_content"-->
-            <!--            android:layout_height="wrap_content"-->
-            <!--            android:layout_marginTop="4dp"-->
-            <!--            android:padding="10dp"-->
-            <!--            android:text="description text"-->
-            <!--            app:layout_constraintEnd_toEndOf="parent"-->
-            <!--            app:layout_constraintHorizontal_bias="0.0"-->
-            <!--            app:layout_constraintStart_toStartOf="parent"-->
-            <!--            app:layout_constraintTop_toBottomOf="@id/username" />-->
+    <!--        <TextView-->
+    <!--            android:id="@+id/text"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginTop="4dp"-->
+    <!--            android:padding="10dp"-->
+    <!--            android:text="description text"-->
+    <!--            app:layout_constraintEnd_toEndOf="parent"-->
+    <!--            app:layout_constraintHorizontal_bias="0.0"-->
+    <!--            app:layout_constraintStart_toStartOf="parent"-->
+    <!--            app:layout_constraintTop_toBottomOf="@id/username" />-->
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
-    <!-- TODO: Update blank fragment layout -->
-<!--    <RelativeLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent">-->
-<!--        <androidx.recyclerview.widget.RecyclerView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:id="@+id/recyclerView" />-->
-<!--        <ProgressBar-->
-<!--            android:id="@+id/idLoadingPB"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_centerInParent="true"-->
-<!--            android:visibility="visible" />-->
-<!--    </RelativeLayout>-->
 </FrameLayout>
