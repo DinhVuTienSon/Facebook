@@ -18,6 +18,8 @@
     <string name="web">donaldjtrump.com<a href="https://www.donaldjtrump.com/" /></string>
     <string name="friend1"><b>Ron Desantis</b></string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
 
 
