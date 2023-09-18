@@ -8,41 +8,131 @@
     tools:context=".MainActivity"
     android:background="@color/white">
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView"
+    <LinearLayout
+        android:id="@+id/top_main_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        app:itemHorizontalTranslationEnabled="false"
-        app:labelVisibilityMode="unlabeled"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        app:menu="@menu/top_nav_menu"></com.google.android.material.bottomnavigation.BottomNavigationView>
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="7">
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="9dp"
-        android:background="@color/white"
-        android:paddingBottom="0dp"
-        android:src="@drawable/text_logo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="9dp"
+                android:background="@color/white"
+                android:paddingBottom="0dp"
+                android:paddingRight="120dp"
+                android:src="@drawable/text_logo"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_weight="7"
+                />
 
-    <FrameLayout
-        android:id="@+id/frameLayout"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@color/background_color"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bottomNavigationView">
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:insetLeft="0dp"
+                android:insetTop="0dp"
+                android:insetRight="0dp"
+                android:insetBottom="0dp"
+                app:cornerRadius="50dp"
+                app:icon="@drawable/add_icon"
+                app:backgroundTint="@color/lightgray"
+                app:iconTint="@color/black"
+                app:iconGravity="textTop"
+                app:iconPadding="0dp"
+                app:iconSize="20dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="10dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="4dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="10dp">
 
+            </com.google.android.material.button.MaterialButton>
 
-    </FrameLayout>
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:insetLeft="0dp"
+                android:insetTop="0dp"
+                android:insetRight="0dp"
+                android:insetBottom="0dp"
+                app:cornerRadius="50dp"
+                app:icon="@drawable/search_icon"
+                app:backgroundTint="@color/lightgray"
+                app:iconTint="@color/black"
+                app:iconGravity="textTop"
+                app:iconPadding="0dp"
+                app:iconSize="20dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="10dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="4dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="10dp">
+
+            </com.google.android.material.button.MaterialButton>
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:insetLeft="0dp"
+                android:insetTop="0dp"
+                android:insetRight="0dp"
+                android:insetBottom="0dp"
+                app:cornerRadius="50dp"
+                app:icon="@drawable/messenger_icon"
+                app:backgroundTint="@color/lightgray"
+                app:iconTint="@color/black"
+                app:iconGravity="textTop"
+                app:iconPadding="0dp"
+                app:iconSize="20dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="10dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="4dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="10dp">
+
+            </com.google.android.material.button.MaterialButton>
+
+        </LinearLayout>
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigationView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:itemHorizontalTranslationEnabled="false"
+            app:labelVisibilityMode="unlabeled"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2"
+            app:menu="@menu/top_nav_menu"
+            android:minHeight="63dp">
+
+        </com.google.android.material.bottomnavigation.BottomNavigationView>
+    </LinearLayout>
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/background_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/top_main_layout">
+
+        </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
