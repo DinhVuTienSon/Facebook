@@ -15,10 +15,12 @@ public class SplashScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         handler.postDelayed(runnable, TIME);
     }
+
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            Intent intent = new Intent(SplashScreenActivity.this, MainActivity.class);
+            // Check the user's login status by launching LoginActivity
+            Intent intent = new Intent(SplashScreenActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
         }

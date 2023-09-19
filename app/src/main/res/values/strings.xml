@@ -7,20 +7,24 @@
     <string name="register">Sign Up for Facebook</string>
     <string name="login">Login</string>
     <string name="friend">Friends</string>
-    <string name="trump">Donald J.Trump</string>
-    <string name="follow"><b>34 millions </b>followers</string>
+    <string name="trump"><font color="#000000">Donald J.Trump</font></string>
+    <string name="follow"><b><font color="#000000">34 millions</font></b> followers</string>
     <string name="edit">Edit Profile</string>
-    <string name="address">Lives in <b>Mar-a-lago, Palm Beach, Florida</b></string>
-    <string name="country">Comes from <b>Florida, United States</b></string>
-    <string name="workplace"><b>Former President of the United States</b></string>
-    <string name="school">Graduated from <b>Pennsylvania's Wharton School</b></string>
-    <string name="sologan">This is the official Facebook page for Donald J.Trump</string>
-    <string name="web">donaldjtrump.com<a href="https://www.donaldjtrump.com/" /></string>
-    <string name="friend1"><b>Ron Desantis</b></string>
+    <string name="address"><font color="#000000">Lives in <b>Mar-a-lago, Palm Beach, Florida</b></font></string>
+    <string name="country"><font color="#000000">Comes from <b>Florida, United States</b></font></string>
+    <string name="workplace"><b><font color="#000000">Former President of the United States</font></b></string>
+    <string name="school"><font color="#000000">Graduated from <b>Wharton School, Pennsylvania</b></font></string>
+    <string name="sologan"><font color="#000000">This is the official Facebook page for Donald J.Trump</font></string>
+    <string name="web"><font color="#000000"><a href="https://www.donaldjtrump.com/" /></font></string>
+    <string name="friend1"><b><font color="#000000">Ron Desantis</font></b></string>
+    <string name="friend2"><b><font color="#000000">Mike Pompeo</font></b></string>
+    <string name="friend3"><b><font color="#000000">Tucker Carlson</font></b></string>
+    <string name="frlist"><font color="#000000">Friends</font></string>
+    <string name="info"><font color="#000000">Details</font></string>
+    <string name="postlist"><font color="#000000">Posts</font></string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
+
 
 
 

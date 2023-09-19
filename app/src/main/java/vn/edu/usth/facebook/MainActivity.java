@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
     private ProgressBar progressBar;
-//    private RequestQueue mRequestQueue;
 
 
     @Override
@@ -48,22 +47,18 @@ public class MainActivity extends AppCompatActivity {
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.home) {
-//                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                 replaceFragment(new HomeFragment());
-//                MainActivity.this.startActivities(new Intent[]{intent});
-//                progressBar = findViewById(R.id.idLoadingPB);
-
             } else if (item.getItemId() == R.id.friends) {
                 replaceFragment(new FriendsFragment());
+            } else if (item.getItemId() == R.id.profile) {
+                replaceFragment(new ProfileFragment());
             } else if (item.getItemId() == R.id.notification) {
                 replaceFragment(new NotificationFragment());
             } else {
                 replaceFragment(new FbMenuFragment());
             }
-
             return true;
         });
-
     }
 
     private void replaceFragment(Fragment fragment) {
@@ -73,28 +68,6 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+    // Add any other methods or features specific to your application
 
 }
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//            }, new Response.ErrorListener() {
-//                @Override
-//                public void onErrorResponse(VolleyError error) {
-//                    Toast.makeText(MainActivity.this, " " + error, Toast.LENGTH_SHORT).show();
-//                }
-//            });
-//        mRequestQueue.add(jsonObjectRequest);
-//    }
-
-//    Post postModal = new Post("https://picsum.photos/600/300?random&","ST","now","testing","https://picsum.photos/600/300?random&", "2", "3");
-//            posts.add(postModal);
-//
-//            PostAdapter adapter = new PostAdapter(posts, MainActivity.this);
-//            RecyclerView recyclerView = findViewById(R.id.recyclerView);
-//
-//            LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.this, RecyclerView.VERTICAL, false);
-//
-//            recyclerView.setLayoutManager(layoutManager);
-//            recyclerView.setAdapter(adapter);

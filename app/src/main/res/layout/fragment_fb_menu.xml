@@ -117,7 +117,7 @@
                         android:id="@+id/profile_menu_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="ST"
+                        android:text="@string/trump"
                         android:textSize="25dp"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp">

@@ -40,7 +40,7 @@
                     android:layout_height="wrap_content"
                     android:text="What's on your mind?"
                     android:layout_gravity="center"
-                    android:textSize="17dp"
+                    android:textSize="17sp"
                     android:background="@drawable/textview_style"
                     android:paddingLeft="15dp"
                     android:minHeight="40dp"

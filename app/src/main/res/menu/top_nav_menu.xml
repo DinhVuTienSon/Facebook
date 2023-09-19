@@ -14,12 +14,21 @@
         android:title=""
         android:icon="@drawable/friends"
         android:id="@+id/friends"/>
+
+    <item
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title=""
+        android:icon="@drawable/account"
+        android:id="@+id/profile"/>
+
     <item
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:title=""
         android:icon="@drawable/bell"
         android:id="@+id/notification"/>
+
     <item
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

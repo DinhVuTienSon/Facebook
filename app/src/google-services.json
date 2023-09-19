@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "540071569833",
+    "project_id": "facebook-90aab",
+    "storage_bucket": "facebook-90aab.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:540071569833:android:8e65c4987de4aa4cf2fcb8",
+        "android_client_info": {
+          "package_name": "vn.edu.usth.facebook"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCN2tCX1iRKYUoo_ylE5Hb8GXPWgl0KZBo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
