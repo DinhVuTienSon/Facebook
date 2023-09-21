@@ -29,7 +29,7 @@ public class FriendsFragment extends Fragment {
         friends = new ArrayList<>();
         friends_rec = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
-            String friendReqAva = "https://picsum.photos/600/300?random&";
+            String friendReqAva = "https://picsum.photos/600/300?random&"+i;
             String friendReqName = "ST";
             String reqDate = "2d";
             String mutualFriends = "16 mutual friends";
@@ -43,7 +43,7 @@ public class FriendsFragment extends Fragment {
             recyclerView.setAdapter(adapter);
         }
         for (int i = 0; i < 16; i++){
-            String friendRecAva = "https://picsum.photos/600/300?random&";
+            String friendRecAva = "https://picsum.photos/600/300?random&"+i;
             String friendRecName = "Testing";
             String mutualFriends_rec = "18 mutual friends";
 

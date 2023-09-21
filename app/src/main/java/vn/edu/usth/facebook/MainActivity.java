@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import vn.edu.usth.facebook.databinding.ActivityMainBinding;
 import vn.edu.usth.facebook.model.Post;
 
@@ -32,6 +33,7 @@ import org.json.JSONObject;
 
 
 public class MainActivity extends AppCompatActivity {
+    private CircleImageView profile_menu_ava;
 
     ActivityMainBinding binding;
     private ProgressBar progressBar;
@@ -72,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.frameLayout, fragment);
         fragmentTransaction.commit();
     }
+
 
 
 }

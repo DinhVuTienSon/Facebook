@@ -1,5 +1,7 @@
 package vn.edu.usth.facebook;
 
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
@@ -45,6 +49,21 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 //        holder.text.setText(String.format("%s", posts.get(position).getText()));
 //        Picasso.get().load(posts.get(position).getPhoto()).into(holder.photo);
 
+        holder.post_comments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), CommentActivity.class);
+                view.getContext().startActivity(intent);
+            }
+        });
+        holder.author_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                Fragment myFragment = new ProfileFragment();
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, myFragment).addToBackStack(null).commit();
+            }
+        });
     }
 
     @Override

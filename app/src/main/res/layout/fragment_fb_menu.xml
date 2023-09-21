@@ -9,7 +9,8 @@
     app:layout_constraintTop_toBottomOf="@+id/bottomNavigationView"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent">
+    app:layout_constraintStart_toStartOf="parent"
+    android:id="@+id/menu_frame">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -107,19 +108,20 @@
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/profile_menu_ava"
+                        android:src="@drawable/logo"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_marginLeft="15dp"
                         android:layout_marginBottom="5dp"
                         android:layout_marginTop="5dp"
-                        android:layout_marginRight="15dp"/>
+                        android:layout_marginRight="10dp"/>
                     <TextView
                         android:id="@+id/profile_menu_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="ST"
                         android:textSize="25dp"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="10dp"
                         android:layout_marginBottom="5dp">
                     </TextView>
                 </LinearLayout>
@@ -154,6 +156,7 @@
 
                     </com.google.android.material.button.MaterialButton>
                     <TextView
+                        android:id="@+id/create_new_profile"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Create another profile"

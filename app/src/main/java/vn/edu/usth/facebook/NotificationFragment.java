@@ -27,7 +27,7 @@ public class NotificationFragment extends Fragment {
 
         notifications = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            String notification_ava = "https://picsum.photos/600/300?random&";
+            String notification_ava = "https://picsum.photos/600/300?random&"+i;
             String notification_content = "ST liked your post";
             String notification_time = "2 hours ago";
 
