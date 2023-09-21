@@ -6,6 +6,7 @@
     android:background="@color/white"
     android:orientation="vertical">
 
+
     <!--Imageview for Facebook logo image-->
     <ImageView
         android:layout_width="80dp"

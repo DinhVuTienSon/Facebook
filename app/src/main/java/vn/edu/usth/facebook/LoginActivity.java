@@ -64,4 +64,5 @@ public class LoginActivity extends AppCompatActivity {
         // Check the login status here (e.g., check the isLoggedIn flag)
         return isLoggedIn;
     }
+
 }
