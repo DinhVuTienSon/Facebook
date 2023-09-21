@@ -1,4 +1,4 @@
-package vn.edu.usth.facebook;
+package vn.edu.usth.facebook.fragment;
 
 import android.os.Bundle;
 
@@ -12,6 +12,9 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import vn.edu.usth.facebook.adapter.FriendsAdapter;
+import vn.edu.usth.facebook.adapter.FriendsRecommendAdapter;
+import vn.edu.usth.facebook.R;
 import vn.edu.usth.facebook.model.Friends;
 import vn.edu.usth.facebook.model.Friends_recommend;
 

@@ -1,7 +1,6 @@
-package vn.edu.usth.facebook;
+package vn.edu.usth.facebook.adapter;
 
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +15,10 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import vn.edu.usth.facebook.CommentActivity;
+import vn.edu.usth.facebook.R;
+import vn.edu.usth.facebook.fragment.HomeFragment;
+import vn.edu.usth.facebook.fragment.ProfileFragment;
 import vn.edu.usth.facebook.model.Post;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {

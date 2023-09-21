@@ -1,35 +1,19 @@
 package vn.edu.usth.facebook;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.helper.widget.Carousel;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
-
-import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import vn.edu.usth.facebook.databinding.ActivityMainBinding;
-import vn.edu.usth.facebook.model.Post;
-
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import vn.edu.usth.facebook.fragment.FbMenuFragment;
+import vn.edu.usth.facebook.fragment.FriendsFragment;
+import vn.edu.usth.facebook.fragment.HomeFragment;
+import vn.edu.usth.facebook.fragment.NotificationFragment;
 
 
 public class MainActivity extends AppCompatActivity {

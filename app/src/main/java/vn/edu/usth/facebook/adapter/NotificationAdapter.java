@@ -1,4 +1,4 @@
-package vn.edu.usth.facebook;
+package vn.edu.usth.facebook.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +13,8 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import vn.edu.usth.facebook.model.Friends;
+import vn.edu.usth.facebook.R;
+import vn.edu.usth.facebook.fragment.NotificationFragment;
 import vn.edu.usth.facebook.model.Notifications;
 
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.ViewHolder> {

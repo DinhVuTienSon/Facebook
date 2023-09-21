@@ -1,7 +1,5 @@
-package vn.edu.usth.facebook;
+package vn.edu.usth.facebook.adapter;
 
-import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +7,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,7 +16,9 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import vn.edu.usth.facebook.model.Friends;
+import vn.edu.usth.facebook.R;
+import vn.edu.usth.facebook.fragment.FbMenuFragment;
+import vn.edu.usth.facebook.fragment.ProfileFragment;
 import vn.edu.usth.facebook.model.Profile_menu;
 
 // not used file

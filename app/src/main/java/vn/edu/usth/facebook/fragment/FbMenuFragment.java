@@ -1,8 +1,7 @@
-package vn.edu.usth.facebook;
+package vn.edu.usth.facebook.fragment;
 
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -11,12 +10,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import vn.edu.usth.facebook.model.Friends;
+import vn.edu.usth.facebook.R;
 import vn.edu.usth.facebook.model.Profile_menu;
 
 public class FbMenuFragment extends Fragment{
