@@ -108,7 +108,7 @@
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/profile_menu_ava"
-                        android:src="@drawable/logo"
+                        android:src="@drawable/pic"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_marginLeft="15dp"
