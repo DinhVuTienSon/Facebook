@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "300772092521",
+    "firebase_url": "https://facebookadroidapp-default-rtdb.firebaseio.com",
+    "project_id": "facebookadroidapp",
+    "storage_bucket": "facebookadroidapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:300772092521:android:54054b312410ebca7590f8",
+        "android_client_info": {
+          "package_name": "vn.edu.usth.facebook"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAc5N9N7WhSdFJuQIjIxq_aHYYb_ej_Mbw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
