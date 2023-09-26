@@ -24,8 +24,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText username;
     private EditText password;
     private Button login;
-    private TextView forgotPassword;
-    private TextView signUp;
+    private TextView forgot_password;
+    private TextView sign_up;
 
     private FirebaseAuth mAuth;
 
@@ -38,12 +38,12 @@ public class LoginActivity extends AppCompatActivity {
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
         login = findViewById(R.id.btnLogin);
-        forgotPassword = findViewById(R.id.txtForgotPassword);
-        signUp = findViewById(R.id.txtSignUp);
+        forgot_password = findViewById(R.id.txtForgotPassword);
+        sign_up = findViewById(R.id.txtSignUp);
 
         mAuth = FirebaseAuth.getInstance();
 
-        signUp.setOnClickListener(new View.OnClickListener() {
+        sign_up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LoginActivity.this , RegisterActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));

@@ -50,6 +50,7 @@ dependencies {
     implementation ("com.squareup.picasso:picasso:2.8")
     implementation ("de.hdodenhof:circleimageview:3.1.0")
     implementation ("com.android.volley:volley:1.2.1")
+    //add dependencies for firebase
     implementation ("com.google.android.gms:play-services-tasks:18.0.2")
     implementation ("com.google.firebase:firebase-core:21.1.1")
     implementation("com.google.firebase:firebase-auth:22.1.2")

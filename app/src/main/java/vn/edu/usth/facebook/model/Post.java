@@ -2,80 +2,80 @@ package vn.edu.usth.facebook.model;
 
 
 public class Post {
-    private String authorImage;
-    private String authorName;
-    private String postDate;
-    private String postDescription;
-    private String postImage;
-    private String postLikes;
-    private String postComments;
+    private String author_image;
+    private String author_name;
+    private String post_date;
+    private String post_description;
+    private String post_image;
+    private String post_likes;
+    private String post_comments;
 
-    public String getAuthorImage() {
-        return authorImage;
+    public String getAuthor_image() {
+        return author_image;
     }
 
-    public void setAuthorImage(String authorImage) {
-        this.authorImage = authorImage;
+    public void setAuthor_image(String author_image) {
+        this.author_image = author_image;
     }
 
-    public String getAuthorName() {
-        return authorName;
+    public String getAuthor_name() {
+        return author_name;
     }
 
-    public void setAuthorName(String authorName) {
-        this.authorName = authorName;
+    public void setAuthor_name(String author_name) {
+        this.author_name = author_name;
     }
 
-    public String getPostDate() {
-        return postDate;
+    public String getPost_date() {
+        return post_date;
     }
 
-    public void setPostDate(String postDate) {
-        this.postDate = postDate;
+    public void setPost_date(String post_date) {
+        this.post_date = post_date;
     }
 
-    public String getPostDescription() {
-        return postDescription;
+    public String getPost_description() {
+        return post_description;
     }
 
-    public void setPostDescription(String postDescription) {
-        this.postDescription = postDescription;
+    public void setPost_description(String post_description) {
+        this.post_description = post_description;
     }
 
-    public String getPostImage() {
-        return postImage;
+    public String getPost_image() {
+        return post_image;
     }
 
-    public void setPostImage(String postImage) {
-        this.postImage = postImage;
+    public void setPost_image(String post_image) {
+        this.post_image = post_image;
     }
 
-    public String getPostLikes() {
-        return postLikes;
+    public String getPost_likes() {
+        return post_likes;
     }
 
-    public void setPostLikes(String postLikes) {
-        this.postLikes = postLikes;
+    public void setPost_likes(String post_likes) {
+        this.post_likes = post_likes;
     }
 
-    public String getPostComments() {
-        return postComments;
+    public String getPost_comments() {
+        return post_comments;
     }
 
-    public void setPostComments(String postComments) {
-        this.postComments = postComments;
+    public void setPost_comments(String post_comments) {
+        this.post_comments = post_comments;
     }
 
-    public Post(String authorImage, String authorName, String postDate,
-                String postDescription, String postImage, String postLikes,
-                String postComments) {
-        this.authorImage = authorImage;
-        this.authorName = authorName;
-        this.postDate = postDate;
-        this.postDescription = postDescription;
-        this.postImage = postImage;
-        this.postLikes = postLikes;
-        this.postComments = postComments;
+    public Post(String author_image, String author_name, String post_date,
+                String post_description, String post_image, String post_likes,
+                String post_comments) {
+        this.author_image = author_image;
+        this.author_name = author_name;
+        this.post_date = post_date;
+        this.post_description = post_description;
+        this.post_image = post_image;
+        this.post_likes = post_likes;
+        this.post_comments = post_comments;
     }
 }
 

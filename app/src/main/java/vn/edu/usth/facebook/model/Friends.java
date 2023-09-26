@@ -1,45 +1,45 @@
 package vn.edu.usth.facebook.model;
 
 public class Friends {
-    private String friendReqAva;
-    private String friendReqName;
-    private String reqDate;
-    private String mutualFriends;
+    private String friend_req_ava;
+    private String friend_req_name;
+    private String req_date;
+    private String mutual_friends;
 
-    public String getFriendReqAva() {
-        return friendReqAva;
+    public String getFriend_req_ava() {
+        return friend_req_ava;
     }
 
-    public void setFriendReqAva(String friendReqAva) {
-        this.friendReqAva = friendReqAva;
+    public void setFriend_req_ava(String friend_req_ava) {
+        this.friend_req_ava = friend_req_ava;
     }
 
-    public String getFriendReqName() {
-        return friendReqName;
+    public String getFriend_req_name() {
+        return friend_req_name;
     }
 
-    public void setFriendReqName(String friendReqName) {
-        this.friendReqName = friendReqName;
+    public void setFriend_req_name(String friend_req_name) {
+        this.friend_req_name = friend_req_name;
     }
 
-    public String getReqDate() {
-        return reqDate;
+    public String getReq_date() {
+        return req_date;
     }
 
-    public void setReqDate(String reqDate) {
-        this.reqDate = reqDate;
+    public void setReq_date(String req_date) {
+        this.req_date = req_date;
     }
 
-    public String getMutualFriends() {
-        return mutualFriends;
+    public String getMutual_friends() {
+        return mutual_friends;
     }
 
-    public void setMutualFriends(String mutualFriends) {this.mutualFriends = mutualFriends; }
+    public void setMutual_friends(String mutual_friends) {this.mutual_friends = mutual_friends; }
 
-    public Friends(String friendReqAva, String friendReqName, String reqDate, String mutualFriends){
-        this.friendReqAva = friendReqAva;
-        this.friendReqName = friendReqName;
-        this.reqDate = reqDate;
-        this.mutualFriends = mutualFriends;
+    public Friends(String friend_req_ava, String friend_req_name, String req_date, String mutual_friends){
+        this.friend_req_ava = friend_req_ava;
+        this.friend_req_name = friend_req_name;
+        this.req_date = req_date;
+        this.mutual_friends = mutual_friends;
     }
 }
