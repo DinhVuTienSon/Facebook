@@ -24,6 +24,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         this.notifications = notifications;
         this.context = context;
     }
+
     @NonNull
     @Override
     public NotificationAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

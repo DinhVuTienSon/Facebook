@@ -39,6 +39,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         Picasso.get().load(comment.getComment_ava()).into(holder.comment_ava);
         holder.comment_name.setText(comment.getComment_name());
         holder.comment_content.setText(comment.getComment_content());
+
     }
 
     @Override

@@ -4,6 +4,7 @@ package vn.edu.usth.facebook.model;
 
 public class Profile_menu {
 
+
     private String profile_menu_ava;
     private String profile_menu_name;
 

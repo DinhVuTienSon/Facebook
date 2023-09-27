@@ -2,6 +2,10 @@ package vn.edu.usth.facebook.model;
 
 
 public class Post {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0f7419adc3fab45dd5a4da62aa02b7f5d90ed622
     private String author_image;
     private String author_name;
     private String post_date;
@@ -10,6 +14,7 @@ public class Post {
     private String post_likes;
     private String post_comments;
 
+<<<<<<< HEAD
     public String getAuthor_image() {
         return author_image;
     }
@@ -63,6 +68,61 @@ public class Post {
     }
 
     public void setPost_comments(String post_comments) {
+=======
+    public String getAuthorImage() {
+        return author_image;
+    }
+
+    public void setAuthorImage(String author_image) {
+        this.author_image = author_image;
+    }
+
+    public String getAuthorName() {
+        return author_name;
+    }
+
+    public void setAuthorName(String author_name) {
+        this.author_name = author_name;
+    }
+
+    public String getPostDate() {
+        return post_date;
+    }
+
+    public void setPostDate(String post_date) {
+        this.post_date = post_date;
+    }
+
+    public String getPostDescription() {
+        return post_description;
+    }
+
+    public void setPostDescription(String post_description) {
+        this.post_description = post_description;
+    }
+
+    public String getPostImage() {
+        return post_image;
+    }
+
+    public void setPostImage(String post_image) {
+        this.post_image = post_image;
+    }
+
+    public String getPostLikes() {
+        return post_likes;
+    }
+
+    public void setPostLikes(String post_likes) {
+        this.post_likes = post_likes;
+    }
+
+    public String getPostComments() {
+        return post_comments;
+    }
+
+    public void setPostComments(String post_comments) {
+>>>>>>> 0f7419adc3fab45dd5a4da62aa02b7f5d90ed622
         this.post_comments = post_comments;
     }
 
@@ -78,41 +138,3 @@ public class Post {
         this.post_comments = post_comments;
     }
 }
-
-//    public String username;
-//    public String text;
-//    public String photo;
-
-
-//    public Post(String username, String text, String photo) {
-//        this.username = username;
-//        this.text = text;
-//        this.photo = photo;
-//    }
-//
-//    public String getUsername(){
-//
-//        return username;
-//    }
-//    public void setUsername(String username){
-//
-//        this.username = username;
-//    }
-//    public String getText(){
-//
-//        return text;
-//    }
-//    public void setText(String text){
-//
-//        this.text = text;
-//    }
-//    public String getPhoto(){
-//
-//        return photo;
-//    }
-//    public void setPhoto(String photo){
-//
-//        this.photo = photo;
-//    }
-//
-//}

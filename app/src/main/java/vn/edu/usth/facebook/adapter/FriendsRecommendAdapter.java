@@ -24,6 +24,7 @@ public class FriendsRecommendAdapter extends RecyclerView.Adapter<FriendsRecomme
     public FriendsRecommendAdapter(ArrayList<Friends_recommend> friends_rec, FriendsFragment context){
         this.friends_rec = friends_rec;
         this.context = context;
+
     }
     @NonNull
     @Override

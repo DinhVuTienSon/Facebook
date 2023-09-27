@@ -50,7 +50,14 @@ dependencies {
     implementation ("com.squareup.picasso:picasso:2.8")
     implementation ("de.hdodenhof:circleimageview:3.1.0")
     implementation ("com.android.volley:volley:1.2.1")
+<<<<<<< HEAD
     //add dependencies for firebase
+=======
+
+    implementation ("androidx.viewpager2:viewpager2:1.0.0")
+    implementation ("com.google.android.material:material:1.9.0")
+// Firebase
+>>>>>>> 0f7419adc3fab45dd5a4da62aa02b7f5d90ed622
     implementation ("com.google.android.gms:play-services-tasks:18.0.2")
     implementation ("com.google.firebase:firebase-core:21.1.1")
     implementation("com.google.firebase:firebase-auth:22.1.2")
@@ -58,4 +65,5 @@ dependencies {
     implementation ("androidx.annotation:annotation:1.7.0")
     implementation ("com.google.firebase:firebase-bom:32.3.1")
     implementation("com.google.firebase:firebase-database:20.2.2")
+
 }

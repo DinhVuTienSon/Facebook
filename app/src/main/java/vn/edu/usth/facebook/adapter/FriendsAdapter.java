@@ -21,6 +21,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
 
     private ArrayList<Friends> friends;
     private FriendsFragment context;
+
     public FriendsAdapter(ArrayList<Friends> friends, FriendsFragment context){
         this.friends = friends;
         this.context = context;

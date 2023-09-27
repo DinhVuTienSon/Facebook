@@ -1,27 +1,22 @@
 package vn.edu.usth.facebook;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
+import androidx.viewpager2.widget.ViewPager2;
 import android.os.Bundle;
 import android.widget.ProgressBar;
-
-import de.hdodenhof.circleimageview.CircleImageView;
+import vn.edu.usth.facebook.adapter.ViewPagerAdapter;
 import vn.edu.usth.facebook.databinding.ActivityMainBinding;
-import vn.edu.usth.facebook.fragment.FbMenuFragment;
-import vn.edu.usth.facebook.fragment.FriendsFragment;
-import vn.edu.usth.facebook.fragment.HomeFragment;
-import vn.edu.usth.facebook.fragment.NotificationFragment;
-
 
 public class MainActivity extends AppCompatActivity {
-    private CircleImageView profile_menu_ava;
+    private static final int MENU_HOME = R.id.home;
+    private static final int MENU_FRIENDS = R.id.friends;
+    private static final int MENU_NOTIFICATION = R.id.notification;
+    private static final int MENU_MENU = R.id.fb_menu;
 
     ActivityMainBinding binding;
     private ProgressBar progressBar;
 //    private RequestQueue mRequestQueue;
+
 
 
     @Override
@@ -30,38 +25,49 @@ public class MainActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        replaceFragment(new HomeFragment());
+
+        ViewPagerAdapter pagerAdapter = new ViewPagerAdapter(this);
+        binding.viewPager.setAdapter(pagerAdapter);
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
-            if (item.getItemId() == R.id.home) {
-//                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-                replaceFragment(new HomeFragment());
-//                MainActivity.this.startActivities(new Intent[]{intent});
-//                progressBar = findViewById(R.id.idLoadingPB);
-
-            } else if (item.getItemId() == R.id.friends) {
-                replaceFragment(new FriendsFragment());
-            } else if (item.getItemId() == R.id.notification) {
-                replaceFragment(new NotificationFragment());
-            } else {
-                replaceFragment(new FbMenuFragment());
+            int itemId = item.getItemId();
+            if (itemId == MENU_HOME) {
+                binding.viewPager.setCurrentItem(0, true);
+            } else if (itemId == MENU_FRIENDS) {
+                binding.viewPager.setCurrentItem(1, true);
+            } else if (itemId == MENU_NOTIFICATION) {
+                binding.viewPager.setCurrentItem(2, true);
+            } else if (itemId == MENU_MENU) {
+                binding.viewPager.setCurrentItem(3, true);
             }
-
             return true;
         });
-
+        binding.viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                binding.bottomNavigationView.setSelectedItemId(getNavigationMenuItemId(position));
+            }
+        });
     }
 
-    private void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frameLayout, fragment);
-        fragmentTransaction.commit();
+    private int getNavigationMenuItemId(int position) {
+        switch (position) {
+            case 0:
+                return R.id.home;
+            case 1:
+                return R.id.friends;
+            case 2:
+                return R.id.notification;
+            case 3:
+                return R.id.fb_menu;
+            default:
+                return 0;
+        }
     }
-
-
-
 }
+
+
 //                } catch (JSONException e) {
 //                    e.printStackTrace();
 //                }
