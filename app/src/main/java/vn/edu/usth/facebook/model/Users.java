@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
 
@@ -14,15 +15,17 @@ public class Users {
     private String user_id;
     private String first_name;
     private String last_name;
+    private String email;
     private ArrayList<Post> posts;
 //    private ArrayList<user_comments> comments;
     private ArrayList<Notifications> notifications;
 
 //    constructors
-    public Users(String user_id, String first_name, String last_name) {
+    public Users(String user_id, String first_name, String last_name, String email) {
         this.user_id = user_id;
         this.first_name = first_name;
         this.last_name = last_name;
+        this.email = email;
     }
 
     public String getUser_id() {
@@ -47,6 +50,14 @@ public class Users {
 
     public void setLast_name(String last_name) {
         this.last_name = last_name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public ArrayList<Post> getPosts() {

@@ -42,13 +42,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull PostAdapter.ViewHolder holder, int position) {
         Post post = posts.get(position);
-        Picasso.get().load(post.getAuthor_image()).into(holder.author_img);
-        holder.author_name.setText(post.getAuthor_name());
-        holder.time_post.setText(post.getPost_date());
-        holder.post_description.setText(post.getPost_description());
-        Picasso.get().load(post.getPost_image()).into(holder.post_img);
-        holder.post_likes.setText(post.getPost_likes());
-        holder.post_comments.setText(post.getPost_comments());
+        Picasso.get().load(post.getAuthorImage()).into(holder.author_img);
+        holder.author_name.setText(post.getAuthorName());
+        holder.time_post.setText(post.getPostDate());
+        holder.post_description.setText(post.getPostDescription());
+        Picasso.get().load(post.getPostImage()).into(holder.post_img);
+        holder.post_likes.setText(post.getPostLikes());
+        holder.post_comments.setText(post.getPostComments());
 //        holder.username.setText(String.format("%s", posts.get(position).getUsername()));
 //        holder.text.setText(String.format("%s", posts.get(position).getText()));
 //        Picasso.get().load(posts.get(position).getPhoto()).into(holder.photo);

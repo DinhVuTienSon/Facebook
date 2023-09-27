@@ -19,10 +19,14 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
+
+import vn.edu.usth.facebook.data.Connect_Firebase_Database;
+import vn.edu.usth.facebook.model.Users;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -87,7 +91,18 @@ public class RegisterActivity extends AppCompatActivity {
     private void registerUser(final String first_name, final String sur_name, final String email, String password) {
         pd.show();
 
+
         mAuth.createUserWithEmailAndPassword(email, password).addOnSuccessListener(authResult -> {
+            //create obj new obj user after register successful
+            FirebaseUser new_registered_user = FirebaseAuth.getInstance().getCurrentUser();
+            if (new_registered_user != null) {
+                String uid = new_registered_user.getUid();
+//                Users user = new Users(uid, first_name,sur_name,email);
+                Connect_Firebase_Database write_new_user = new Connect_Firebase_Database();
+                write_new_user.get_Database_ref();
+                write_new_user.writeNewUser(uid,first_name,sur_name,email);
+            }
+
             pd.dismiss();
             Toast.makeText(RegisterActivity.this, "Registration successful! Logging in", Toast.LENGTH_SHORT).show();
 
