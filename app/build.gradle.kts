@@ -50,11 +50,16 @@ dependencies {
     implementation ("com.squareup.picasso:picasso:2.8")
     implementation ("de.hdodenhof:circleimageview:3.1.0")
     implementation ("com.android.volley:volley:1.2.1")
-    implementation(platform("com.google.firebase:firebase-bom:32.3.1"))
-    implementation("com.google.firebase:firebase-auth")
-    implementation("com.google.firebase:firebase-database")
-    implementation("com.google.firebase:firebase-firestore")
-    implementation("com.google.firebase:firebase-storage")
+
     implementation ("androidx.viewpager2:viewpager2:1.0.0")
     implementation ("com.google.android.material:material:1.9.0")
+// Firebase
+    implementation ("com.google.android.gms:play-services-tasks:18.0.2")
+    implementation ("com.google.firebase:firebase-core:21.1.1")
+    implementation("com.google.firebase:firebase-auth:22.1.2")
+    implementation ("com.firebaseui:firebase-ui-auth:7.2.0")
+    implementation ("androidx.annotation:annotation:1.7.0")
+    implementation ("com.google.firebase:firebase-bom:32.3.1")
+    implementation("com.google.firebase:firebase-database:20.2.2")
+
 }
