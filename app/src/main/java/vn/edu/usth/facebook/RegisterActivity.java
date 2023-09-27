@@ -26,11 +26,11 @@ import java.util.HashMap;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private EditText firstName;
-    private EditText surName;
+    private EditText first_name;
+    private EditText sur_name;
     private EditText email;
     private EditText password;
-    private EditText confirmPassword;
+    private EditText confirm_password;
 
     private FirebaseAuth mAuth;
 
@@ -41,11 +41,11 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        firstName = findViewById(R.id.firstname);
-        surName = findViewById(R.id.surname);
+        first_name = findViewById(R.id.firstname);
+        sur_name = findViewById(R.id.surname);
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
-        confirmPassword = findViewById(R.id.rePassword);
+        confirm_password = findViewById(R.id.rePassword);
         Button signUp = findViewById(R.id.register_btn);
         TextView loginUser = findViewById(R.id.login_textView);
 
@@ -60,26 +60,26 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
         signUp.setOnClickListener(v -> {
-            String txt_firstName = firstName.getText().toString();
-            String txt_surName = surName.getText().toString();
+            String txt_first_name = first_name.getText().toString();
+            String txt_sur_name = sur_name.getText().toString();
             String txt_email = email.getText().toString();
             String txt_password = password.getText().toString();
-            String txt_confirmPassword = confirmPassword.getText().toString();
+            String txt_confirm_password = confirm_password.getText().toString();
 
-            if (TextUtils.isEmpty(txt_firstName) || TextUtils.isEmpty(txt_surName)
+            if (TextUtils.isEmpty(txt_first_name) || TextUtils.isEmpty(txt_sur_name)
                     || TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_password)) {
                 Toast.makeText(RegisterActivity.this, "Empty credentials!", Toast.LENGTH_SHORT).show();
             } else if (txt_password.length() < 8) {
                 Toast.makeText(RegisterActivity.this, "Password too short!", Toast.LENGTH_SHORT).show();
-            } else if (!txt_password.equals(txt_confirmPassword)) {
+            } else if (!txt_password.equals(txt_confirm_password)) {
                 Toast.makeText(RegisterActivity.this, "Password do not match!", Toast.LENGTH_SHORT).show();
             } else {
-                registerUser(txt_firstName, txt_surName, txt_email, txt_password);
+                registerUser(txt_first_name, txt_sur_name, txt_email, txt_password);
             }
         });
     }
 
-    private void registerUser(final String firstName, final String surName, final String email, String password) {
+    private void registerUser(final String first_name, final String sur_name, final String email, String password) {
         pd.setMessage("Registering new user...");
         pd.show();
 
