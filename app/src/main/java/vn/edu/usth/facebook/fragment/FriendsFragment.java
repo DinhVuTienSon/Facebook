@@ -46,11 +46,11 @@ public class FriendsFragment extends Fragment {
             recyclerView.setAdapter(adapter);
         }
         for (int i = 0; i < 16; i++){
-            String friendRecAva = "https://picsum.photos/600/300?random&"+i;
-            String friendRecName = "Testing";
-            String mutualFriends_rec = "18 mutual friends";
+            String friend_rec_ava = "https://picsum.photos/600/300?random&"+i;
+            String friend_rec_name = "Testing";
+            String mutual_friends_rec = "18 mutual friends";
 
-            Friends_recommend friend_recommend = new Friends_recommend(friendRecAva, friendRecName, mutualFriends_rec);
+            Friends_recommend friend_recommend = new Friends_recommend(friend_rec_ava, friend_rec_name, mutual_friends_rec);
             friends_rec.add(friend_recommend);
             FriendsRecommendAdapter adapter1 = new FriendsRecommendAdapter(friends_rec, FriendsFragment.this);
             RecyclerView recyclerView1 = view.findViewById(R.id.friend_recommend_recyclerView);

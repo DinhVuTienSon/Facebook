@@ -1,45 +1,45 @@
 package vn.edu.usth.facebook.model;
 
 public class Friends {
-    private String friendReqAva;
-    private String friendReqName;
-    private String reqDate;
-    private String mutualFriends;
+    private String friend_req_ava;
+    private String friend_req_name;
+    private String req_date;
+    private String mutual_friends;
 
     public String getFriendReqAva() {
-        return friendReqAva;
+        return friend_req_ava;
     }
 
-    public void setFriendReqAva(String friendReqAva) {
-        this.friendReqAva = friendReqAva;
+    public void setFriendReqAva(String friend_req_ava) {
+        this.friend_req_ava = friend_req_ava;
     }
 
     public String getFriendReqName() {
-        return friendReqName;
+        return friend_req_name;
     }
 
-    public void setFriendReqName(String friendReqName) {
-        this.friendReqName = friendReqName;
+    public void setFriendReqName(String friend_req_name) {
+        this.friend_req_name = friend_req_name;
     }
 
     public String getReqDate() {
-        return reqDate;
+        return req_date;
     }
 
-    public void setReqDate(String reqDate) {
-        this.reqDate = reqDate;
+    public void setReqDate(String req_date) {
+        this.req_date = req_date;
     }
 
     public String getMutualFriends() {
-        return mutualFriends;
+        return mutual_friends;
     }
 
-    public void setMutualFriends(String mutualFriends) {this.mutualFriends = mutualFriends; }
+    public void setMutualFriends(String mutual_friends) {this.mutual_friends = mutual_friends; }
 
-    public Friends(String friendReqAva, String friendReqName, String reqDate, String mutualFriends){
-        this.friendReqAva = friendReqAva;
-        this.friendReqName = friendReqName;
-        this.reqDate = reqDate;
-        this.mutualFriends = mutualFriends;
+    public Friends(String friend_req_ava, String friend_req_name, String req_date, String mutual_friends){
+        this.friend_req_ava = friend_req_ava;
+        this.friend_req_name = friend_req_name;
+        this.req_date = req_date;
+        this.mutual_friends = mutual_friends;
     }
 }
