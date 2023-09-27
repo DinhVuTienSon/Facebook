@@ -23,10 +23,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText username;
     private EditText password;
-    private Button login;
-    private TextView forgotPassword;
-    private TextView signUp;
-
     private FirebaseAuth mAuth;
 
 
@@ -37,53 +33,37 @@ public class LoginActivity extends AppCompatActivity {
 
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
-        login = findViewById(R.id.btnLogin);
-        forgotPassword = findViewById(R.id.txtForgotPassword);
-        signUp = findViewById(R.id.txtSignUp);
+        Button login = findViewById(R.id.btnLogin);
+        TextView forgotPassword = findViewById(R.id.txtForgotPassword);
+        TextView signUp = findViewById(R.id.txtSignUp);
 
         mAuth = FirebaseAuth.getInstance();
 
-        signUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this , RegisterActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
-            }
-        });
+        signUp.setOnClickListener(v -> startActivity(new Intent(LoginActivity.this , RegisterActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)));
 
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String txt_username = username.getText().toString();
-                String txt_password = password.getText().toString();
+        login.setOnClickListener(v -> {
+            String txt_username = username.getText().toString();
+            String txt_password = password.getText().toString();
 
-                if (TextUtils.isEmpty(txt_username) || TextUtils.isEmpty(txt_password)){
-                    Toast.makeText(LoginActivity.this, "Empty username or password!", Toast.LENGTH_SHORT).show();
-                } else {
-                    loginUser(txt_username , txt_password);
-                }
+            if (TextUtils.isEmpty(txt_username) || TextUtils.isEmpty(txt_password)){
+                Toast.makeText(LoginActivity.this, "Empty username or password!", Toast.LENGTH_SHORT).show();
+            } else {
+                loginUser(txt_username , txt_password);
             }
         });
     }
 
     private void loginUser(String username, String password) {
 
-        mAuth.signInWithEmailAndPassword(username , password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
-                    Toast.makeText(LoginActivity.this, "Login sucessfully, navigating to newsfeed", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(LoginActivity.this , MainActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
-                    finish();
-                }
+        mAuth.signInWithEmailAndPassword(username , password).addOnCompleteListener(task -> {
+            if (task.isSuccessful()){
+                Toast.makeText(LoginActivity.this, "Login successfully, navigating to newsfeed", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(LoginActivity.this , MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
             }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(LoginActivity.this, "Wrong username or password!", Toast.LENGTH_SHORT).show();
-            }
-        });
+        }).addOnFailureListener(e -> Toast.makeText(LoginActivity.this, "Wrong username or password!", Toast.LENGTH_SHORT).show());
 
     }
 }
