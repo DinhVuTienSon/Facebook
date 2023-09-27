@@ -67,4 +67,5 @@ public class LoginActivity extends AppCompatActivity {
         }).addOnFailureListener(e -> Toast.makeText(LoginActivity.this, "Wrong username or password!", Toast.LENGTH_SHORT).show());
 
     }
+
 }

@@ -12,6 +12,7 @@
     app:layout_constraintStart_toStartOf="parent"
     android:id="@+id/menu_frame">
 
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

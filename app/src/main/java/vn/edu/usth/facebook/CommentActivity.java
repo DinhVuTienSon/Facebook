@@ -57,4 +57,5 @@ public class CommentActivity extends AppCompatActivity {
             recyclerView.setAdapter(adapter);
         }
     }
+
 }

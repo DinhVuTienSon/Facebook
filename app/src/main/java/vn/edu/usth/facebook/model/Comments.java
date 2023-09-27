@@ -1,6 +1,7 @@
 package vn.edu.usth.facebook.model;
 
 public class Comments {
+
     private String comment_ava;
     private String comment_name;
     private String comment_content;

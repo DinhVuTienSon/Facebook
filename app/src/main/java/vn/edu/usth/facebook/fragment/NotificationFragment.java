@@ -21,6 +21,7 @@ public class NotificationFragment extends Fragment {
     private RecyclerView recyclerView;
     private ArrayList<Notifications> notifications;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

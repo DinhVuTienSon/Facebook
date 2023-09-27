@@ -22,6 +22,7 @@ import vn.edu.usth.facebook.UploadPostActivity;
 
 public class ProfileFragment extends Fragment {
     public Button editBtn;
+
     private Toolbar toolbar;
 
 

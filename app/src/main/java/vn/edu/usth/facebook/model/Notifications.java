@@ -1,6 +1,7 @@
 package vn.edu.usth.facebook.model;
 
 public class Notifications {
+
     private String notification_ava;
     private String notification_content;
     private String notification_time;

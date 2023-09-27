@@ -29,5 +29,6 @@ public class UploadPostActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
     }
 }

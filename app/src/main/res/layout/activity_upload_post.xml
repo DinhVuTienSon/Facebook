@@ -8,6 +8,7 @@
     tools:context=".UploadPostActivity"
     android:id="@+id/upload_post_layout">
 
+
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

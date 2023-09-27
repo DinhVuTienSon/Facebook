@@ -24,6 +24,7 @@ public class FbMenuFragment extends Fragment{
     private RecyclerView recyclerView;
     private ArrayList<Profile_menu> profile_menus;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

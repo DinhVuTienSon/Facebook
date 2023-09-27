@@ -5,6 +5,7 @@ public class Friends_recommend {
     private String friend_rec_name;
     private String mutual_friends_rec;
 
+
     public String getFriendRecAva() {
         return friend_rec_ava;
     }

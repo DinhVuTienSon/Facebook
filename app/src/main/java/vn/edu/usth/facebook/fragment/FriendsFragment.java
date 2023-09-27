@@ -24,6 +24,7 @@ public class FriendsFragment extends Fragment {
     private ArrayList<Friends> friends;
     private ArrayList<Friends_recommend> friends_rec;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

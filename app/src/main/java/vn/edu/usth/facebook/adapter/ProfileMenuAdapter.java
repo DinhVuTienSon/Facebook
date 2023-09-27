@@ -32,6 +32,7 @@ public class ProfileMenuAdapter extends RecyclerView.Adapter<ProfileMenuAdapter.
         this.profile_menus = profile_menus;
         this.context = context;
     }
+
     @NonNull
     @Override
     public ProfileMenuAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
