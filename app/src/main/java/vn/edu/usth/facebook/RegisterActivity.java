@@ -1,23 +1,17 @@
 package vn.edu.usth.facebook;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -25,7 +19,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 
-import vn.edu.usth.facebook.data.Connect_Firebase_Database;
 import vn.edu.usth.facebook.model.Users;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -38,6 +31,8 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     private FirebaseAuth mAuth;
+//get database
+    private DatabaseReference mDatabase;
 
     ProgressDialog pd;
 
@@ -56,9 +51,13 @@ public class RegisterActivity extends AppCompatActivity {
         Button sign_up = findViewById(R.id.register_btn);
         TextView loginUser = findViewById(R.id.login_textView);
 
-
-        DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+//TODO: threading
+        //get database
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        //get firebase auth
         mAuth = FirebaseAuth.getInstance();
+//
+
         pd = new ProgressDialog(this);
 
 
@@ -91,22 +90,32 @@ public class RegisterActivity extends AppCompatActivity {
     private void registerUser(final String first_name, final String sur_name, final String email, String password) {
         pd.show();
 
-
+//TODO: threading
         mAuth.createUserWithEmailAndPassword(email, password).addOnSuccessListener(authResult -> {
-            //create obj new obj user after register successful
             FirebaseUser new_registered_user = FirebaseAuth.getInstance().getCurrentUser();
+//
+
             if (new_registered_user != null) {
+                //get current user_id from firebase
                 String uid = new_registered_user.getUid();
-//                Users user = new Users(uid, first_name,sur_name,email);
-                Connect_Firebase_Database write_new_user = new Connect_Firebase_Database();
-                write_new_user.get_Database_ref();
-                write_new_user.writeNewUser(uid,first_name,sur_name,email);
+                if (uid != null){
+                    //create new user obj
+                    Users user = new Users(uid, first_name, sur_name, email);
+                    //write new user infos into database
+                    writeNewUser(user,mDatabase);
+                }
+                else{
+                    Log.e("Firebase_id", "Error: getting current user_id from Firebase");
+                }
+            }
+            else {
+                Log.e("Firebase", "Error: getting current user from Firebase");
             }
 
             pd.dismiss();
             Toast.makeText(RegisterActivity.this, "Registration successful! Logging in", Toast.LENGTH_SHORT).show();
 
-
+//TODO:threading
             // Perform login immediately after registration
             mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
@@ -120,9 +129,32 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
                 }
             });
+//
+
         }).addOnFailureListener(e -> {
             pd.dismiss();
             Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
         });
+    }
+
+    public void writeNewUser(Users user,DatabaseReference db){
+        try{
+            //create an emty map to add to db
+            HashMap <String,Object> add_infos_to_db = new HashMap<>();
+
+            add_infos_to_db.put(
+                    //create a uid node under users in firebase
+                    "/users/" + user.getUser_id(),
+                    //add user infos map to hashmap to add to db
+                    user.toMap());
+//TODO:threading
+            //using  firebase's update children to add to db
+            db.updateChildren(add_infos_to_db);
+//
+        }
+        catch (Exception e){
+            Log.e("WRITE TO DB ERROR: ", "PROBLEM WHEN WRITING TO FIREBASE" + e);
+        }
+
     }
 }
