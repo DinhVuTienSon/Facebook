@@ -20,7 +20,6 @@ import com.google.firebase.auth.FirebaseAuth;
 
 
 public class LoginActivity extends AppCompatActivity {
-
     private EditText username;
     private EditText password;
     private FirebaseAuth mAuth;
