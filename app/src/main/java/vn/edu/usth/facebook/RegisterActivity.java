@@ -22,7 +22,6 @@ import java.util.HashMap;
 import vn.edu.usth.facebook.model.Users;
 
 public class RegisterActivity extends AppCompatActivity {
-
     private EditText first_name;
     private EditText sur_name;
     private EditText email;
