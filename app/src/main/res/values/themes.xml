@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
     <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style parent="Theme.Material3.DayNight.NoActionBar" name="Theme.Facebook">
-    <!-- Customize your light theme here. -->
-    <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-</style>
+<!--    <style parent="Theme.Material3.DayNight.NoActionBar" name="Theme.Facebook">-->
+<!--    &lt;!&ndash; Customize your light theme here. &ndash;&gt;-->
+<!--    &lt;!&ndash; <item name="colorPrimary">@color/my_light_primary</item> &ndash;&gt;-->
+<!--</style>-->
     <!-- <style name="Theme.FacebookApp" parent="Base.Theme.FacebookApp"></style>-->
     <style parent="Theme.Material3.DayNight.NoActionBar" name="SplashTheme">
-    <item name="android:windowBackground">@drawable/bg_splash_screen</item>
-    <item name="android:windowFullscreen">true</item>
-    <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@drawable/bg_splash_screen</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
 </style>
 
 </resources>
