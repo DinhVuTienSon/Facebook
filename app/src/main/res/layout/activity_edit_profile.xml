@@ -23,8 +23,7 @@
             <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/edit_profile_toolbar"
-                android:background="?android:attr/windowBackground">
+                android:id="@+id/edit_profile_toolbar">
             </androidx.appcompat.widget.Toolbar>
             <View
                 android:id="@+id/break_line_edit_profile"
@@ -40,11 +39,11 @@
                 android:layout_below="@id/break_line_edit_profile"
                 android:orientation="horizontal"
                 android:layout_marginTop="5dp"
-                android:weightSum="9">
+                android:weightSum="8">
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="8"
+                    android:layout_weight="7"
                     android:textSize="25dp"
                     android:text="Profile Picture"
                     android:textStyle="bold"
@@ -53,7 +52,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Edit"
+                    android:text="Save"
                     android:textSize="20dp"
                     android:layout_marginRight="5dp"
                     android:textColor="@color/blue"/>
@@ -86,11 +85,11 @@
                 android:layout_below="@id/break_line_edit_profile2"
                 android:orientation="horizontal"
                 android:layout_marginTop="10dp"
-                android:weightSum="9">
+                android:weightSum="8">
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="8"
+                    android:layout_weight="7"
                     android:textSize="25dp"
                     android:text="Cover Photo"
                     android:textStyle="bold"
@@ -99,7 +98,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Edit"
+                    android:text="Save"
                     android:textSize="20dp"
                     android:layout_marginRight="5dp"
                     android:textColor="@color/blue"/>
@@ -131,11 +130,11 @@
                 android:layout_below="@id/break_line_edit_profile3"
                 android:orientation="horizontal"
                 android:layout_marginTop="10dp"
-                android:weightSum="9">
+                android:weightSum="8">
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="8"
+                    android:layout_weight="7"
                     android:textSize="25dp"
                     android:text="Bio"
                     android:textStyle="bold"
@@ -144,21 +143,22 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Edit"
+                    android:text="Save"
                     android:textSize="20dp"
                     android:layout_marginRight="5dp"
                     android:textColor="@color/blue"/>
             </LinearLayout>
-            <TextView
+            <EditText
                 android:id="@+id/bio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/edit_profile_bio"
-                android:text="This is a bio"
+                android:hint="This is a bio"
                 android:gravity="center_horizontal"
                 android:textSize="22dp"
                 android:textColor="@color/darkgray"
-                android:layout_marginTop="5dp"/>
+                android:layout_marginTop="5dp"
+                android:background="@drawable/edit_text_no_underline"/>
 
             <View
                 android:id="@+id/break_line_edit_profile4"
@@ -175,11 +175,11 @@
                 android:layout_below="@id/break_line_edit_profile4"
                 android:orientation="horizontal"
                 android:layout_marginTop="10dp"
-                android:weightSum="9">
+                android:weightSum="8">
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="8"
+                    android:layout_weight="7"
                     android:textSize="25dp"
                     android:text="Details"
                     android:textStyle="bold"
@@ -188,7 +188,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Edit"
+                    android:text="Save"
                     android:textSize="20dp"
                     android:layout_marginRight="5dp"
                     android:textColor="@color/blue"/>
@@ -213,13 +213,14 @@
                     android:scaleType="fitStart"
                     android:src="@drawable/baseline_house_24" />
 
-                <TextView
+                <EditText
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Lives in"
+                    android:hint="Lives in"
                     android:textSize="18sp"
                     android:layout_gravity="center"
-                    android:layout_weight="6"/>
+                    android:layout_weight="6"
+                    android:background="@drawable/edit_text_no_underline"/>
 
             </LinearLayout>
 
@@ -245,13 +246,14 @@
                     android:src="@drawable/baseline_location_on_24"
                     android:importantForAccessibility="no" />
 
-                <TextView
+                <EditText
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Location"
+                    android:hint="Location"
                     android:textSize="18sp"
                     android:layout_gravity="center"
-                    android:layout_weight="6"/>
+                    android:layout_weight="6"
+                    android:background="@drawable/edit_text_no_underline"/>
             </LinearLayout>
 
             <LinearLayout
@@ -276,13 +278,14 @@
                     android:src="@drawable/baseline_work_24"
                     android:importantForAccessibility="no" />
 
-                <TextView
+                <EditText
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Work"
+                    android:hint="Work"
                     android:textSize="18sp"
                     android:layout_gravity="center"
-                    android:layout_weight="6"/>
+                    android:layout_weight="6"
+                    android:background="@drawable/edit_text_no_underline"/>
             </LinearLayout>
 
             <LinearLayout
@@ -307,13 +310,14 @@
                     android:src="@drawable/baseline_school_24"
                     android:importantForAccessibility="no" />
 
-                <TextView
+                <EditText
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Education"
+                    android:hint="Education"
                     android:textSize="18sp"
                     android:layout_gravity="center"
-                    android:layout_weight="7"/>
+                    android:layout_weight="7"
+                    android:background="@drawable/edit_text_no_underline"/>
             </LinearLayout>
             <View
                 android:id="@+id/break_line_edit_profile5"
@@ -329,11 +333,11 @@
                 android:layout_below="@id/break_line_edit_profile5"
                 android:orientation="horizontal"
                 android:layout_marginTop="10dp"
-                android:weightSum="9">
+                android:weightSum="8">
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="8"
+                    android:layout_weight="7"
                     android:textSize="25dp"
                     android:text="Hobbies"
                     android:textStyle="bold"
@@ -342,17 +346,28 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Edit"
+                    android:text="Save"
                     android:textSize="20dp"
                     android:layout_marginRight="5dp"
                     android:textColor="@color/blue"/>
             </LinearLayout>
+            <EditText
+                android:id="@+id/hobbies"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/edit_profile_hobbies"
+                android:hint="Your hobbies"
+                android:gravity="center_horizontal"
+                android:textSize="22dp"
+                android:textColor="@color/darkgray"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/edit_text_no_underline"/>
             <View
                 android:id="@+id/break_line_edit_profile6"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@drawable/break_line"
-                android:layout_below="@+id/edit_profile_hobbies"
+                android:layout_below="@+id/hobbies"
                 android:layout_marginTop="10dp"/>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -361,11 +376,11 @@
                 android:layout_below="@id/break_line_edit_profile6"
                 android:orientation="horizontal"
                 android:layout_marginTop="10dp"
-                android:weightSum="9">
+                android:weightSum="8">
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="8"
+                    android:layout_weight="7"
                     android:textSize="25dp"
                     android:text="Links"
                     android:textStyle="bold"
@@ -374,17 +389,28 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Edit"
+                    android:text="Save"
                     android:textSize="20dp"
                     android:layout_marginRight="5dp"
                     android:textColor="@color/blue"/>
             </LinearLayout>
+            <EditText
+                android:id="@+id/links"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/edit_profile_links"
+                android:hint="Add your links"
+                android:gravity="center_horizontal"
+                android:textSize="22dp"
+                android:textColor="@color/darkgray"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/edit_text_no_underline"/>
             <View
                 android:id="@+id/break_line_edit_profile7"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@drawable/break_line"
-                android:layout_below="@+id/edit_profile_links"
+                android:layout_below="@+id/links"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="15dp"/>
         </RelativeLayout>
