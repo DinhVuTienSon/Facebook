@@ -1,7 +1,6 @@
 package vn.edu.usth.facebook.model;
 
 public class Friends {
-
     private String friend_req_ava;
     private String friend_req_name;
     private String req_date;
