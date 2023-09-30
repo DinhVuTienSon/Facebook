@@ -2,7 +2,6 @@ package vn.edu.usth.facebook.model;
 
 
 public class Post {
-
     private String author_image;
     private String author_name;
     private String post_date;
@@ -10,6 +9,7 @@ public class Post {
     private String post_image;
     private String post_likes;
     private String post_comments;
+
 
     public String getAuthorImage() {
         return author_image;
