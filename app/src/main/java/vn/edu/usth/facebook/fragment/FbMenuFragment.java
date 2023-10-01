@@ -24,7 +24,11 @@ import vn.edu.usth.facebook.R;
 import vn.edu.usth.facebook.LoginActivity;
 import vn.edu.usth.facebook.model.Profile_menu;
 
+//TODO: function to call current user ava, name
+
+
 public class FbMenuFragment extends Fragment {
+
     private RecyclerView recyclerView;
     private ArrayList<Profile_menu> profile_menus;
 

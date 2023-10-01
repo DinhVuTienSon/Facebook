@@ -20,6 +20,10 @@ import vn.edu.usth.facebook.EditProfileActivity;
 import vn.edu.usth.facebook.R;
 import vn.edu.usth.facebook.UploadPostActivity;
 
+//TODO: function to call all user information
+//TODO: function to display friend's ava, name
+//TODO: function to display user's post
+
 public class ProfileFragment extends Fragment {
     public Button editBtn;
 
@@ -42,8 +46,6 @@ public class ProfileFragment extends Fragment {
                 fragmentManager.popBackStack();
             }
         });
-
-
     }
 
     @Override

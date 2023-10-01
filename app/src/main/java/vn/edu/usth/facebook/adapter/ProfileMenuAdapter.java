@@ -52,7 +52,7 @@ public class ProfileMenuAdapter extends RecyclerView.Adapter<ProfileMenuAdapter.
                 FragmentManager fragmentManager = ((AppCompatActivity) view.getContext()).getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.main_frame, new ProfileFragment());
-                fragmentTransaction.addToBackStack(null); // Optional: Add to back stack
+                fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
         });

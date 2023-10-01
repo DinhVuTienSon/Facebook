@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.ArrayList;
 
@@ -15,12 +16,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import vn.edu.usth.facebook.adapter.CommentAdapter;
 import vn.edu.usth.facebook.model.Comments;
 
+//TODO: function to call commentator's ava, name, comment's content
+
 public class CommentActivity extends AppCompatActivity {
     private RecyclerView comment_recyclerView;
     private ArrayList<Comments> comments;
-    private CommentAdapter commentAdapter;
-    private CircleImageView comment_ava;
-    private TextView comment_name, comment_content;
+    private ImageView send_comment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,15 @@ public class CommentActivity extends AppCompatActivity {
             recyclerView.setLayoutManager(layoutManager);
             recyclerView.setAdapter(adapter);
         }
+
+        send_comment = findViewById(R.id.send_comment);
+        send_comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO: function to upload comment
+            }
+        });
+
     }
 
 }

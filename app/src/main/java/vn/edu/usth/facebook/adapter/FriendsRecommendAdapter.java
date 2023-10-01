@@ -17,6 +17,8 @@ import vn.edu.usth.facebook.R;
 import vn.edu.usth.facebook.fragment.FriendsFragment;
 import vn.edu.usth.facebook.model.Friends_recommend;
 
+//TODO: function to send friend request after click add friend
+
 public class FriendsRecommendAdapter extends RecyclerView.Adapter<FriendsRecommendAdapter.ViewHolder>{
 
     private ArrayList<Friends_recommend> friends_rec;
