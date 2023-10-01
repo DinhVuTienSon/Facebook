@@ -17,6 +17,8 @@ import vn.edu.usth.facebook.R;
 import vn.edu.usth.facebook.fragment.NotificationFragment;
 import vn.edu.usth.facebook.model.Notifications;
 
+//TODO: function to handle notification
+
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.ViewHolder> {
     private ArrayList<Notifications> notifications;
     private NotificationFragment context;

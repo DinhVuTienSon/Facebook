@@ -13,23 +13,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/comment_toolbar"
-        android:background="?android:attr/windowBackground"
-        >
-        <LinearLayout
+        android:background="?android:attr/windowBackground">
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="15dp">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Comments"
-                android:textStyle="bold"
-                android:textSize="23dp"
-                android:gravity="center_horizontal">
-
-            </TextView>
-        </LinearLayout>
-
+            android:text="Comments"
+            android:textStyle="bold"
+            android:textSize="23dp"
+            android:gravity="center_horizontal"/>
     </androidx.appcompat.widget.Toolbar>
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
@@ -72,8 +63,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/send_comment"
-            android:src="@drawable/add_icon"
-            android:layout_marginEnd="10dp"
+            android:src="@drawable/send_icon"
+            android:layout_marginEnd="7dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"/>
 
