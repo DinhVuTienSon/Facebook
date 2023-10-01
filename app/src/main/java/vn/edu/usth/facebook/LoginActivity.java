@@ -55,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginUser(String username, String password) {
-
+//TODO: threading
         mAuth.signInWithEmailAndPassword(username , password).addOnCompleteListener(task -> {
             if (task.isSuccessful()){
                 Toast.makeText(LoginActivity.this, "Login successfully, navigating to newsfeed", Toast.LENGTH_SHORT).show();
@@ -65,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
                 finish();
             }
         }).addOnFailureListener(e -> Toast.makeText(LoginActivity.this, "Wrong username or password!", Toast.LENGTH_SHORT).show());
-
+//
     }
 
 }

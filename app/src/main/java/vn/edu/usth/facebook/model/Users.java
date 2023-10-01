@@ -20,11 +20,10 @@ public class Users {
     private String sur_name;
     private String email;
     private String user_ava;
-
     private ArrayList<Post> posts;
 //    private ArrayList<user_comments> comments;
     private ArrayList<Notifications> notifications;
-
+    private ArrayList<String> user_friends;
 //    constructors
     public Users(String user_id, String first_name, String sur_name, String email) {
         this.user_id = user_id;
@@ -104,6 +103,14 @@ public class Users {
 
     public void setNotifications(ArrayList<Notifications> notifications) {
         this.notifications = notifications;
+    }
+
+    public ArrayList<String> getUser_friends() {
+        return user_friends;
+    }
+
+    public void setUser_friends(ArrayList<String> user_friends) {
+        this.user_friends = user_friends;
     }
 }
 

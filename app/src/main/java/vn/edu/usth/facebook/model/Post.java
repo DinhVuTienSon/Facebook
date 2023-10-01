@@ -2,6 +2,7 @@ package vn.edu.usth.facebook.model;
 
 
 public class Post {
+    private String author_id;
     private String author_image;
     private String author_name;
     private String post_date;
@@ -10,6 +11,26 @@ public class Post {
     private String post_likes;
     private String post_comments;
 
+    //constructors
+
+    public Post(String author_id, String post_date, String post_description, String post_image) {
+        this.author_id = author_id;
+        this.post_date = post_date;
+        this.post_description = post_description;
+        this.post_image = post_image;
+    }
+
+    public Post(String author_image, String author_name, String post_date,
+                String post_description, String post_image, String post_likes,
+                String post_comments) {
+        this.author_image = author_image;
+        this.author_name = author_name;
+        this.post_date = post_date;
+        this.post_description = post_description;
+        this.post_image = post_image;
+        this.post_likes = post_likes;
+        this.post_comments = post_comments;
+    }
 
     public String getAuthorImage() {
         return author_image;
@@ -64,18 +85,6 @@ public class Post {
     }
 
     public void setPostComments(String post_comments) {
-        this.post_comments = post_comments;
-    }
-
-    public Post(String author_image, String author_name, String post_date,
-                String post_description, String post_image, String post_likes,
-                String post_comments) {
-        this.author_image = author_image;
-        this.author_name = author_name;
-        this.post_date = post_date;
-        this.post_description = post_description;
-        this.post_image = post_image;
-        this.post_likes = post_likes;
         this.post_comments = post_comments;
     }
 }

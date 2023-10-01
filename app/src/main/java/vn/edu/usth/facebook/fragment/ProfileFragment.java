@@ -58,6 +58,7 @@ public class ProfileFragment extends Fragment {
             activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         activity.getSupportActionBar().setTitle("");
+
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,9 +74,9 @@ public class ProfileFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
         return view;
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.fb_menu) {
