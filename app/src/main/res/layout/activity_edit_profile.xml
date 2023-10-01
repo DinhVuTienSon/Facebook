@@ -49,6 +49,7 @@
                     android:textStyle="bold"
                     android:layout_marginLeft="10dp"/>
                 <TextView
+                    android:id="@+id/save_ava"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -95,6 +96,7 @@
                     android:textStyle="bold"
                     android:layout_marginLeft="10dp"/>
                 <TextView
+                    android:id="@+id/save_background"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -140,6 +142,7 @@
                     android:textStyle="bold"
                     android:layout_marginLeft="10dp"/>
                 <TextView
+                    android:id="@+id/save_bio"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -185,6 +188,7 @@
                     android:textStyle="bold"
                     android:layout_marginLeft="10dp"/>
                 <TextView
+                    android:id="@+id/save_details"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -214,6 +218,7 @@
                     android:src="@drawable/baseline_house_24" />
 
                 <EditText
+                    android:id="@+id/live_in"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:hint="Lives in"
@@ -247,6 +252,7 @@
                     android:importantForAccessibility="no" />
 
                 <EditText
+                    android:id="@+id/location"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:hint="Location"
@@ -279,6 +285,7 @@
                     android:importantForAccessibility="no" />
 
                 <EditText
+                    android:id="@+id/work"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:hint="Work"
@@ -311,6 +318,7 @@
                     android:importantForAccessibility="no" />
 
                 <EditText
+                    android:id="@+id/education"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:hint="Education"
@@ -343,6 +351,7 @@
                     android:textStyle="bold"
                     android:layout_marginLeft="10dp"/>
                 <TextView
+                    android:id="@+id/save_hobbies"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -386,6 +395,7 @@
                     android:textStyle="bold"
                     android:layout_marginLeft="10dp"/>
                 <TextView
+                    android:id="@+id/save_links"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
