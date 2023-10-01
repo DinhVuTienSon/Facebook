@@ -19,6 +19,8 @@ import vn.edu.usth.facebook.model.Comments;
 import vn.edu.usth.facebook.model.Search;
 import vn.edu.usth.facebook.model.Users;
 
+//TODO: function to search other users by name
+
 public class SearchActivity extends AppCompatActivity {
     private RecyclerView search_recyclerView;
     private ArrayList<Search> search;
