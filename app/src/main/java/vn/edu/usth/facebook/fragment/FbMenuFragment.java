@@ -19,6 +19,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import vn.edu.usth.facebook.R;
 import vn.edu.usth.facebook.model.Profile_menu;
 
+//TODO: function to call current user ava, name
+
 public class FbMenuFragment extends Fragment{
     private CircleImageView profile_menu_ava;
     private RecyclerView recyclerView;

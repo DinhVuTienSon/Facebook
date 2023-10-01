@@ -16,6 +16,7 @@ import vn.edu.usth.facebook.adapter.NotificationAdapter;
 import vn.edu.usth.facebook.R;
 import vn.edu.usth.facebook.model.Notifications;
 
+//TODO: function to call ava of user causing notification and notification content
 
 public class NotificationFragment extends Fragment {
     private RecyclerView recyclerView;

@@ -25,6 +25,8 @@ import vn.edu.usth.facebook.adapter.PostAdapter;
 import vn.edu.usth.facebook.R;
 import vn.edu.usth.facebook.model.Post;
 
+//TODO: function to call current user ava (next to "what's on your mind")
+//TODO: function to call posts info: author name, ava; post date, description, image, like, comment
 
 public class HomeFragment extends Fragment {
     public CircleImageView home_ava;

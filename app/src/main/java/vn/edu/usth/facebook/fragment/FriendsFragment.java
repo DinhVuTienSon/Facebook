@@ -18,6 +18,8 @@ import vn.edu.usth.facebook.R;
 import vn.edu.usth.facebook.model.Friends;
 import vn.edu.usth.facebook.model.Friends_recommend;
 
+//TODO: function to call other user ava, name, number of mutual friend
+
 public class FriendsFragment extends Fragment {
 
     private RecyclerView recyclerView;

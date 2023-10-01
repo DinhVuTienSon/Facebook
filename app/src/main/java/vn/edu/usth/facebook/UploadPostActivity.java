@@ -22,6 +22,9 @@ import android.widget.TextView;
 import de.hdodenhof.circleimageview.CircleImageView;
 import vn.edu.usth.facebook.R;
 
+// TODO: function to upload post after click on post button
+// TODO: function to call user ava, name
+
 public class UploadPostActivity extends AppCompatActivity {
     private CircleImageView upload_post_ava;
     private TextView upload_post_name;
@@ -56,6 +59,13 @@ public class UploadPostActivity extends AppCompatActivity {
         post_image = findViewById(R.id.post_image);
         open_album = findViewById(R.id.open_album);
         open_camera = findViewById(R.id.open_camera);
+
+        post_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO: function to upload post after click on post button
+            }
+        });
 
         galleryLauncher_img = registerForActivityResult(
                 new ActivityResultContracts.GetContent(),
@@ -93,4 +103,5 @@ public class UploadPostActivity extends AppCompatActivity {
                     post_image.setImageBitmap(bitmap);
                 }
             });
+
 }

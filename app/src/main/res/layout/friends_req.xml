@@ -86,6 +86,7 @@
                     android:weightSum="5">
 
                     <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/accept_friend"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -100,6 +101,7 @@
                     </androidx.appcompat.widget.AppCompatButton>
 
                     <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/not_accept_friend"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -111,6 +113,14 @@
                         android:textSize="17dp">
 
                     </androidx.appcompat.widget.AppCompatButton>
+                    <TextView
+                        android:id="@+id/friend_accepted"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="gone"
+                        android:text="Friend request accepted"
+                        android:textSize="20dp"
+                        android:layout_gravity="center_vertical"/>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

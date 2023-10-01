@@ -21,6 +21,9 @@ import vn.edu.usth.facebook.fragment.HomeFragment;
 import vn.edu.usth.facebook.fragment.ProfileFragment;
 import vn.edu.usth.facebook.model.Post;
 
+//TODO: function to count the number of likes, comments
+//TODO: function to check if the post is liked or not -> call that function in post_like's onclick
+
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     private ArrayList<Post> posts;
@@ -49,9 +52,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         Picasso.get().load(post.getPostImage()).into(holder.post_img);
         holder.post_likes.setText(post.getPostLikes());
         holder.post_comments.setText(post.getPostComments());
-//        holder.username.setText(String.format("%s", posts.get(position).getUsername()));
-//        holder.text.setText(String.format("%s", posts.get(position).getText()));
-//        Picasso.get().load(posts.get(position).getPhoto()).into(holder.photo);
+
+        holder.post_likes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
         holder.post_comments.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,15 +103,3 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         }
     }
 }
-//        private TextView username;
-//        private TextView text;
-//        private ImageView photo;
-//        public ViewHolder(@NonNull View itemView) {
-//
-//            super(itemView);
-//            username = itemView.findViewById(R.id.username);
-//            text = itemView.findViewById(R.id.text);
-//            photo = itemView.findViewById(R.id.photo);
-//        }
-//    }
-//}

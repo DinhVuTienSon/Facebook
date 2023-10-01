@@ -17,6 +17,8 @@ import vn.edu.usth.facebook.R;
 import vn.edu.usth.facebook.fragment.FriendsFragment;
 import vn.edu.usth.facebook.model.Friends;
 
+//TODO: function to add friend after click on accept
+
 public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHolder> {
 
     private ArrayList<Friends> friends;
