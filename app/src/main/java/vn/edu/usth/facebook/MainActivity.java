@@ -2,12 +2,19 @@ package vn.edu.usth.facebook;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
+
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ProgressBar;
+
+import com.google.android.material.button.MaterialButton;
+
 import vn.edu.usth.facebook.adapter.ViewPagerAdapter;
 import vn.edu.usth.facebook.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
+    MaterialButton search_main_fragment;
     private static final int MENU_HOME = R.id.home;
     private static final int MENU_FRIENDS = R.id.friends;
     private static final int MENU_NOTIFICATION = R.id.notification;
@@ -49,6 +56,17 @@ public class MainActivity extends AppCompatActivity {
                 binding.bottomNavigationView.setSelectedItemId(getNavigationMenuItemId(position));
             }
         });
+
+        search_main_fragment = findViewById(R.id.search_main_fragment);
+        search_main_fragment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                startActivity(intent);
+
+            }
+        });
+
     }
 
     private int getNavigationMenuItemId(int position) {
