@@ -161,7 +161,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Create another profile"
-                        android:textSize="20dp"
+                        android:textSize="20sp"
                         android:textStyle="bold"
                         android:textColor="@color/darkgray"
                         android:layout_marginTop="5dp"
@@ -176,7 +176,7 @@
                         android:layout_height="wrap_content"
                         android:text="All shortcuts"
                         android:textStyle="bold"
-                        android:textSize="19dp"
+                        android:textSize="19sp"
                         android:layout_margin="15dp"/>
                 </LinearLayout>
                 <LinearLayout
@@ -212,7 +212,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Pages"
                                 android:textStyle="bold"
-                                android:textSize="20dp"/>
+                                android:textSize="20sp"/>
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
                     <androidx.cardview.widget.CardView
@@ -242,7 +242,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="Memories"
-                                android:textSize="20dp"
+                                android:textSize="20sp"
                                 android:textStyle="bold"/>
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
@@ -282,7 +282,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="Saved"
-                                android:textSize="20dp"
+                                android:textSize="20sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
@@ -313,7 +313,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="Groups"
-                                android:textSize="20dp"
+                                android:textSize="20sp"
                                 android:textStyle="bold"/>
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
@@ -351,7 +351,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Video"
                                 android:textStyle="bold"
-                                android:textSize="20dp"/>
+                                android:textSize="20sp"/>
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
                     <androidx.cardview.widget.CardView
@@ -381,7 +381,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="Marketplace"
-                                android:textSize="20dp"
+                                android:textSize="20sp"
                                 android:textStyle="bold"/>
                         </LinearLayout>
                 </androidx.cardview.widget.CardView>
@@ -419,7 +419,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Find friends"
                                 android:textStyle="bold"
-                                android:textSize="20dp"/>
+                                android:textSize="20sp"/>
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
                     <androidx.cardview.widget.CardView
@@ -448,7 +448,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="Feeds"
-                                android:textSize="20dp"
+                                android:textSize="20sp"
                                 android:textStyle="bold"/>
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
@@ -476,7 +476,7 @@
                         android:layout_height="wrap_content"
                         android:text="Help &amp; support"
                         android:textStyle="bold"
-                        android:textSize="21dp"
+                        android:textSize="21sp"
                         android:layout_marginLeft="10dp"
                         android:paddingBottom="2dp"/>
                 </LinearLayout>
@@ -504,17 +504,18 @@
                         android:layout_height="wrap_content"
                         android:text="Settings &amp; privacy"
                         android:textStyle="bold"
-                        android:textSize="21dp"
+                        android:textSize="21sp"
                         android:layout_marginLeft="10dp"
                         android:paddingBottom="2dp"/>
                 </LinearLayout>
 
                 <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/logout_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Log out"
                     android:textStyle="bold"
-                    android:textSize="20dp"
+                    android:textSize="20sp"
                     android:textAllCaps="false"
                     android:background="@drawable/button_second_style"
                     android:layout_margin="15dp"
