@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
@@ -41,6 +42,22 @@ public class FriendsRecommendAdapter extends RecyclerView.Adapter<FriendsRecomme
         Picasso.get().load(friend_rec.getFriendRecAva()).into(holder.friend_rec_ava);
         holder.friend_rec_name.setText(friend_rec.getFriendRecName());
         holder.mutual_friends_rec.setText(friend_rec.getMutualFriends_rec());
+
+        holder.add_friend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                holder.friend_sent.setVisibility(View.VISIBLE);
+                holder.add_friend.setVisibility(View.GONE);
+                holder.remove_friend_rec.setVisibility(View.GONE);
+            }
+        });
+        holder.remove_friend_rec.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                friends_rec.remove(holder.getAdapterPosition());
+                notifyItemRemoved(holder.getAdapterPosition());
+            }
+        });
     }
 
     @Override
@@ -50,13 +67,17 @@ public class FriendsRecommendAdapter extends RecyclerView.Adapter<FriendsRecomme
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private CircleImageView friend_rec_ava;
-        private TextView friend_rec_name, mutual_friends_rec;
+        private TextView friend_rec_name, mutual_friends_rec, friend_sent;
+        private AppCompatButton add_friend, remove_friend_rec;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             friend_rec_ava = itemView.findViewById(R.id.ava_friend_rec);
             friend_rec_name = itemView.findViewById(R.id.friend_rec_name);
             mutual_friends_rec = itemView.findViewById(R.id.mutual_friends_rec);
+            friend_sent = itemView.findViewById(R.id.friend_sent);
+            add_friend = itemView.findViewById(R.id.add_friend);
+            remove_friend_rec = itemView.findViewById(R.id.remove_friend_rec);
         }
     }
 }

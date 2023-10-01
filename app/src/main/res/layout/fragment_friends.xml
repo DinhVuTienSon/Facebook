@@ -153,6 +153,7 @@
                 </LinearLayout>
 
                 <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/see_all_friend_req"
                     android:layout_below="@+id/friend_recycler1_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -163,6 +164,19 @@
                     android:textAllCaps="false"
                     android:background="@drawable/button_second_style"
                     android:minHeight="35dp"/>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/see_less_friend_req"
+                    android:layout_below="@+id/friend_recycler1_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="See less"
+                    android:textAllCaps="false"
+                    android:background="@drawable/button_second_style"
+                    android:minHeight="35dp"
+                    android:visibility="gone"/>
 
             </RelativeLayout>
 

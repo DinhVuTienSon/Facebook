@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
@@ -28,6 +29,22 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
         this.friends = friends;
         this.context = context;
     }
+
+    public void setData(ArrayList<Friends> newFriendsList) {
+        friends.clear();
+        friends.addAll(newFriendsList);
+        notifyDataSetChanged();
+    }
+
+    public ArrayList<Friends> getFriends() {
+        return friends;
+    }
+
+    public void removeFriend(int position) {
+        friends.remove(position);
+        notifyItemRemoved(position);
+    }
+
     @NonNull
     @Override
     public FriendsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -42,6 +59,27 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
         holder.friend_req_name.setText(friend.getFriendReqName());
         holder.req_date.setText(friend.getReqDate());
         holder.mutual_friends.setText(friend.getMutualFriends());
+
+        holder.accept_friend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                holder.friend_accepted.setVisibility(View.VISIBLE);
+                holder.accept_friend.setVisibility(View.GONE);
+                holder.not_accept_friend.setVisibility(View.GONE);
+            }
+        });
+        holder.not_accept_friend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                friends.remove(holder.getAdapterPosition());
+//                notifyItemRemoved(holder.getAdapterPosition());
+                int adapterPosition = holder.getAdapterPosition();
+                if (adapterPosition != RecyclerView.NO_POSITION) {
+                    removeFriend(adapterPosition);
+                }
+            }
+        });
+
     }
 
     @Override
@@ -51,7 +89,8 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         private CircleImageView friend_req_ava;
-        private TextView friend_req_name, req_date, mutual_friends;
+        private TextView friend_req_name, req_date, mutual_friends, friend_accepted;
+        private AppCompatButton accept_friend, not_accept_friend;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -60,6 +99,9 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
             friend_req_name = itemView.findViewById(R.id.friend_req_name);
             req_date = itemView.findViewById(R.id.time_request);
             mutual_friends = itemView.findViewById(R.id.mutual_friends);
+            friend_accepted = itemView.findViewById(R.id.friend_accepted);
+            accept_friend = itemView.findViewById(R.id.accept_friend);
+            not_accept_friend = itemView.findViewById(R.id.not_accept_friend);
         }
     }
 }
