@@ -22,6 +22,7 @@ import vn.edu.usth.facebook.fragment.ProfileFragment;
 import vn.edu.usth.facebook.model.Post;
 
 //TODO: function to count the number of likes, comments
+
 //TODO: function to check if the post is liked or not -> call that function in post_like's onclick
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
