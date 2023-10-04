@@ -1,23 +1,38 @@
 package vn.edu.usth.facebook;
 
 import androidx.activity.result.ActivityResultCallback;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import de.hdodenhof.circleimageview.CircleImageView;
+import vn.edu.usth.facebook.model.Users;
 
 //TODO: connect to firebase to get and save data
 
 public class EditProfileActivity extends AppCompatActivity {
+//    for debugging and checking stuff :)
+    private String TAG = "EDIT PROFILE ACTIVITY";
     private CircleImageView avatar;
     private ImageView background;
     private EditText bio, live_in, location, work, education, hobbies, links;
@@ -26,10 +41,40 @@ public class EditProfileActivity extends AppCompatActivity {
     private ActivityResultLauncher<String> galleryLauncher_avatar;
     private ActivityResultLauncher<String> galleryLauncher_background;
 
+//    firebase stuff
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    private DatabaseReference mDatabase;
+
+    private String uid;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
+
+        //  get database
+        mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        //  get current user ID
+        FirebaseUser c_user = mAuth.getCurrentUser();
+        uid = c_user.getUid();
+
+//  check if user is logged in
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if(user != null){
+                    Log.d(TAG,"onAuthStateChanged: sign_in: " + uid);
+                }
+                else{
+                    Log.d(TAG, "signed out" + uid);
+                }
+            }
+        };
 
         Toolbar toolbar = findViewById(R.id.edit_profile_toolbar);
         setSupportActionBar(toolbar);
@@ -65,10 +110,14 @@ public class EditProfileActivity extends AppCompatActivity {
         save_hobbies = findViewById(R.id.save_hobbies);
         save_links = findViewById(R.id.save_links);
 
+//create user obj
+        Users user = new Users();
+
         save_ava.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // TODO: create function to save avatar to firebase when save button is clicked
+
             }
         });
         save_background.setOnClickListener(new View.OnClickListener() {
@@ -80,25 +129,44 @@ public class EditProfileActivity extends AppCompatActivity {
         save_bio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: create function to save bio to firebase when save button is clicked
+//                create user bio = input
+//                add user bio to map
+//                add map to db
+                user.setUser_bio(bio.getText().toString());
+
+                Map user_bio = user.toBioMap("bio");
+                update_profile(user_bio, mDatabase, "Bio");
             }
         });
         save_details.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: create function to save details to firebase when save button is clicked
+//                TODO:check if any of these bozos are null to add a function so that it does delete in db if null
+                user.setUser_live_in(live_in.getText().toString());
+                user.setUser_location(location.getText().toString());
+                user.setUser_work(work.getText().toString());
+                user.setUser_education(education.getText().toString());
+
+                Map user_details = user.toDetailsMap();
+                update_profile(user_details, mDatabase, "Details");
             }
         });
         save_hobbies.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: create function to save hobbies to firebase when save button is clicked
+                user.setUser_hobbies(hobbies.getText().toString());
+
+                Map user_hobbies = user.toHobbiesMap("hobbies");
+                update_profile(user_hobbies,mDatabase,"Hobbies");
             }
         });
         save_links.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: create function to save links to firebase when save button is clicked
+                user.setUser_links(links.getText().toString());
+
+                Map user_links = user.toLinksMap("links");
+                update_profile(user_links,mDatabase,"Links");
             }
         });
 
@@ -136,6 +204,24 @@ public class EditProfileActivity extends AppCompatActivity {
                 openGallery_background();
             }
         });
+    }
+
+//    when app start, check if user is still logged in
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+
+    private void update_profile(Map<String,Object> user_info, DatabaseReference db, String type){
+        try{
+//            add user_info map to db
+            db.child("users").child(uid).updateChildren(user_info);
+//          create pop up message when saved
+            Toast.makeText(EditProfileActivity.this, type + " updated", Toast.LENGTH_SHORT).show();
+        }catch (Exception e){
+            Log.e(TAG,"ERROR: " + e);
+        }
     }
 
     private void openGallery_avatar() {

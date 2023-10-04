@@ -145,7 +145,7 @@ public class RegisterActivity extends AppCompatActivity {
                     //create a uid node under users in firebase
                     "/users/" + user.getUser_id(),
                     //add user infos map to hashmap to add to db
-                    user.toMap());
+                    user.toNewMap());
 //TODO:threading
             //using  firebase's update children to add to db
             db.updateChildren(add_infos_to_db);
