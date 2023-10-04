@@ -7,9 +7,6 @@
     tools:context=".fragment.ProfileFragment">
 
     <ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white">
@@ -17,6 +14,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:id="@+id/user_profile"
             tools:context=".MainActivity">
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/profile_toolbar"
@@ -36,11 +34,11 @@
                 android:layout_width="170dp"
                 android:layout_height="170dp"
                 android:layout_marginStart="10dp"
-                android:scaleType="centerCrop"
-                app:strokeColor="@color/black"
-                app:strokeWidth="10dp"
                 android:layout_marginTop="130dp"
-                android:src="@drawable/pic"/>
+                android:scaleType="centerCrop"
+                android:src="@drawable/pic"
+                app:strokeColor="@color/black"
+                app:strokeWidth="10dp" />
 
             <TextView
                 android:id="@+id/name"
@@ -54,7 +52,7 @@
                 android:layout_marginLeft="20dp"/>
 
             <TextView
-                android:id="@+id/follow"
+                android:id="@+id/quote"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -64,7 +62,7 @@
                 android:layout_marginLeft="20dp"/>
 
             <TextView
-                android:id="@+id/quote"
+                android:id="@+id/no_friends"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -73,7 +71,7 @@
                 android:paddingEnd="10dp"
                 android:text="Number of friends"
                 android:textSize="18sp"
-                android:layout_below="@+id/follow"
+                android:layout_below="@+id/quote"
                 android:layout_marginLeft="10dp"/>
 
             <View
@@ -81,7 +79,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@drawable/break_line"
-                android:layout_below="@id/quote"
+                android:layout_below="@id/no_friends"
                 android:layout_margin="15dp" />
 
             <Button

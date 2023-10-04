@@ -20,11 +20,17 @@ public class Users {
     private String sur_name;
     private String email;
     private String user_ava;
-
+    private String user_bio;
+    private String user_hobbies;
+    private String user_links;
+    private String user_live_in;
+    private String user_location;
+    private String user_work;
+    private String user_education;
     private ArrayList<Post> posts;
 //    private ArrayList<user_comments> comments;
     private ArrayList<Notifications> notifications;
-
+    private ArrayList<String> user_friends;
 //    constructors
     public Users(String user_id, String first_name, String sur_name, String email) {
         this.user_id = user_id;
@@ -33,10 +39,13 @@ public class Users {
         this.email = email;
     }
 
-//add user_infos to a map
+    public Users(){
+    }
+
+//add user_new_infos to a map
     //add new user infos
     @Exclude
-    public Map<String,Object> toMap(){
+    public Map<String,Object> toNewMap(){
         HashMap<String,Object> result = new HashMap<>();
         result.put("first_name", this.first_name);
         result.put("sur_name", this.sur_name);
@@ -44,11 +53,37 @@ public class Users {
 
         return result;
     }
-    //add user_ava to map
-    public Map<String,Object> toMap(String user_ava){
-        this.toMap().put("user_ava",user_ava);
-        return this.toMap();
+    //add user_bio to map
+    public Map<String,Object> toBioMap(String type){
+        HashMap<String,Object> result = new HashMap<>();
+        result.put("user_" + type, this.user_bio);
+        return result;
     }
+
+    //add user_hobbies to map
+    public Map<String,Object> toHobbiesMap(String type){
+        HashMap<String,Object> result = new HashMap<>();
+        result.put("user_" + type, this.user_hobbies);
+        return result;
+    }
+
+    //add user_links to map
+    public Map<String,Object> toLinksMap(String type){
+        HashMap<String,Object> result = new HashMap<>();
+        result.put("user_" + type, this.user_links);
+        return result;
+    }
+    //add user details to map
+    public Map<String,Object> toDetailsMap(){
+        HashMap<String,Object> result = new HashMap<>();
+        result.put("user_live_in", this.user_live_in);
+        result.put("user_location", this.user_location);
+        result.put("user_work", this.user_work);
+        result.put("user_education", this.user_education);
+        return result;
+    }
+
+
 
     public String getUser_id() {
         return user_id;
@@ -90,6 +125,62 @@ public class Users {
         this.user_ava = user_ava;
     }
 
+    public String getUser_bio() {
+        return user_bio;
+    }
+
+    public void setUser_bio(String user_bio) {
+        this.user_bio = user_bio;
+    }
+
+    public String getUser_hobbies() {
+        return user_hobbies;
+    }
+
+    public void setUser_hobbies(String user_hobbies) {
+        this.user_hobbies = user_hobbies;
+    }
+
+    public String getUser_links() {
+        return user_links;
+    }
+
+    public void setUser_links(String user_links) {
+        this.user_links = user_links;
+    }
+
+    public String getUser_live_in() {
+        return user_live_in;
+    }
+
+    public void setUser_live_in(String user_live_in) {
+        this.user_live_in = user_live_in;
+    }
+
+    public String getUser_location() {
+        return user_location;
+    }
+
+    public void setUser_location(String user_location) {
+        this.user_location = user_location;
+    }
+
+    public String getUser_work() {
+        return user_work;
+    }
+
+    public void setUser_work(String user_work) {
+        this.user_work = user_work;
+    }
+
+    public String getUser_education() {
+        return user_education;
+    }
+
+    public void setUser_education(String user_education) {
+        this.user_education = user_education;
+    }
+
     public ArrayList<Post> getPosts() {
         return posts;
     }
@@ -105,5 +196,14 @@ public class Users {
     public void setNotifications(ArrayList<Notifications> notifications) {
         this.notifications = notifications;
     }
+
+    public ArrayList<String> getUser_friends() {
+        return user_friends;
+    }
+
+    public void setUser_friends(ArrayList<String> user_friends) {
+        this.user_friends = user_friends;
+    }
+
 }
 
