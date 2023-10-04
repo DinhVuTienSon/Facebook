@@ -146,10 +146,8 @@ public class RegisterActivity extends AppCompatActivity {
                     "/users/" + user.getUser_id(),
                     //add user infos map to hashmap to add to db
                     user.toNewMap());
-//TODO:threading
             //using  firebase's update children to add to db
             db.updateChildren(add_infos_to_db);
-//
         }
         catch (Exception e){
             Log.e("WRITE TO DB ERROR: ", "PROBLEM WHEN WRITING TO FIREBASE" + e);

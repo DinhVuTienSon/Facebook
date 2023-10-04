@@ -5,7 +5,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import android.Manifest;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,6 +26,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,6 +52,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private DatabaseReference mDatabase;
+    private StorageReference mStorage;
 
     private String uid;
 
@@ -58,9 +66,14 @@ public class EditProfileActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
+
         //  get current user ID
         FirebaseUser c_user = mAuth.getCurrentUser();
         uid = c_user.getUid();
+
+        //  get storage ref (get al the way to users/user_id)
+        mStorage = FirebaseStorage.getInstance().getReference().child("users").child(uid);
+
 
 //  check if user is logged in
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -117,7 +130,16 @@ public class EditProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // TODO: create function to save avatar to firebase when save button is clicked
+//                get img uri
+//                TODO: thearding??
+                BitmapDrawable drawable = (BitmapDrawable) avatar.getDrawable();
 
+                if (drawable != null){
+                    Bitmap bitmap = drawable.getBitmap();
+
+//                    Uri avatat_uri = getUri();
+                }
+//                Uri user_ava = Uri.fromFile();
             }
         });
         save_background.setOnClickListener(new View.OnClickListener() {
@@ -178,6 +200,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     public void onActivityResult(Uri result) {
                         if (result != null) {
                             avatar.setImageURI(result);
+                            Log.i(TAG,"AVATAR: " + result);
                         }
                     }
                 });
@@ -223,6 +246,19 @@ public class EditProfileActivity extends AppCompatActivity {
             Log.e(TAG,"ERROR: " + e);
         }
     }
+
+//    public void check_file_permission(){
+//        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP){
+//            int permissionCheck = EditProfileActivity.this.checkSelfPermission("Manifest.permission.READ_EXTERNAL_STORAGE");
+//            permissionCheck += EditProfileActivity.this.checkSelfPermission("Manifest.permission.WRITE_EXTERNAL_STOREAGE");
+//            if (permissionCheck != 0){
+//                this.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE});
+//            }
+//            else{
+//
+//            }
+//        }
+//    }
 
     private void openGallery_avatar() {
         galleryLauncher_avatar.launch("image/*");

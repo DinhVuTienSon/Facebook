@@ -3,6 +3,7 @@ package vn.edu.usth.facebook;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
@@ -13,30 +14,81 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 import vn.edu.usth.facebook.R;
+import vn.edu.usth.facebook.model.Post;
 
 // TODO: function to upload post after click on post button
 // TODO: function to call user ava, name
 
 public class UploadPostActivity extends AppCompatActivity {
-    private CircleImageView upload_post_ava;
-    private TextView upload_post_name;
+    private String TAG = "UPLOAD POST ACTIVITY"; // for debugging and messages
+    private CircleImageView author_post_ava;
+    private TextView author_post_name;
     private AppCompatButton post_btn;
     private EditText post_text;
     private ImageView post_image, open_album, open_camera;
     private ActivityResultLauncher<String> galleryLauncher_img;
 
+    //    firebase stuff
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    private DatabaseReference mDatabase;
+    private StorageReference mStorage;
+
+    private String uid;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_post);
+
+        //  get database
+        mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+
+        //  get current user ID
+        FirebaseUser c_user = mAuth.getCurrentUser();
+        uid = c_user.getUid();
+
+        //  get storage ref (get al the way to users/user_id)
+        mStorage = FirebaseStorage.getInstance().getReference().child("users").child(uid);
+
+
+//  check if user is logged in
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if(user != null){
+                    Log.d(TAG,"onAuthStateChanged: sign_in: " + uid);
+                }
+                else{
+                    Log.d(TAG, "signed out" + uid);
+                }
+            }
+        };
 
         Toolbar toolbar = findViewById(R.id.upload_post_toolbar);
         setSupportActionBar(toolbar);
@@ -52,8 +104,8 @@ public class UploadPostActivity extends AppCompatActivity {
             }
         });
 
-        upload_post_ava = findViewById(R.id.upload_post_ava);
-        upload_post_name = findViewById(R.id.upload_post_name);
+        author_post_ava = findViewById(R.id.upload_post_ava);
+        author_post_name = findViewById(R.id.upload_post_name);
         post_btn = findViewById(R.id.post_btn);
         post_text = findViewById(R.id.post_text);
         post_image = findViewById(R.id.post_image);
@@ -63,7 +115,16 @@ public class UploadPostActivity extends AppCompatActivity {
         post_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: function to upload post after click on post button
+                //TODO: add image
+//                TODO: jump back to home screen after post
+                String post_id = mDatabase.child("posts").push().getKey();
+                Post post = new Post(post_id, uid);
+//                set post description
+                post.setPostDescription(post_text.getText().toString());
+//                get time of posting (use Map type because ServerValue.TIMESTAMP is Map and can be converted back to date)
+                Map<String,String> post_time = ServerValue.TIMESTAMP;
+
+                uploadPost(post, post_time, mDatabase);
             }
         });
 
@@ -103,5 +164,24 @@ public class UploadPostActivity extends AppCompatActivity {
                     post_image.setImageBitmap(bitmap);
                 }
             });
+
+    public void uploadPost(Post post, Map<String,String> date, DatabaseReference db){
+        try{
+            //create an emty map to add to db
+            HashMap <String,Object> add_infos_to_db = new HashMap<>();
+
+            add_infos_to_db.put(
+                    //create a uid node under users in firebase
+                    "/posts/" + post.getAuthor_id() + "_" + post.getPost_id(),
+                    //add post infos map to hashmap(with key set as authorID_postID) to add to db
+                    post.toNewTextMap(date));
+            //using  firebase's update children to add to db
+            db.updateChildren(add_infos_to_db);
+        }
+        catch (Exception e){
+            Log.e("WRITE TO DB ERROR: ", "PROBLEM WHEN WRITING TO FIREBASE" + e);
+        }
+
+    }
 
 }
