@@ -137,7 +137,7 @@ public class EditProfileActivity extends AppCompatActivity {
 //                get img uri
 //                TODO: threading yes
                 if (ava_uri != null){
-                    uploadImage("avatar/", ava_uri);
+                    uploadImage("avatar", ava_uri);
                 }
 
             }
@@ -259,6 +259,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Uri uri) {
                         Log.i(TAG, "UPLOAD IMG SUCCESS" + uri.toString());
+                        Toast.makeText(EditProfileActivity.this, upload_file_location + " updated", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

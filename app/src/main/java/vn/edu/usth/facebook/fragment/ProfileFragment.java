@@ -8,9 +8,12 @@ import android.os.Bundle;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -38,12 +41,20 @@ import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import java.net.URI;
+import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import vn.edu.usth.facebook.EditProfileActivity;
 import vn.edu.usth.facebook.R;
 import vn.edu.usth.facebook.UploadPostActivity;
+import vn.edu.usth.facebook.adapter.FriendsAdapter;
+import vn.edu.usth.facebook.adapter.PostAdapter;
+import vn.edu.usth.facebook.adapter.UserFriendsAdapter;
+import vn.edu.usth.facebook.adapter.UserProfileAdapter;
+import vn.edu.usth.facebook.model.Friends;
+import vn.edu.usth.facebook.model.Post;
 import vn.edu.usth.facebook.model.Users;
+import vn.edu.usth.facebook.model.Users_friends;
 
 //TODO: function to call all user information
 //TODO: function to display friend's ava, name
@@ -58,6 +69,8 @@ public class ProfileFragment extends Fragment {
     private ImageView background;
     private CircleImageView avatar;
     private TextView name, bio, live_in, hobby, work, education, contact;
+    private AppCompatButton see_all_user_friends, see_less_user_friends;
+    private boolean isExpanded = false;
 
     //    firebase stuff
     private FirebaseAuth mAuth;
@@ -66,6 +79,8 @@ public class ProfileFragment extends Fragment {
     private StorageReference mStorage;
 
     private String uid;
+    private ArrayList<Post> posts;
+    private ArrayList<Users_friends> users_friends;
 
     private ProgressBar loadingIndicator;
 
@@ -165,8 +180,70 @@ public class ProfileFragment extends Fragment {
         work = view.findViewById(R.id.work);
         education = view.findViewById(R.id.education);
         contact = view.findViewById(R.id.contact);
+        see_all_user_friends = view.findViewById(R.id.see_all_user_friends);
+        see_less_user_friends = view.findViewById(R.id.see_less_user_friends);
 
         user_info();
+
+        posts = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            String author_name = "ST";
+            String author_image = "https://picsum.photos/600/300?random&"+i;
+            String post_date = "now";
+            String post_description = "testing";
+            String post_image = "https://picsum.photos/600/300?random&"+i;
+            String post_likes = "2";
+            String post_comments = "3";
+
+            Post post = new Post(author_image, author_name, post_date, post_description, post_image, post_likes, post_comments);
+            posts.add(post);}
+        UserProfileAdapter adapter = new UserProfileAdapter(posts, ProfileFragment.this);
+        RecyclerView recyclerView = view.findViewById(R.id.user_post_recyclerView);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
+
+        users_friends = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            String user_friend_name = "ST";
+            String user_friend_ava = "https://picsum.photos/600/300?random&"+i;
+
+            Users_friends user_friends = new Users_friends(user_friend_ava, user_friend_name);
+            users_friends.add(user_friends);}
+
+        UserFriendsAdapter userFriendsAdapter = new UserFriendsAdapter(getLimitedUserFriends(), ProfileFragment.this);
+        RecyclerView user_friends_recyclerView = view.findViewById(R.id.user_friends_recyclerView);
+
+        LinearLayoutManager user_friend_layoutManager = new LinearLayoutManager(getContext());
+        user_friends_recyclerView.setLayoutManager(user_friend_layoutManager);
+        user_friends_recyclerView.setAdapter(userFriendsAdapter);
+
+        if (users_friends.size() <= 3) {
+            see_less_user_friends.setVisibility(View.GONE);
+        } else {
+            see_all_user_friends.setVisibility(View.VISIBLE);
+        }
+        see_all_user_friends.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isExpanded = true;
+                userFriendsAdapter.setDataUserFriends(users_friends);
+                see_all_user_friends.setVisibility(View.GONE);
+                see_less_user_friends.setVisibility(View.VISIBLE);
+            }
+        });
+
+        see_less_user_friends.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isExpanded = false;
+                userFriendsAdapter.setDataUserFriends(getLimitedUserFriends());
+                see_all_user_friends.setVisibility(View.VISIBLE);
+                see_less_user_friends.setVisibility(View.GONE);
+            }
+        });
 
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         if (activity != null) {
@@ -225,5 +302,12 @@ public class ProfileFragment extends Fragment {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    private ArrayList<Users_friends> getLimitedUserFriends() {
+        if (isExpanded || users_friends.size() <= 5) {
+            return users_friends;
+        } else {
+            return new ArrayList<>(users_friends.subList(0, 5));
+        }
     }
 }
