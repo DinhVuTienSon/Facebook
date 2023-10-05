@@ -20,11 +20,9 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -40,21 +38,15 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
-import java.net.URI;
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import vn.edu.usth.facebook.EditProfileActivity;
 import vn.edu.usth.facebook.R;
-import vn.edu.usth.facebook.UploadPostActivity;
-import vn.edu.usth.facebook.adapter.FriendsAdapter;
-import vn.edu.usth.facebook.adapter.PostAdapter;
 import vn.edu.usth.facebook.adapter.UserFriendsAdapter;
 import vn.edu.usth.facebook.adapter.UserProfileAdapter;
-import vn.edu.usth.facebook.model.Friends;
 import vn.edu.usth.facebook.model.Post;
 import vn.edu.usth.facebook.model.Users;
-import vn.edu.usth.facebook.model.Users_friends;
 
 //TODO: function to call all user information
 //TODO: function to display friend's ava, name
@@ -80,7 +72,7 @@ public class ProfileFragment extends Fragment {
 
     private String uid;
     private ArrayList<Post> posts;
-    private ArrayList<Users_friends> users_friends;
+    private ArrayList<Users> users;
 
     private ProgressBar loadingIndicator;
 
@@ -205,13 +197,13 @@ public class ProfileFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
-        users_friends = new ArrayList<>();
+        users = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             String user_friend_name = "ST";
             String user_friend_ava = "https://picsum.photos/600/300?random&"+i;
 
-            Users_friends user_friends = new Users_friends(user_friend_ava, user_friend_name);
-            users_friends.add(user_friends);}
+            Users user = new Users(user_friend_ava, user_friend_name,"","");
+            users.add(user);}
 
         UserFriendsAdapter userFriendsAdapter = new UserFriendsAdapter(getLimitedUserFriends(), ProfileFragment.this);
         RecyclerView user_friends_recyclerView = view.findViewById(R.id.user_friends_recyclerView);
@@ -220,7 +212,7 @@ public class ProfileFragment extends Fragment {
         user_friends_recyclerView.setLayoutManager(user_friend_layoutManager);
         user_friends_recyclerView.setAdapter(userFriendsAdapter);
 
-        if (users_friends.size() <= 3) {
+        if (users.size() <= 3) {
             see_less_user_friends.setVisibility(View.GONE);
         } else {
             see_all_user_friends.setVisibility(View.VISIBLE);
@@ -229,7 +221,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 isExpanded = true;
-                userFriendsAdapter.setDataUserFriends(users_friends);
+                userFriendsAdapter.setDataUserFriends(users);
                 see_all_user_friends.setVisibility(View.GONE);
                 see_less_user_friends.setVisibility(View.VISIBLE);
             }
@@ -303,11 +295,11 @@ public class ProfileFragment extends Fragment {
         }
         return super.onOptionsItemSelected(item);
     }
-    private ArrayList<Users_friends> getLimitedUserFriends() {
-        if (isExpanded || users_friends.size() <= 5) {
-            return users_friends;
+    private ArrayList<Users> getLimitedUserFriends() {
+        if (isExpanded || users.size() <= 5) {
+            return users;
         } else {
-            return new ArrayList<>(users_friends.subList(0, 5));
+            return new ArrayList<>(users.subList(0, 5));
         }
     }
 }
