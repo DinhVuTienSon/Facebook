@@ -20,11 +20,11 @@ public class Users {
     private String sur_name;
     private String email;
     private String user_ava;
+    private String user_background;
     private String user_bio;
     private String user_hobbies;
     private String user_links;
     private String user_live_in;
-    private String user_location;
     private String user_work;
     private String user_education;
     private ArrayList<Post> posts;
@@ -77,7 +77,6 @@ public class Users {
     public Map<String,Object> toDetailsMap(){
         HashMap<String,Object> result = new HashMap<>();
         result.put("user_live_in", this.user_live_in);
-        result.put("user_location", this.user_location);
         result.put("user_work", this.user_work);
         result.put("user_education", this.user_education);
         return result;
@@ -125,6 +124,14 @@ public class Users {
         this.user_ava = user_ava;
     }
 
+    public String getUser_background() {
+        return user_background;
+    }
+
+    public void setUser_background(String user_background) {
+        this.user_background = user_background;
+    }
+
     public String getUser_bio() {
         return user_bio;
     }
@@ -155,14 +162,6 @@ public class Users {
 
     public void setUser_live_in(String user_live_in) {
         this.user_live_in = user_live_in;
-    }
-
-    public String getUser_location() {
-        return user_location;
-    }
-
-    public void setUser_location(String user_location) {
-        this.user_location = user_location;
     }
 
     public String getUser_work() {

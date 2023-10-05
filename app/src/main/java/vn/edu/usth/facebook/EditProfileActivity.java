@@ -114,7 +114,6 @@ public class EditProfileActivity extends AppCompatActivity {
         background = findViewById(R.id.background);
         bio = findViewById(R.id.bio);
         live_in = findViewById(R.id.live_in);
-        location = findViewById(R.id.location);
         work = findViewById(R.id.work);
         education = findViewById(R.id.education);
         hobbies = findViewById(R.id.hobbies);
@@ -167,7 +166,6 @@ public class EditProfileActivity extends AppCompatActivity {
             public void onClick(View view) {
 //                TODO:check if any of these bozos are null to add a function so that it does delete in db if null
                 user.setUser_live_in(live_in.getText().toString());
-                user.setUser_location(location.getText().toString());
                 user.setUser_work(work.getText().toString());
                 user.setUser_education(education.getText().toString());
 
