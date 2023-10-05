@@ -22,12 +22,15 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -55,6 +58,8 @@ public class EditProfileActivity extends AppCompatActivity {
     private StorageReference mStorage;
 
     private String uid;
+    private Uri ava_uri;
+    private Uri background_uri;
 
 
     @Override
@@ -130,21 +135,18 @@ public class EditProfileActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // TODO: create function to save avatar to firebase when save button is clicked
 //                get img uri
-//                TODO: thearding??
-                BitmapDrawable drawable = (BitmapDrawable) avatar.getDrawable();
-
-                if (drawable != null){
-                    Bitmap bitmap = drawable.getBitmap();
-
-//                    Uri avatat_uri = getUri();
+//                TODO: threading yes
+                if (ava_uri != null){
+                    uploadImage("avatar/", ava_uri);
                 }
-//                Uri user_ava = Uri.fromFile();
+
             }
         });
         save_background.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: create function to save background image to firebase when save button is clicked
+//                TODO: threading
+                uploadImage("background",background_uri);
             }
         });
         save_bio.setOnClickListener(new View.OnClickListener() {
@@ -198,7 +200,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     public void onActivityResult(Uri result) {
                         if (result != null) {
                             avatar.setImageURI(result);
-                            Log.i(TAG,"AVATAR: " + result);
+                            ava_uri = result;
                         }
                     }
                 });
@@ -209,6 +211,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     public void onActivityResult(Uri result) {
                         if (result != null) {
                             background.setImageURI(result);
+                            background_uri = result;
                         }
                     }
                 });
@@ -243,6 +246,28 @@ public class EditProfileActivity extends AppCompatActivity {
         }catch (Exception e){
             Log.e(TAG,"ERROR: " + e);
         }
+    }
+
+    //TODO: threading
+//    upload images
+    public void uploadImage(String upload_file_location, Uri img){
+        StorageReference store_img = mStorage.child(upload_file_location);
+        store_img.putFile(img).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                store_img.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        Log.i(TAG, "UPLOAD IMG SUCCESS" + uri.toString());
+                    }
+                });
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.e(TAG, "IMG UPPLOAD ERROR: " + e);
+            }
+        });
     }
 
 //    public void check_file_permission(){
