@@ -1,6 +1,8 @@
 package vn.edu.usth.facebook.fragment;
 
+import android.content.ContentUris;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
@@ -22,6 +24,8 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -29,6 +33,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
+
+import java.net.URI;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import vn.edu.usth.facebook.EditProfileActivity;
@@ -54,6 +63,7 @@ public class ProfileFragment extends Fragment {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private DatabaseReference mDatabase;
+    private StorageReference mStorage;
 
     private String uid;
 
@@ -77,6 +87,8 @@ public class ProfileFragment extends Fragment {
 //  get current user ID
         FirebaseUser c_user = mAuth.getCurrentUser();
         uid = c_user.getUid();
+
+        mStorage = FirebaseStorage.getInstance().getReference();
 
 //  check if user is logged in
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -111,6 +123,9 @@ public class ProfileFragment extends Fragment {
     }
 
     public void user_info(){
+//        getting user storage ref
+        StorageReference user_storage = mStorage.child("users/" + uid + "/");
+
         mDatabase.child("users").child(uid).addValueEventListener(new ValueEventListener() {
 
             @Override
@@ -118,6 +133,9 @@ public class ProfileFragment extends Fragment {
                 Users users = snapshot.getValue(Users.class);
                 name.setText(users.getFirst_name() + " " + users.getSur_name());
                 bio.setText(users.getUser_bio());
+//                get ava and background
+                getUserImg(user_storage, "avatar");
+                getUserImg(user_storage,"background");
                 live_in.setText(users.getUser_live_in());
                 work.setText(users.getUser_work());
                 education.setText(users.getUser_education());
@@ -178,6 +196,26 @@ public class ProfileFragment extends Fragment {
             }
         });
         return view;
+    }
+
+    public void getUserImg(StorageReference user_storage, String type){
+//        todo: threading
+        user_storage.child(type).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                if (type == "avatar") {
+                    Picasso.get().load(uri).into(avatar);
+                }
+                else{
+                    Picasso.get().load(uri).into(background);
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.e(TAG,"GET AVA/BANNER IMG ERROR:" + e);
+            }
+        });
     }
 
     @Override
