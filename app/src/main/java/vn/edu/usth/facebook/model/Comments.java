@@ -6,6 +6,14 @@ public class Comments {
     private String comment_name;
     private String comment_content;
 
+//    constructors
+
+    public Comments(String comment_ava, String comment_name, String comment_content) {
+        this.comment_ava = comment_ava;
+        this.comment_name = comment_name;
+        this.comment_content = comment_content;
+    }
+
     public String getComment_ava() {
         return comment_ava;
     }
@@ -27,12 +35,6 @@ public class Comments {
     }
 
     public void setComment_content(String comment_content) {
-        this.comment_content = comment_content;
-    }
-
-    public Comments(String comment_ava, String comment_name, String comment_content) {
-        this.comment_ava = comment_ava;
-        this.comment_name = comment_name;
         this.comment_content = comment_content;
     }
 }

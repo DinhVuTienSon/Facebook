@@ -16,16 +16,16 @@ import java.util.ArrayList;
 import de.hdodenhof.circleimageview.CircleImageView;
 import vn.edu.usth.facebook.R;
 import vn.edu.usth.facebook.fragment.FriendsFragment;
-import vn.edu.usth.facebook.model.Friends_recommend;
+import vn.edu.usth.facebook.model.Users;
 
 //TODO: function to send friend request after click add friend
 
 public class FriendsRecommendAdapter extends RecyclerView.Adapter<FriendsRecommendAdapter.ViewHolder>{
 
-    private ArrayList<Friends_recommend> friends_rec;
+    private ArrayList<Users> users1;
     private FriendsFragment context;
-    public FriendsRecommendAdapter(ArrayList<Friends_recommend> friends_rec, FriendsFragment context){
-        this.friends_rec = friends_rec;
+    public FriendsRecommendAdapter(ArrayList<Users> users1, FriendsFragment context){
+        this.users1 = users1;
         this.context = context;
 
     }
@@ -38,10 +38,10 @@ public class FriendsRecommendAdapter extends RecyclerView.Adapter<FriendsRecomme
 
     @Override
     public void onBindViewHolder(@NonNull FriendsRecommendAdapter.ViewHolder holder, int position) {
-        Friends_recommend friend_rec = friends_rec.get(position);
-        Picasso.get().load(friend_rec.getFriendRecAva()).into(holder.friend_rec_ava);
-        holder.friend_rec_name.setText(friend_rec.getFriendRecName());
-        holder.mutual_friends_rec.setText(friend_rec.getMutualFriends_rec());
+        Users user = users1.get(position);
+        Picasso.get().load(user.getUser_ava()).into(holder.friend_rec_ava);
+        holder.friend_rec_name.setText(user.getFirst_name()+" "+user.getSur_name());
+//        holder.mutual_friends_rec.setText(friend_rec.getMutualFriends_rec());
 
         holder.add_friend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,7 +54,7 @@ public class FriendsRecommendAdapter extends RecyclerView.Adapter<FriendsRecomme
         holder.remove_friend_rec.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                friends_rec.remove(holder.getAdapterPosition());
+                users1.remove(holder.getAdapterPosition());
                 notifyItemRemoved(holder.getAdapterPosition());
             }
         });
@@ -62,7 +62,7 @@ public class FriendsRecommendAdapter extends RecyclerView.Adapter<FriendsRecomme
 
     @Override
     public int getItemCount() {
-        return friends_rec.size();
+        return users1.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

@@ -28,10 +28,10 @@ public class Users {
     private String user_work;
     private String user_education;
     private ArrayList<Post> posts;
-//    private ArrayList<user_comments> comments;
+    //    private ArrayList<user_comments> comments;
     private ArrayList<Notifications> notifications;
     private ArrayList<String> user_friends;
-//    constructors
+    //    constructors
     public Users(String user_id, String first_name, String sur_name, String email) {
         this.user_id = user_id;
         this.first_name = first_name;
@@ -42,7 +42,7 @@ public class Users {
     public Users(){
     }
 
-//add user_new_infos to a map
+    //add user_new_infos to a map
     //add new user infos
     @Exclude
     public Map<String,Object> toNewMap(){
@@ -205,4 +205,3 @@ public class Users {
     }
 
 }
-

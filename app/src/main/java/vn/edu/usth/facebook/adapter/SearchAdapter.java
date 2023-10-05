@@ -16,13 +16,13 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import vn.edu.usth.facebook.R;
-import vn.edu.usth.facebook.model.Search;
+import vn.edu.usth.facebook.model.Users;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder>{
     private Context context;
-    private ArrayList<Search> search;
-    public SearchAdapter(ArrayList<Search> search, Context context){
-        this.search = search;
+    private ArrayList<Users> users;
+    public SearchAdapter(ArrayList<Users> users, Context context){
+        this.users = users;
         this.context = context;
     }
 
@@ -36,10 +36,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull SearchAdapter.ViewHolder holder, int position) {
-        Search searches = search.get(position);
-        Picasso.get().load(searches.getSearch_ava()).into(holder.search_ava);
-        holder.search_name.setText(searches.getSearch_name());
-        holder.search_info.setText(searches.getSearch_info());
+        Users user = users.get(position);
+        Picasso.get().load(user.getUser_ava()).into(holder.search_ava);
+        holder.search_name.setText(user.getFirst_name()+" "+user.getSur_name());
+//        holder.search_info.setText(user.getSearch_info());
         holder.search_add_friend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,7 +51,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return search.size();
+        return users.size();
     }
     public class ViewHolder extends RecyclerView.ViewHolder {
         private CircleImageView search_ava;

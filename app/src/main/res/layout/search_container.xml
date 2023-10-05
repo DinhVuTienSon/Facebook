@@ -26,7 +26,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginRight="15dp"
-                android:layout_weight="3">
+                android:layout_weight="3"
+                android:layout_gravity="center_vertical">
                 <TextView
                     android:id="@+id/search_name"
                     android:layout_width="match_parent"
@@ -53,7 +54,8 @@
                     android:layout_marginLeft="9dp"
                     android:layout_marginTop="5dp"
                     android:textColor="#024dcf"
-                    android:background="@drawable/button_fifth_style"/>
+                    android:background="@drawable/button_fifth_style"
+                    android:visibility="gone"/>
                 <TextView
                     android:id="@+id/search_add_friend_text"
                     android:layout_width="match_parent"

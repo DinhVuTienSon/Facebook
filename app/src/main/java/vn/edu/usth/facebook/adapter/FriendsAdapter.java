@@ -16,32 +16,32 @@ import java.util.ArrayList;
 import de.hdodenhof.circleimageview.CircleImageView;
 import vn.edu.usth.facebook.R;
 import vn.edu.usth.facebook.fragment.FriendsFragment;
-import vn.edu.usth.facebook.model.Friends;
+import vn.edu.usth.facebook.model.Users;
 
 //TODO: function to add friend after click on accept
 
 public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHolder> {
 
-    private ArrayList<Friends> friends;
+    private ArrayList<Users> users;
     private FriendsFragment context;
 
-    public FriendsAdapter(ArrayList<Friends> friends, FriendsFragment context){
-        this.friends = friends;
+    public FriendsAdapter(ArrayList<Users> users, FriendsFragment context){
+        this.users = users;
         this.context = context;
     }
 
-    public void setData(ArrayList<Friends> newFriendsList) {
-        friends.clear();
-        friends.addAll(newFriendsList);
+    public void setData(ArrayList<Users> newFriendsList) {
+        users.clear();
+        users.addAll(newFriendsList);
         notifyDataSetChanged();
     }
 
-    public ArrayList<Friends> getFriends() {
-        return friends;
+    public ArrayList<Users> getFriends() {
+        return users;
     }
 
     public void removeFriend(int position) {
-        friends.remove(position);
+        users.remove(position);
         notifyItemRemoved(position);
     }
 
@@ -54,11 +54,11 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull FriendsAdapter.ViewHolder holder, int position) {
-        Friends friend = friends.get(position);
-        Picasso.get().load(friend.getFriendReqAva()).into(holder.friend_req_ava);
-        holder.friend_req_name.setText(friend.getFriendReqName());
-        holder.req_date.setText(friend.getReqDate());
-        holder.mutual_friends.setText(friend.getMutualFriends());
+        Users user = users.get(position);
+        Picasso.get().load(user.getUser_ava()).into(holder.friend_req_ava);
+        holder.friend_req_name.setText(user.getFirst_name()+" "+user.getSur_name());
+//        holder.req_date.setText(user.getReqDate());
+//        holder.mutual_friends.setText(user.getMutualFriends());
 
         holder.accept_friend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,7 +84,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        return friends.size();
+        return users.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

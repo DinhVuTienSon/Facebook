@@ -16,16 +16,16 @@ import java.util.ArrayList;
 import vn.edu.usth.facebook.adapter.FriendsAdapter;
 import vn.edu.usth.facebook.adapter.FriendsRecommendAdapter;
 import vn.edu.usth.facebook.R;
-import vn.edu.usth.facebook.model.Friends;
-import vn.edu.usth.facebook.model.Friends_recommend;
+import vn.edu.usth.facebook.model.Users;
 
 //TODO: function to call other user ava, name, number of mutual friend
 
 public class FriendsFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private ArrayList<Friends> friends;
-    private ArrayList<Friends_recommend> friends_rec;
+    private ArrayList<Users> users;
+    private ArrayList<Users> users1;
+
     private AppCompatButton see_all_friend_req, see_less_friend_req;
     private FriendsAdapter adapter;
     private boolean isExpanded = false;
@@ -38,18 +38,19 @@ public class FriendsFragment extends Fragment {
         see_all_friend_req = view.findViewById(R.id.see_all_friend_req);
         see_less_friend_req = view.findViewById(R.id.see_less_friend_req);
 
-        friends = new ArrayList<>();
-        friends_rec = new ArrayList<>();
+        users = new ArrayList<>();
+        users1 = new ArrayList<>();
+//        friends_rec = new ArrayList<>();
 
         for (int i = 0; i < 16; i++) {
             String friend_rec_ava = "https://picsum.photos/600/300?random&" + i;
             String friend_rec_name = "Testing";
             String mutual_friends_rec = "18 mutual friends";
 
-            Friends_recommend friend_recommend = new Friends_recommend(friend_rec_ava, friend_rec_name, mutual_friends_rec);
-            friends_rec.add(friend_recommend);
+            Users user1 = new Users(friend_rec_ava, friend_rec_name, mutual_friends_rec, "");
+            users1.add(user1);
         }
-            FriendsRecommendAdapter adapter1 = new FriendsRecommendAdapter(friends_rec, FriendsFragment.this);
+            FriendsRecommendAdapter adapter1 = new FriendsRecommendAdapter(users1, FriendsFragment.this);
             RecyclerView recyclerView1 = view.findViewById(R.id.friend_recommend_recyclerView);
             LinearLayoutManager layoutManager1 = new LinearLayoutManager(getContext());
             recyclerView1.setLayoutManager(layoutManager1);
@@ -62,8 +63,8 @@ public class FriendsFragment extends Fragment {
             String reqDate = "2d";
             String mutualFriends = "16 mutual friends";
 
-            Friends friend = new Friends(friendReqAva, friendReqName, reqDate, mutualFriends);
-            friends.add(friend);
+            Users user = new Users(friendReqAva, friendReqName, reqDate, mutualFriends);
+            users.add(user);
         }
             recyclerView = view.findViewById(R.id.friend_request_recyclerView);
             LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -71,7 +72,7 @@ public class FriendsFragment extends Fragment {
             adapter = new FriendsAdapter(getLimitedFriendRequests(), FriendsFragment.this);
             recyclerView.setAdapter(adapter);
 
-        if (friends.size() <= 5) {
+        if (users.size() <= 5) {
             see_all_friend_req.setVisibility(View.GONE);
         } else {
             see_all_friend_req.setVisibility(View.VISIBLE);
@@ -81,7 +82,7 @@ public class FriendsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 isExpanded = true;
-                adapter.setData(friends);
+                adapter.setData(users);
                 see_all_friend_req.setVisibility(View.GONE);
                 see_less_friend_req.setVisibility(View.VISIBLE);
             }
@@ -100,11 +101,11 @@ public class FriendsFragment extends Fragment {
         return view;
     }
 
-    private ArrayList<Friends> getLimitedFriendRequests() {
-        if (isExpanded || friends.size() <= 5) {
-            return friends;
+    private ArrayList<Users> getLimitedFriendRequests() {
+        if (isExpanded || users.size() <= 5) {
+            return users;
         } else {
-            return new ArrayList<>(friends.subList(0, 5));
+            return new ArrayList<>(users.subList(0, 5));
         }
     }
 

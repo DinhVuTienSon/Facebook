@@ -257,9 +257,12 @@
                 android:id="@+id/break_line_menu2"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@drawable/break_line"
                 android:layout_below="@id/website"
-                android:layout_margin="15dp" />
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/break_line" />
 
             <TextView
                 android:id="@+id/bio2"
@@ -272,123 +275,82 @@
                 android:textSize="24sp"
                 android:layout_below="@id/website" />
 
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:id="@+id/friendlist"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/bio2"
-                android:baselineAligned="false">
-
-                <!-- Friend 1 -->
+                android:id="@+id/user_friend_container"
+                android:layout_below="@id/bio2">
                 <LinearLayout
-                    android:orientation="vertical"
-                    android:id="@+id/p1"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="8dp">
+                    android:orientation="horizontal"
+                    android:id="@+id/friendlist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:baselineAligned="false">
 
-                    <ImageView
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
-                        android:layout_marginTop="20dp"
-                        android:importantForAccessibility="no"
-                        android:layout_marginStart="10dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/profile_background" />
-
-                    <TextView
+                    <androidx.recyclerview.widget.RecyclerView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="Friend 1"
-                        android:textAlignment="center"
-                        android:textSize="14sp" />
+                        android:layout_height="match_parent"
+                        android:id="@+id/user_friends_recyclerView"/>
                 </LinearLayout>
 
-                <!-- Friend 2 -->
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:id="@+id/p2"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp">
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="match_parent"
+                    android:layout_height="33dp"
+                    android:id="@+id/see_all_user_friends"
+                    android:text="See all friends"
+                    android:textAllCaps="false"
+                    android:layout_below="@+id/friendlist"
+                    android:background="@drawable/button_second_style"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"/>
 
-                    <ImageView
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
-                        android:layout_marginTop="20dp"
-                        android:importantForAccessibility="no"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/profile_background" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="Friend 2"
-                        android:textAlignment="center"
-                        android:textSize="14sp" />
-                </LinearLayout>
-
-                <!-- Friend 3 -->
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:id="@+id/p3"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="0dp">
-
-                    <ImageView
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
-                        android:layout_marginTop="20dp"
-                        android:importantForAccessibility="no"
-                        android:scaleType="centerCrop"
-                        android:layout_marginEnd="10dp"
-                        android:src="@drawable/profile_background" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="Friend 3"
-                        android:textAlignment="center"
-                        android:textSize="14sp" />
-                </LinearLayout>
-            </LinearLayout>
-
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="match_parent"
+                    android:layout_height="33dp"
+                    android:id="@+id/see_less_user_friends"
+                    android:text="See less"
+                    android:textAllCaps="false"
+                    android:layout_below="@+id/friendlist"
+                    android:background="@drawable/button_second_style"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:visibility="gone"/>
+            </RelativeLayout>
             <View
                 android:id="@+id/break_line_menu3"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@drawable/break_line"
-                android:layout_below="@id/friendlist"
-                android:layout_margin="15dp" />
+                android:layout_below="@id/user_friend_container"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/break_line" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/postheader"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginLeft="15dp"
                 android:text="Post"
                 android:textStyle="bold"
                 android:textSize="24sp"
-                android:layout_below="@id/friendlist" />
+                android:layout_below="@id/break_line_menu3" />
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/postheader"
-                android:background="@color/white"/>
+                android:layout_below="@+id/postheader">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/user_post_recyclerView">
 
-
+                </androidx.recyclerview.widget.RecyclerView>
+            </LinearLayout>
         </RelativeLayout>
     </ScrollView>
 </FrameLayout>

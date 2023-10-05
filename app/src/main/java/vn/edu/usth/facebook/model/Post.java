@@ -24,10 +24,12 @@ public class Post {
     private String author_image;
     private String author_name;
     private Long post_date;
+    private String postDate; // dummy var
     private String post_description;
     private String post_image;
     private String post_likes;
     private String post_comments;
+
 
     //constructors
     public Post(){
@@ -36,9 +38,29 @@ public class Post {
     public Post(String post_id) {
         this.post_id = post_id;
     }
+    public Post(String postId, String authorId) {
+        this.post_id = postId;
+        this.author_id = authorId;
+    }
 
+    public Post(String postId, String authorId, String postDate, String postDescription) {
+        this.post_id = postId;
+        this.author_id = authorId;
+        this.postDate = postDate;
+        this.post_description = postDescription;
+    }
 
-//    add new post to map
+    public Post(String author_image, String author_name, String postDate, String post_description, String post_image, String post_likes, String post_comments) {
+        this.author_image = author_image;
+        this.author_name = author_name;
+        this.postDate = postDate;
+        this.post_description = post_description;
+        this.post_image = post_image;
+        this.post_likes = post_likes;
+        this.post_comments = post_comments;
+    }
+
+    //    add new post to map
     @Exclude
     public Map<String, Object> toNewTextMap(Map<String, String> date){
         HashMap<String,Object> result = new HashMap<>();
@@ -65,19 +87,19 @@ public class Post {
         this.author_id = author_id;
     }
 
-    public String getAuthorImage() {
+    public String getAuthor_image() {
         return author_image;
     }
 
-    public void setAuthorImage(String author_image) {
+    public void setAuthor_image(String author_image) {
         this.author_image = author_image;
     }
 
-    public String getAuthorName() {
+    public String getAuthor_name() {
         return author_name;
     }
 
-    public void setAuthorName(String author_name) {
+    public void setAuthor_name(String author_name) {
         this.author_name = author_name;
     }
 
@@ -89,6 +111,14 @@ public class Post {
         this.post_date = post_date;
     }
 
+    public String getPostDate() {
+        return postDate;
+    }
+
+    public void setPostDate(String postDate) {
+        this.postDate = postDate;
+    }
+
     public String getPost_description() {
         return post_description;
     }
@@ -97,19 +127,27 @@ public class Post {
         this.post_description = post_description;
     }
 
-    public String getPostLikes() {
+    public String getPost_image() {
+        return post_image;
+    }
+
+    public void setPost_image(String post_image) {
+        this.post_image = post_image;
+    }
+
+    public String getPost_likes() {
         return post_likes;
     }
 
-    public void setPostLikes(String post_likes) {
+    public void setPost_likes(String post_likes) {
         this.post_likes = post_likes;
     }
 
-    public String getPostComments() {
+    public String getPost_comments() {
         return post_comments;
     }
 
-    public void setPostComments(String post_comments) {
+    public void setPost_comments(String post_comments) {
         this.post_comments = post_comments;
     }
 

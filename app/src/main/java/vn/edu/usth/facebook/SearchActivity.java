@@ -7,23 +7,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 import java.util.ArrayList;
 
-import vn.edu.usth.facebook.adapter.CommentAdapter;
 import vn.edu.usth.facebook.adapter.SearchAdapter;
-import vn.edu.usth.facebook.model.Comments;
-import vn.edu.usth.facebook.model.Search;
 import vn.edu.usth.facebook.model.Users;
 
 //TODO: function to search other users by name
 
 public class SearchActivity extends AppCompatActivity {
     private RecyclerView search_recyclerView;
-    private ArrayList<Search> search;
+    private ArrayList<Users> users;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,16 +42,16 @@ public class SearchActivity extends AppCompatActivity {
 
 
         search_recyclerView = findViewById(R.id.search_recyclerView);
-        search = new ArrayList<>();
+        users = new ArrayList<>();
         for (int i = 0; i < 15; i++) {
             String search_ava = "https://picsum.photos/600/300?random&" + i;
             String search_name = "ST";
             String search_info = "Live in Hanoi, Vietnam";
 
-            Search searches = new Search(search_ava, search_name, search_info);
-            search.add(searches);
+            Users user = new Users(search_ava, search_name, search_info,"");
+            users.add(user);
         }
-            SearchAdapter adapter = new SearchAdapter(search, SearchActivity.this);
+            SearchAdapter adapter = new SearchAdapter(users, SearchActivity.this);
             RecyclerView recyclerView = findViewById(R.id.search_recyclerView);
             LinearLayoutManager layoutManager = new LinearLayoutManager(this);
             recyclerView.setLayoutManager(layoutManager);
