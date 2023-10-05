@@ -6,11 +6,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.Manifest;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -32,7 +28,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -155,7 +150,7 @@ public class EditProfileActivity extends AppCompatActivity {
 //                create user bio = input
 //                add user bio to map
 //                add map to db
-                user.setUser_bio(bio.getText().toString());
+                user.setUserBio(bio.getText().toString());
 
                 Map user_bio = user.toBioMap("bio");
                 update_profile(user_bio, mDatabase, "Bio");
@@ -165,9 +160,9 @@ public class EditProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 //                TODO:check if any of these bozos are null to add a function so that it does delete in db if null
-                user.setUser_live_in(live_in.getText().toString());
-                user.setUser_work(work.getText().toString());
-                user.setUser_education(education.getText().toString());
+                user.setUserLiveIn(live_in.getText().toString());
+                user.setUserWork(work.getText().toString());
+                user.setUserEducation(education.getText().toString());
 
                 Map user_details = user.toDetailsMap();
                 update_profile(user_details, mDatabase, "Details");
@@ -176,7 +171,7 @@ public class EditProfileActivity extends AppCompatActivity {
         save_hobbies.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                user.setUser_hobbies(hobbies.getText().toString());
+                user.setUserHobbies(hobbies.getText().toString());
 
                 Map user_hobbies = user.toHobbiesMap("hobbies");
                 update_profile(user_hobbies,mDatabase,"Hobbies");
@@ -185,7 +180,7 @@ public class EditProfileActivity extends AppCompatActivity {
         save_links.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                user.setUser_links(links.getText().toString());
+                user.setUserLinks(links.getText().toString());
 
                 Map user_links = user.toLinksMap("links");
                 update_profile(user_links,mDatabase,"Links");

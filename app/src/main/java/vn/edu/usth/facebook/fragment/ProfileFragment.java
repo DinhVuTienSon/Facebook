@@ -1,6 +1,5 @@
 package vn.edu.usth.facebook.fragment;
 
-import android.content.ContentUris;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -138,16 +137,16 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Users users = snapshot.getValue(Users.class);
-                name.setText(users.getFirst_name() + " " + users.getSur_name());
-                bio.setText(users.getUser_bio());
+                name.setText(users.getFirstName() + " " + users.getSurName());
+                bio.setText(users.getUserBio());
 //                get ava and background
                 getUserImg(user_storage, "avatar");
                 getUserImg(user_storage,"background");
-                live_in.setText(users.getUser_live_in());
-                work.setText(users.getUser_work());
-                education.setText(users.getUser_education());
-                hobby.setText(users.getUser_hobbies());
-                contact.setText(users.getUser_links());
+                live_in.setText(users.getUserLiveIn());
+                work.setText(users.getUserWork());
+                education.setText(users.getUserEducation());
+                hobby.setText(users.getUserHobbies());
+                contact.setText(users.getUserLinks());
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

@@ -1,41 +1,33 @@
 package vn.edu.usth.facebook.model;
 
-import android.util.Log;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import vn.edu.usth.facebook.model.Notifications;
-import vn.edu.usth.facebook.model.Post;
-
 public class Users {
-    private String user_id;
-    private String first_name;
-    private String sur_name;
+    private String userId;
+    private String firstName;
+    private String surName;
     private String email;
-    private String user_ava;
-    private String user_background;
-    private String user_bio;
-    private String user_hobbies;
-    private String user_links;
-    private String user_live_in;
-    private String user_work;
-    private String user_education;
+    private String userAva;
+    private String userBackground;
+    private String userBio;
+    private String userHobbies;
+    private String userLinks;
+    private String userLiveIn;
+    private String userWork;
+    private String userEducation;
     private ArrayList<Post> posts;
 //    private ArrayList<user_comments> comments;
     private ArrayList<Notifications> notifications;
     private ArrayList<String> user_friends;
 //    constructors
-    public Users(String user_id, String first_name, String sur_name, String email) {
-        this.user_id = user_id;
-        this.first_name = first_name;
-        this.sur_name = sur_name;
+    public Users(String userId, String firstName, String surName, String email) {
+        this.userId = userId;
+        this.firstName = firstName;
+        this.surName = surName;
         this.email = email;
     }
 
@@ -47,8 +39,8 @@ public class Users {
     @Exclude
     public Map<String,Object> toNewMap(){
         HashMap<String,Object> result = new HashMap<>();
-        result.put("first_name", this.first_name);
-        result.put("sur_name", this.sur_name);
+        result.put("first_name", this.firstName);
+        result.put("sur_name", this.surName);
         result.put("email", this.email);
 
         return result;
@@ -56,56 +48,56 @@ public class Users {
     //add user_bio to map
     public Map<String,Object> toBioMap(String type){
         HashMap<String,Object> result = new HashMap<>();
-        result.put("user_" + type, this.user_bio);
+        result.put("user_" + type, this.userBio);
         return result;
     }
 
     //add user_hobbies to map
     public Map<String,Object> toHobbiesMap(String type){
         HashMap<String,Object> result = new HashMap<>();
-        result.put("user_" + type, this.user_hobbies);
+        result.put("user_" + type, this.userHobbies);
         return result;
     }
 
     //add user_links to map
     public Map<String,Object> toLinksMap(String type){
         HashMap<String,Object> result = new HashMap<>();
-        result.put("user_" + type, this.user_links);
+        result.put("user_" + type, this.userLinks);
         return result;
     }
     //add user details to map
     public Map<String,Object> toDetailsMap(){
         HashMap<String,Object> result = new HashMap<>();
-        result.put("user_live_in", this.user_live_in);
-        result.put("user_work", this.user_work);
-        result.put("user_education", this.user_education);
+        result.put("user_live_in", this.userLiveIn);
+        result.put("user_work", this.userWork);
+        result.put("user_education", this.userEducation);
         return result;
     }
 
 
 
-    public String getUser_id() {
-        return user_id;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getSur_name() {
-        return sur_name;
+    public String getSurName() {
+        return surName;
     }
 
-    public void setSur_name(String sur_name) {
-        this.sur_name = sur_name;
+    public void setSurName(String surName) {
+        this.surName = surName;
     }
 
     public String getEmail() {
@@ -116,68 +108,68 @@ public class Users {
         this.email = email;
     }
 
-    public String getUser_ava() {
-        return user_ava;
+    public String getUserAva() {
+        return userAva;
     }
 
-    public void setUser_ava(String user_ava) {
-        this.user_ava = user_ava;
+    public void setUserAva(String userAva) {
+        this.userAva = userAva;
     }
 
-    public String getUser_background() {
-        return user_background;
+    public String getUserBackground() {
+        return userBackground;
     }
 
-    public void setUser_background(String user_background) {
-        this.user_background = user_background;
+    public void setUserBackground(String userBackground) {
+        this.userBackground = userBackground;
     }
 
-    public String getUser_bio() {
-        return user_bio;
+    public String getUserBio() {
+        return userBio;
     }
 
-    public void setUser_bio(String user_bio) {
-        this.user_bio = user_bio;
+    public void setUserBio(String userBio) {
+        this.userBio = userBio;
     }
 
-    public String getUser_hobbies() {
-        return user_hobbies;
+    public String getUserHobbies() {
+        return userHobbies;
     }
 
-    public void setUser_hobbies(String user_hobbies) {
-        this.user_hobbies = user_hobbies;
+    public void setUserHobbies(String userHobbies) {
+        this.userHobbies = userHobbies;
     }
 
-    public String getUser_links() {
-        return user_links;
+    public String getUserLinks() {
+        return userLinks;
     }
 
-    public void setUser_links(String user_links) {
-        this.user_links = user_links;
+    public void setUserLinks(String userLinks) {
+        this.userLinks = userLinks;
     }
 
-    public String getUser_live_in() {
-        return user_live_in;
+    public String getUserLiveIn() {
+        return userLiveIn;
     }
 
-    public void setUser_live_in(String user_live_in) {
-        this.user_live_in = user_live_in;
+    public void setUserLiveIn(String userLiveIn) {
+        this.userLiveIn = userLiveIn;
     }
 
-    public String getUser_work() {
-        return user_work;
+    public String getUserWork() {
+        return userWork;
     }
 
-    public void setUser_work(String user_work) {
-        this.user_work = user_work;
+    public void setUserWork(String userWork) {
+        this.userWork = userWork;
     }
 
-    public String getUser_education() {
-        return user_education;
+    public String getUserEducation() {
+        return userEducation;
     }
 
-    public void setUser_education(String user_education) {
-        this.user_education = user_education;
+    public void setUserEducation(String userEducation) {
+        this.userEducation = userEducation;
     }
 
     public ArrayList<Post> getPosts() {

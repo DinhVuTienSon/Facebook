@@ -16,7 +16,6 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -32,13 +31,10 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import vn.edu.usth.facebook.R;
 import vn.edu.usth.facebook.model.Post;
 
 // TODO: function to upload post after click on post button
@@ -185,7 +181,7 @@ public class UploadPostActivity extends AppCompatActivity {
 
             add_infos_to_db.put(
                     //create a uid node under users in firebase
-                    "/posts/" + post.getAuthor_id() + "_" + post.getPost_id(),
+                    "/posts/" + post.getAuthorId() + "_" + post.getPostId(),
                     //add post infos map to hashmap(with key set as authorID_postID) to add to db
                     post.toNewTextMap(date));
             //using  firebase's update children to add to db

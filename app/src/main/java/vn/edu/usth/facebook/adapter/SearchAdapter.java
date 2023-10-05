@@ -37,8 +37,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull SearchAdapter.ViewHolder holder, int position) {
         Users user = users.get(position);
-        Picasso.get().load(user.getUser_ava()).into(holder.search_ava);
-        holder.search_name.setText(user.getFirst_name()+" "+user.getSur_name());
+        Picasso.get().load(user.getUserAva()).into(holder.search_ava);
+        holder.search_name.setText(user.getFirstName()+" "+user.getSurName());
 //        holder.search_info.setText(user.getSearch_info());
         holder.search_add_friend.setOnClickListener(new View.OnClickListener() {
             @Override
