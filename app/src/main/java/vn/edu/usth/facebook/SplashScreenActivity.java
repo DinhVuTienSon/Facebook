@@ -9,7 +9,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
-    private static final long TIME = 2000;
+    private static final long TIME = 0000;
     private FirebaseAuth mAuth;
 
     @Override
