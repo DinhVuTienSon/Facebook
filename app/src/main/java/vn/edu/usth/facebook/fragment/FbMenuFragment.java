@@ -3,7 +3,7 @@ package vn.edu.usth.facebook.fragment;
 import android.os.Bundle;
 
 import android.content.Intent;
-import androidx.annotation.NonNull;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -13,7 +13,6 @@ import android.widget.Button;
 
 import android.view.LayoutInflater;
 import android.os.Handler;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -22,15 +21,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import de.hdodenhof.circleimageview.CircleImageView;
 import vn.edu.usth.facebook.R;
 import vn.edu.usth.facebook.LoginActivity;
-import vn.edu.usth.facebook.model.Profile_menu;
 
 //TODO: function to call current user ava, name
 
 
 public class FbMenuFragment extends Fragment {
-
-    private RecyclerView recyclerView;
-    private ArrayList<Profile_menu> profile_menus;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
