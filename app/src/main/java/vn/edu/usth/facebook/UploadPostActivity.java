@@ -21,6 +21,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -28,6 +30,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -57,6 +60,7 @@ public class UploadPostActivity extends AppCompatActivity {
     private StorageReference mStorage;
 
     private String uid;
+    private Uri image_uri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +77,7 @@ public class UploadPostActivity extends AppCompatActivity {
         uid = c_user.getUid();
 
         //  get storage ref (get al the way to users/user_id)
-        mStorage = FirebaseStorage.getInstance().getReference().child("users").child(uid);
+        mStorage = FirebaseStorage.getInstance().getReference().child("posts");
 
 
 //  check if user is logged in
@@ -124,7 +128,14 @@ public class UploadPostActivity extends AppCompatActivity {
 //                get time of posting (use Map type because ServerValue.TIMESTAMP is Map and can be converted back to date)
                 Map<String,String> post_time = ServerValue.TIMESTAMP;
 
-                uploadPost(post, post_time, mDatabase);
+                if (image_uri != null){//upload post with img
+                    uploadPost(post, post_time, mDatabase);
+                    uploadImage(post_id,image_uri);
+                }
+                else{//upload post without img
+                    uploadPost(post, post_time, mDatabase);
+                }
+
             }
         });
 
@@ -135,6 +146,7 @@ public class UploadPostActivity extends AppCompatActivity {
                     public void onActivityResult(Uri result) {
                         if (result != null) {
                             post_image.setImageURI(result);
+                            image_uri = result;
                         }
                     }
                 });
@@ -162,6 +174,7 @@ public class UploadPostActivity extends AppCompatActivity {
                     Bundle bundle = result.getData().getExtras();
                     Bitmap bitmap = (Bitmap) bundle.get("data");
                     post_image.setImageBitmap(bitmap);
+
                 }
             });
 
@@ -181,7 +194,26 @@ public class UploadPostActivity extends AppCompatActivity {
         catch (Exception e){
             Log.e("WRITE TO DB ERROR: ", "PROBLEM WHEN WRITING TO FIREBASE" + e);
         }
+    }
 
+    public void uploadImage(String upload_file_location, Uri img){
+        StorageReference store_img = mStorage.child(upload_file_location);
+        store_img.putFile(img).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                store_img.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        Log.i(TAG, "UPLOAD IMG SUCCESS" + uri.toString());
+                    }
+                });
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.e(TAG, "IMG UPLOAD ERROR: " + e);
+            }
+        });
     }
 
 }
