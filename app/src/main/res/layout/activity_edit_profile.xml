@@ -232,45 +232,12 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/country"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="20dp"
-                android:background="@color/white"
-                android:orientation="horizontal"
-                android:layout_below="@id/address"
-                android:weightSum="8">
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:scaleType="fitStart"
-                    android:layout_marginEnd="0dp"
-                    android:layout_weight="1"
-                    android:padding="0dp"
-                    android:src="@drawable/baseline_location_on_24"
-                    android:importantForAccessibility="no" />
-
-                <EditText
-                    android:id="@+id/location"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:hint="Location"
-                    android:textSize="18sp"
-                    android:layout_gravity="center"
-                    android:layout_weight="6"
-                    android:background="@drawable/edit_text_no_underline"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:id="@+id/workplace"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="20dp"
                 android:background="@color/white"
                 android:orientation="horizontal"
-                android:layout_below="@id/country"
+                android:layout_below="@id/address"
                 android:weightSum="8">
 
                 <ImageView
