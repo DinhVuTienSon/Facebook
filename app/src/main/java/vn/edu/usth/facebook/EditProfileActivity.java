@@ -137,7 +137,7 @@ public class EditProfileActivity extends AppCompatActivity {
 //                get img uri
 //                TODO: threading yes
                 if (ava_uri != null){
-                    uploadImage("avatar/", ava_uri);
+                    uploadImage("avatar", ava_uri);
                 }
 
             }
@@ -146,7 +146,9 @@ public class EditProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 //                TODO: threading
-                uploadImage("background",background_uri);
+                if (background_uri != null) {
+                    uploadImage("background",background_uri);
+                }
             }
         });
         save_bio.setOnClickListener(new View.OnClickListener() {
@@ -259,6 +261,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Uri uri) {
                         Log.i(TAG, "UPLOAD IMG SUCCESS" + uri.toString());
+                        Toast.makeText(EditProfileActivity.this, upload_file_location + " updated", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -269,19 +272,6 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         });
     }
-
-//    public void check_file_permission(){
-//        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP){
-//            int permissionCheck = EditProfileActivity.this.checkSelfPermission("Manifest.permission.READ_EXTERNAL_STORAGE");
-//            permissionCheck += EditProfileActivity.this.checkSelfPermission("Manifest.permission.WRITE_EXTERNAL_STOREAGE");
-//            if (permissionCheck != 0){
-//                this.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE});
-//            }
-//            else{
-//
-//            }
-//        }
-//    }
 
     private void openGallery_avatar() {
         galleryLauncher_avatar.launch("image/*");

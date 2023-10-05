@@ -71,7 +71,6 @@ public class UploadPostActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-
         //  get current user ID
         FirebaseUser c_user = mAuth.getCurrentUser();
         uid = c_user.getUid();
@@ -122,9 +121,10 @@ public class UploadPostActivity extends AppCompatActivity {
                 //TODO: add image
 //                TODO: jump back to home screen after post
                 String post_id = mDatabase.child("posts").push().getKey();
-                Post post = new Post(post_id, uid);
+                Post post = new Post(post_id);
+                post.setAuthor_id(uid);
 //                set post description
-                post.setPostDescription(post_text.getText().toString());
+                post.setPost_description(post_text.getText().toString());
 //                get time of posting (use Map type because ServerValue.TIMESTAMP is Map and can be converted back to date)
                 Map<String,String> post_time = ServerValue.TIMESTAMP;
 
@@ -185,7 +185,7 @@ public class UploadPostActivity extends AppCompatActivity {
 
             add_infos_to_db.put(
                     //create a uid node under users in firebase
-                    "/posts/" + post.getAuthor_id() + "_" + post.getPost_id(),
+                    "/posts/" + post.getPost_id() + "_" + post.getAuthor_id(),
                     //add post infos map to hashmap(with key set as authorID_postID) to add to db
                     post.toNewTextMap(date));
             //using  firebase's update children to add to db
