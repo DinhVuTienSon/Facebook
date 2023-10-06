@@ -68,12 +68,6 @@ public class FriendsFragment extends Fragment {
         getFriendRequest();
 
 //        FRIENDS REQUEST
-//        recycler_view_req = view.findViewById(R.id.friend_request_recyclerView);
-//        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-//        recycler_view_req.setLayoutManager(layoutManager);
-//        adapter = new FriendsAdapter(getLimitedFriendRequests(), FriendsFragment.this);
-//        recycler_view_req.setAdapter(adapter);
-//
 
         see_all_friend_req.setOnClickListener(new View.OnClickListener() {
             @Override

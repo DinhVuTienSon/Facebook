@@ -154,8 +154,6 @@ public class Post {
     //    only use if the post_id is from FirebaseDatabase
     public String getActual_post_id(){
         String p_id = post_id.substring(0,20);;
-//        String p_id =
-        Log.i(TAG, "ID: " + p_id);
         return p_id;
     }
 
@@ -164,8 +162,6 @@ public class Post {
         try{
             String author;
             author = post_id.substring(21,post_id.length());;
-//            author =
-
             this.setAuthor_id(author);
         }catch(Exception e){
             Log.e(TAG, "GET AUTHOR ID ERROR: " + this.getAuthor_id());
