@@ -23,7 +23,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -45,7 +44,6 @@ import vn.edu.usth.facebook.EditProfileActivity;
 import vn.edu.usth.facebook.R;
 import vn.edu.usth.facebook.adapter.PostAdapter;
 import vn.edu.usth.facebook.adapter.UserFriendsAdapter;
-import vn.edu.usth.facebook.adapter.UserProfileAdapter;
 import vn.edu.usth.facebook.model.Post;
 import vn.edu.usth.facebook.model.Users;
 
@@ -53,7 +51,7 @@ import vn.edu.usth.facebook.model.Users;
 //TODO: function to display friend's ava, name
 //TODO: function to display user's post
 
-public class ProfileFragment extends Fragment {
+public class OtherUserProfileFragment extends Fragment {
     //    for bug fixes and error messages
     private String TAG = "PROFILE FRAGMENT";
     public Button editBtn;
@@ -79,7 +77,7 @@ public class ProfileFragment extends Fragment {
 
     private ProgressBar loadingIndicator;
 
-    public ProfileFragment() {
+    public OtherUserProfileFragment() {
         // Required empty public constructor
     }
 
@@ -162,7 +160,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_other_user_profile, container, false);
 
         toolbar = view.findViewById(R.id.profile_toolbar);
 
@@ -273,14 +271,6 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        editBtn = view.findViewById(R.id.btnEdit);
-        editBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), EditProfileActivity.class);
-                startActivity(intent);
-            }
-        });
         return view;
     }
 

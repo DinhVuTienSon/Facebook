@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.OtherUserProfileFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/user_profile"
+            tools:context=".MainActivity">
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/profile_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:elevation="4dp" />
+            <ImageView
+                android:id="@+id/background"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:importantForAccessibility="no"
+                android:scaleType="centerCrop"
+                android:src="@drawable/default_banner" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/avatar"
+                android:layout_width="170dp"
+                android:layout_height="170dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="130dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/default_ava"
+                app:strokeColor="@color/black"
+                app:strokeWidth="10dp" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Name"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:layout_below="@+id/avatar"
+                android:layout_marginLeft="20dp"/>
+
+            <TextView
+                android:id="@+id/quote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Your quote"
+                android:textSize="20sp"
+                android:layout_below="@+id/name"
+                android:layout_marginLeft="20dp"/>
+
+            <View
+                android:id="@+id/break_line_profile"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/break_line"
+                android:layout_below="@id/quote"
+                android:layout_margin="15dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/bio1"
+
+                android:layout_marginLeft="15dp"
+                android:text="Details"
+                android:textStyle="bold"
+                android:textSize="24sp"
+                android:layout_below="@id/break_line_profile" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/address"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:layout_below="@id/bio1"
+                android:weightSum="8">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:importantForAccessibility="no"
+                    android:scaleType="fitStart"
+                    android:src="@drawable/baseline_house_24" />
+
+                <TextView
+                    android:id="@+id/live_in"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Lives in"
+                    android:textSize="18sp"
+                    android:layout_gravity="center"
+                    android:layout_weight="6"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/hobbies"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:layout_below="@id/school"
+                android:weightSum="8">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:scaleType="fitStart"
+                    android:layout_marginEnd="0dp"
+                    android:layout_weight="1"
+                    android:padding="0dp"
+                    android:src="@drawable/baseline_hobbies_24"
+                    android:importantForAccessibility="no" />
+
+                <TextView
+                    android:id="@+id/hobby"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Hobbies"
+                    android:textSize="18sp"
+                    android:layout_gravity="center"
+                    android:layout_weight="6"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/workplace"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:layout_below="@id/address"
+                android:weightSum="8">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:scaleType="fitStart"
+                    android:layout_marginEnd="0dp"
+                    android:layout_weight="1"
+                    android:padding="0dp"
+                    android:src="@drawable/baseline_work_24"
+                    android:importantForAccessibility="no" />
+
+                <TextView
+                    android:id="@+id/work"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Work"
+                    android:textSize="18sp"
+                    android:layout_gravity="center"
+                    android:layout_weight="6"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/school"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:layout_below="@id/workplace"
+                android:weightSum="8">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:scaleType="fitStart"
+                    android:layout_marginEnd="0dp"
+                    android:layout_weight="1"
+                    android:padding="0dp"
+                    android:src="@drawable/baseline_school_24"
+                    android:importantForAccessibility="no" />
+
+                <TextView
+                    android:id="@+id/education"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Education"
+                    android:textSize="18sp"
+                    android:layout_gravity="center"
+                    android:layout_weight="7"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/website"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:layout_below="@id/hobbies"
+                android:weightSum="8">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:scaleType="fitStart"
+                    android:layout_marginEnd="0dp"
+                    android:layout_weight="1"
+                    android:padding="0dp"
+                    android:src="@drawable/baseline_link_24"
+                    android:importantForAccessibility="no" />
+
+                <TextView
+                    android:id="@+id/contact"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Contact"
+                    android:textSize="18sp"
+                    android:layout_gravity="center"
+                    android:layout_weight="7"/>
+            </LinearLayout>
+
+            <View
+                android:id="@+id/break_line_menu2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/website"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/break_line" />
+
+            <TextView
+                android:id="@+id/bio2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginLeft="15dp"
+                android:text="Friends"
+                android:textStyle="bold"
+                android:textSize="24sp"
+                android:layout_below="@id/website" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/user_friend_container"
+                android:layout_below="@id/bio2">
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:id="@+id/friendlist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:baselineAligned="false">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/user_friends_recyclerView"/>
+                </LinearLayout>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="match_parent"
+                    android:layout_height="33dp"
+                    android:id="@+id/see_all_user_friends"
+                    android:text="See all friends"
+                    android:textAllCaps="false"
+                    android:layout_below="@+id/friendlist"
+                    android:background="@drawable/button_second_style"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"/>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="match_parent"
+                    android:layout_height="33dp"
+                    android:id="@+id/see_less_user_friends"
+                    android:text="See less"
+                    android:textAllCaps="false"
+                    android:layout_below="@+id/friendlist"
+                    android:background="@drawable/button_second_style"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:visibility="gone"/>
+            </RelativeLayout>
+            <View
+                android:id="@+id/break_line_menu3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/user_friend_container"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/break_line" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/postheader"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="15dp"
+                android:text="Post"
+                android:textStyle="bold"
+                android:textSize="24sp"
+                android:layout_below="@id/break_line_menu3" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/postheader">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/user_post_recyclerView">
+
+                </androidx.recyclerview.widget.RecyclerView>
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+</FrameLayout>
