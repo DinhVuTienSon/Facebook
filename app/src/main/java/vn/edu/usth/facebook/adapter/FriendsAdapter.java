@@ -21,12 +21,10 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import vn.edu.usth.facebook.R;
-import vn.edu.usth.facebook.fragment.FriendsFragment;
 import vn.edu.usth.facebook.model.Users;
 
 //TODO: function to add friend after click on accept
@@ -73,7 +71,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
 
         Users friend_req = friends_req.get(position);
 //        get friends ava
-        getUserImg(mStorage.child("users").child(friend_req.getUser_id()), holder);
+        getUserImg(mStorage.child("users").child(friend_req.getUserId()), holder);
 
         holder.friend_req_name.setText(friend_req.getFirst_name()+" "+friend_req.getSur_name());
 //        holder.req_date.setText(user.getReqDate());

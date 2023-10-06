@@ -1,21 +1,13 @@
 package vn.edu.usth.facebook.model;
 
-import android.util.Log;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import vn.edu.usth.facebook.model.Notifications;
-import vn.edu.usth.facebook.model.Post;
-
 public class Users {
-    private String user_id;
+    private String userId;
     private String first_name;
     private String sur_name;
     private String email;
@@ -32,8 +24,8 @@ public class Users {
     private ArrayList<Notifications> notifications;
     private ArrayList<String> user_friends;
     //    constructors
-    public Users(String user_id, String first_name, String sur_name, String email) {
-        this.user_id = user_id;
+    public Users(String userId, String first_name, String sur_name, String email) {
+        this.userId = userId;
         this.first_name = first_name;
         this.sur_name = sur_name;
         this.email = email;
@@ -83,12 +75,12 @@ public class Users {
     }
 
 
-    public String getUser_id() {
-        return user_id;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getFirst_name() {

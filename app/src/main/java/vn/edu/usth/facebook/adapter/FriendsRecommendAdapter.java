@@ -25,7 +25,6 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import vn.edu.usth.facebook.R;
-import vn.edu.usth.facebook.fragment.FriendsFragment;
 import vn.edu.usth.facebook.model.Users;
 
 //TODO: function to send friend request after click add friend
@@ -57,10 +56,10 @@ public class FriendsRecommendAdapter extends RecyclerView.Adapter<FriendsRecomme
 
         Users friend_recc = friends_recc.get(position);
 
-        Log.i(TAG, "FRIEND_RECC:" + friend_recc.getUser_id());
+        Log.i(TAG, "FRIEND_RECC:" + friend_recc.getUserId());
 
 //      get friends recc ava
-        getUserImg(mStorage.child(friend_recc.getUser_id()),holder);
+        getUserImg(mStorage.child(friend_recc.getUserId()),holder);
 
         holder.friend_rec_name.setText(friend_recc.getFirst_name()+" "+friend_recc.getSur_name());
 //        holder.mutual_friends_rec.setText(friend_rec.getMutualFriends_rec());

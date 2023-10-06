@@ -122,7 +122,7 @@ public class FriendsFragment extends Fragment {
 
                     if(sp.getKey().equals(current_user.getUid())){}
                     else{
-                        friend_recc.setUser_id(sp.getKey());
+                        friend_recc.setUserId(sp.getKey());
                         friends_recc.add(friend_recc);
                     }
                 }
@@ -144,8 +144,8 @@ public class FriendsFragment extends Fragment {
 
                     for (DataSnapshot sp : snapshot.getChildren()) {
                         Users friend_req = sp.getValue(Users.class);
-                        friend_req.setUser_id(sp.getKey());
-                        Log.i(TAG, "FRIEND RECOMMEND ID: " + friend_req.getUser_id());
+                        friend_req.setUserId(sp.getKey());
+                        Log.i(TAG, "FRIEND RECOMMEND ID: " + friend_req.getUserId());
 
                         friends_req.add(friend_req);
                     }

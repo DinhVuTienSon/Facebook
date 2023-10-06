@@ -28,6 +28,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
+import java.util.HashMap;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -116,6 +117,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 //                Log.i(TAG, "LIKE TAG: " + holder.post_likes.getTag());
                 if(holder.post_likes.getTag().equals("liked")) {
                      mDatabase.child("post_likes").child(post.getActual_post_id()).child(user.getUid()).setValue(true);
+
+                     addNotification(post.getPost_id(), post.getAuthor_id());
                 }
                 else{
                     mDatabase.child("post_likes").child(post.getActual_post_id()).child(user.getUid()).removeValue();
@@ -254,6 +257,17 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
                 }
             });
+        }
+
+        private void addNotification(String postId, String authorId){
+            HashMap<String, Object> map = new HashMap<>();
+
+            map.put("userId", authorId);
+            map.put("text", "liked your post");
+            map.put("postId", postId);
+            map.put("isPost", true);
+
+            FirebaseDatabase.getInstance().getReference().child("notifications").child(user.getUid()).setValue(map);
         }
 
 }

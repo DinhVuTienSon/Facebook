@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <TextView
-                    android:id="@+id/notification_content"
+                    android:id="@+id/notification_user_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -39,12 +39,12 @@
                     android:text="ST liked your post"
                     android:textSize="18dp"/>
                 <TextView
-                    android:id="@+id/notification_time"
+                    android:id="@+id/notification_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Time"
                     android:layout_marginLeft="5dp"
-                    android:textSize="15dp"
+                    android:textSize="18dp"
                     android:textColor="@color/darkgray" />
             </LinearLayout>
         </LinearLayout>
