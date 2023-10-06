@@ -47,20 +47,6 @@ public class NotificationFragment extends Fragment {
 
         readNotifications();
 
-//        for (int i = 0; i < 10; i++) {
-//            String notification_ava = "https://picsum.photos/600/300?random&"+i;
-//            String notification_content = "ST liked your post";
-//            String notification_time = "2 hours ago";
-//
-//            Notifications notification = new Notifications(notification_ava, notification_content, notification_time);
-//            notifications.add(notification);
-//
-//            NotificationAdapter adapter = new NotificationAdapter(notifications, getContext());
-//            RecyclerView recyclerView = view.findViewById(R.id.notification_recyclerView);
-//            LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-//            recyclerView.setLayoutManager(layoutManager);
-//            recyclerView.setAdapter(adapter);
-//        }
 
         return view;
     }

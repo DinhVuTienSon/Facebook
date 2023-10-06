@@ -29,7 +29,7 @@ import vn.edu.usth.facebook.adapter.SearchAdapter;
 import vn.edu.usth.facebook.model.Users;
 
 
-//TODO: function to search other users by name
+//TODO: function get avatar
 
 public class SearchActivity extends AppCompatActivity {
     private RecyclerView search_recyclerView;

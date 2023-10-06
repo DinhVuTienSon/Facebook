@@ -35,7 +35,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import vn.edu.usth.facebook.adapter.CommentAdapter;
 import vn.edu.usth.facebook.model.Comments;
 
-//TODO: function to call commentator's ava, name, comment's content
+//TODO: function to call commentator's ava, comment's content (mới chỉ gọi đc name)
 
 
 public class CommentActivity extends AppCompatActivity {

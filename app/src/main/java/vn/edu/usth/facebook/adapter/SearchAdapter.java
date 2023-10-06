@@ -75,6 +75,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             search_add_friend_text = itemView.findViewById(R.id.search_add_friend_text);
         }
     }
+
+    //TODO: func get avatar but cant get avatar
     public void getUserImg(StorageReference user_storage, @NonNull SearchAdapter.ViewHolder holder){
 //        todo: threading
         user_storage.child("avatar").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
