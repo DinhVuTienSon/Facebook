@@ -5,6 +5,8 @@ public class Comments {
     private String comment_ava;
     private String comment_name;
     private String comment_content;
+    private String author;
+    private String comment;
 
 //    constructors
 
@@ -35,5 +37,21 @@ public class Comments {
 
     public void setComment_content(String comment_content) {
         this.comment_content = comment_content;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 }
