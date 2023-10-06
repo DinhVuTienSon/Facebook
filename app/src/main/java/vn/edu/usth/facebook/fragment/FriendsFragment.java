@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -38,6 +40,8 @@ public class FriendsFragment extends Fragment {
     private AppCompatButton see_all_friend_req, see_less_friend_req;
     private FriendsAdapter adapter;
     private FriendsRecommendAdapter adapter_recc;
+
+    private FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
     private boolean isExpanded = false;
 
     @Override
@@ -96,8 +100,14 @@ public class FriendsFragment extends Fragment {
 
 //        get friend recommend
         getFriendRecommend();
+
         return view;
     }
+
+//    friend recommend filter
+//    public void filter_friends_recc(){
+//        current_user.getUid()
+//    }
 
     public void getFriendRecommend(){
         FirebaseDatabase.getInstance().getReference().child("users").addValueEventListener(new ValueEventListener() {
@@ -108,10 +118,11 @@ public class FriendsFragment extends Fragment {
 
                 for(DataSnapshot sp : snapshot.getChildren()){
                     Users friend_recc = sp.getValue(Users.class);
-                    friend_recc.setUser_id(sp.getKey());
-                    Log.i(TAG,"FRIEND RECOMMEND ID: " + friend_recc.getUser_id());
-
-                    friends_recc.add(friend_recc);
+                    if(sp.getKey().equals(current_user.getUid())){}
+                    else{
+                        friend_recc.setUser_id(sp.getKey());
+                        friends_recc.add(friend_recc);
+                    }
                 }
                 adapter_recc.notifyDataSetChanged();
             }
