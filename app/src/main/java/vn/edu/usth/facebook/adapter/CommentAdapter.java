@@ -47,8 +47,9 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         Comments comment = comments.get(position);
-        Picasso.get().load(comment.getComment_ava()).into(holder.comment_ava);
-        holder.comment_name.setText(comment.getComment_name());
+
+//        Picasso.get().load(comment.getComment_ava()).into(holder.comment_ava);
+//        holder.comment_name.setText(comment.getComment_name());
         holder.comment_content.setText(comment.getComment_content());
 
         FirebaseDatabase.getInstance().getReference().child("users").child(comment.getComment_name()).addValueEventListener(new ValueEventListener() {

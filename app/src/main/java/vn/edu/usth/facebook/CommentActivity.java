@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -20,7 +21,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,6 +38,7 @@ import vn.edu.usth.facebook.model.Comments;
 
 
 public class CommentActivity extends AppCompatActivity {
+    private String TAG = "COMMENT ACTIVITY";
     private RecyclerView comment_recyclerView;
     private CommentAdapter commentAdapter;
     private List<Comments> comments;
@@ -70,19 +75,19 @@ public class CommentActivity extends AppCompatActivity {
         commentAdapter = new CommentAdapter(comments, this);
 
 
-        for (int i = 0; i < 15; i++) {
-            String comment_ava = "https://picsum.photos/600/300?random&" + i;
-            String comment_name = "ST";
-            String comment_content = "this is a test comment";
-
-            Comments comment = new Comments(comment_ava, comment_name, comment_content);
-            comments.add(comment);
-            CommentAdapter adapter = new CommentAdapter(comments, CommentActivity.this);
-            RecyclerView recyclerView = findViewById(R.id.comment_recyclerView);
-            LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-            recyclerView.setLayoutManager(layoutManager);
-            recyclerView.setAdapter(adapter);
-        }
+//        for (int i = 0; i < 15; i++) {
+//            String comment_ava = "https://picsum.photos/600/300?random&" + i;
+//            String comment_name = "ST";
+//            String comment_content = "this is a test comment";
+//
+//            Comments comment = new Comments(comment_ava, comment_name, comment_content);
+//            comments.add(comment);
+//            CommentAdapter adapter = new CommentAdapter(comments, CommentActivity.this);
+//            RecyclerView recyclerView = findViewById(R.id.comment_recyclerView);
+//            LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+//            recyclerView.setLayoutManager(layoutManager);
+//            recyclerView.setAdapter(adapter);
+//        }
 
         send_comment = findViewById(R.id.send_comment);
         send_comment.setOnClickListener(new View.OnClickListener() {
@@ -101,10 +106,32 @@ public class CommentActivity extends AppCompatActivity {
         write_comment = findViewById(R.id.write_comment);
         Intent intent = getIntent();
         postId = intent.getStringExtra("postId");
+        Log.i(TAG, "POST ID: " + postId);
         authorId = intent.getStringExtra("authorId");
-
+        Log.i(TAG, "AUTHOR ID: "+ authorId);
         fUser = FirebaseAuth.getInstance().getCurrentUser();
 
+        getComment();
+    }
+
+    private void getComment() {
+        FirebaseDatabase.getInstance().getReference().child("comments").child(postId).child(getActual_post_id(postId)).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                comments.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    Comments comment = snapshot.getValue(Comments.class);
+
+                    comments.add(comment);
+                }
+                commentAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void putComment() {
@@ -122,6 +149,13 @@ public class CommentActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public String getActual_post_id(String post_id){
+        String p_id = post_id.substring(0,20);;
+//        String p_id =
+//        Log.i(TAG, "ID: " + p_id);
+        return p_id;
     }
 
 }
