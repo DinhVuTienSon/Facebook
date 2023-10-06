@@ -22,6 +22,7 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/notification_ava"
+            android:src="@drawable/default_ava"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_margin="5dp" />

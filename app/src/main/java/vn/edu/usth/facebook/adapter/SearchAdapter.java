@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import vn.edu.usth.facebook.R;
@@ -20,8 +21,8 @@ import vn.edu.usth.facebook.model.Users;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder>{
     private Context context;
-    private ArrayList<Users> users;
-    public SearchAdapter(ArrayList<Users> users, Context context){
+    private List<Users> users;
+    public SearchAdapter(List<Users> users, Context context){
         this.users = users;
         this.context = context;
     }
