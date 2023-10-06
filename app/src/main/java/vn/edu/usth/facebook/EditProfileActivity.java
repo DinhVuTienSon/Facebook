@@ -141,7 +141,9 @@ public class EditProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 //                TODO: threading
-                uploadImage("background",background_uri);
+                if (background_uri != null) {
+                    uploadImage("background",background_uri);
+                }
             }
         });
         save_bio.setOnClickListener(new View.OnClickListener() {
@@ -150,7 +152,7 @@ public class EditProfileActivity extends AppCompatActivity {
 //                create user bio = input
 //                add user bio to map
 //                add map to db
-                user.setUserBio(bio.getText().toString());
+                user.setUser_bio(bio.getText().toString());
 
                 Map user_bio = user.toBioMap("bio");
                 update_profile(user_bio, mDatabase, "Bio");
@@ -160,9 +162,9 @@ public class EditProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 //                TODO:check if any of these bozos are null to add a function so that it does delete in db if null
-                user.setUserLiveIn(live_in.getText().toString());
-                user.setUserWork(work.getText().toString());
-                user.setUserEducation(education.getText().toString());
+                user.setUser_live_in(live_in.getText().toString());
+                user.setUser_work(work.getText().toString());
+                user.setUser_education(education.getText().toString());
 
                 Map user_details = user.toDetailsMap();
                 update_profile(user_details, mDatabase, "Details");
@@ -171,7 +173,7 @@ public class EditProfileActivity extends AppCompatActivity {
         save_hobbies.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                user.setUserHobbies(hobbies.getText().toString());
+                user.setUser_hobbies(hobbies.getText().toString());
 
                 Map user_hobbies = user.toHobbiesMap("hobbies");
                 update_profile(user_hobbies,mDatabase,"Hobbies");
@@ -180,7 +182,7 @@ public class EditProfileActivity extends AppCompatActivity {
         save_links.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                user.setUserLinks(links.getText().toString());
+                user.setUser_links(links.getText().toString());
 
                 Map user_links = user.toLinksMap("links");
                 update_profile(user_links,mDatabase,"Links");
@@ -265,19 +267,6 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         });
     }
-
-//    public void check_file_permission(){
-//        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP){
-//            int permissionCheck = EditProfileActivity.this.checkSelfPermission("Manifest.permission.READ_EXTERNAL_STORAGE");
-//            permissionCheck += EditProfileActivity.this.checkSelfPermission("Manifest.permission.WRITE_EXTERNAL_STOREAGE");
-//            if (permissionCheck != 0){
-//                this.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE});
-//            }
-//            else{
-//
-//            }
-//        }
-//    }
 
     private void openGallery_avatar() {
         galleryLauncher_avatar.launch("image/*");

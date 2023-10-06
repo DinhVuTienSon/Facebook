@@ -41,8 +41,8 @@ public class UserFriendsAdapter extends RecyclerView.Adapter<UserFriendsAdapter.
     @Override
     public void onBindViewHolder(@NonNull UserFriendsAdapter.ViewHolder holder, int position) {
         Users user = users.get(position);
-        Picasso.get().load(user.getUserAva()).into(holder.ava_user_friend);
-        holder.user_friend_name.setText(user.getFirstName()+" "+user.getSurName());
+        Picasso.get().load(user.getUser_ava()).into(holder.ava_user_friend);
+        holder.user_friend_name.setText(user.getFirst_name()+" "+user.getSur_name());
 
     }
 

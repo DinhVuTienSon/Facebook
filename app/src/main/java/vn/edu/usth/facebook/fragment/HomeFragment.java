@@ -1,5 +1,6 @@
 package vn.edu.usth.facebook.fragment;
 
+
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -10,13 +11,21 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import vn.edu.usth.facebook.EditProfileActivity;
@@ -29,11 +38,12 @@ import vn.edu.usth.facebook.model.Post;
 //TODO: function to call posts info: author name, ava; post date, description, image, like, comment
 
 public class HomeFragment extends Fragment {
+    public String TAG = "HOME FRAGMENT"; //for debugging
     public CircleImageView home_ava;
     public TextView upload_post;
-    private RecyclerView recyclerView;
-    private ArrayList<Post> posts;
-
+    private RecyclerView recyclerViewPosts;
+    private PostAdapter postAdapter;
+    private List<Post> posts;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,25 +71,21 @@ public class HomeFragment extends Fragment {
             }
         });
 
+//        new feeds
+//        recyclerview bs
+        recyclerViewPosts = view.findViewById(R.id.recyclerView);
+        recyclerViewPosts.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setStackFromEnd(true);// -> latest post put on top
+        linearLayoutManager.setReverseLayout(true);
+        recyclerViewPosts.setLayoutManager(linearLayoutManager);
+
         posts = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            String author_name = "ST";
-            String author_image = "https://picsum.photos/600/300?random&"+i;
-            String post_date = "now";
-            String post_description = "testing";
-            String post_image = "https://picsum.photos/600/300?random&"+i;
-            String post_likes = "2";
-            String post_comments = "3";
+        postAdapter = new PostAdapter(posts, getContext());
+        recyclerViewPosts.setAdapter(postAdapter);
 
-            Post post = new Post(author_image, author_name, post_date, post_description, post_image, post_likes, post_comments);
-            posts.add(post);}
-            PostAdapter adapter = new PostAdapter(posts, HomeFragment.this);
-            RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
-
-            LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-
-            recyclerView.setLayoutManager(layoutManager);
-            recyclerView.setAdapter(adapter);
+//        add things to new feed
+        readPost();
 
         return view;
     }
@@ -90,5 +96,30 @@ public class HomeFragment extends Fragment {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+//    woowowowwwo adding posts to posts(list) to run on new feeds
+    public void readPost(){
+//        get database ref (get to posts)
+        FirebaseDatabase.getInstance().getReference().child("posts").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                clear posts(list)
+                posts.clear();
+//                iterate through all posts in db
+                for (DataSnapshot sp :snapshot.getChildren()){
+//                    set each post key in db as post ojb and add to list
+                    Post post = sp.getValue(Post.class);
+                    post.setPost_id(sp.getKey());
+                    Log.i(TAG, "ID: " + post.getPost_id());
+                    posts.add(post);
+                }
+                postAdapter.notifyDataSetChanged();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

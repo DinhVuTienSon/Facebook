@@ -2,37 +2,39 @@ package vn.edu.usth.facebook.model;
 
 public class Comments {
 
-    private String commentAva;
-    private String commentName;
-    private String commentContent;
+    private String comment_ava;
+    private String comment_name;
+    private String comment_content;
 
-    public String getCommentAva() {
-        return commentAva;
+//    constructors
+
+    public Comments(String comment_ava, String comment_name, String comment_content) {
+        this.comment_ava = comment_ava;
+        this.comment_name = comment_name;
+        this.comment_content = comment_content;
     }
 
-    public void setCommentAva(String commentAva) {
-        this.commentAva = commentAva;
+    public String getComment_ava() {
+        return comment_ava;
     }
 
-    public String getCommentName() {
-        return commentName;
+    public void setComment_ava(String comment_ava) {
+        this.comment_ava = comment_ava;
     }
 
-    public void setCommentName(String commentName) {
-        this.commentName = commentName;
+    public String getComment_name() {
+        return comment_name;
     }
 
-    public String getCommentContent() {
-        return commentContent;
+    public void setComment_name(String comment_name) {
+        this.comment_name = comment_name;
     }
 
-    public void setCommentContent(String commentContent) {
-        this.commentContent = commentContent;
+    public String getComment_content() {
+        return comment_content;
     }
 
-    public Comments(String commentAva, String commentName, String commentContent) {
-        this.commentAva = commentAva;
-        this.commentName = commentName;
-        this.commentContent = commentContent;
+    public void setComment_content(String comment_content) {
+        this.comment_content = comment_content;
     }
 }

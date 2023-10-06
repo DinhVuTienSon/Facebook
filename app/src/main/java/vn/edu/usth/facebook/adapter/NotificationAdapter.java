@@ -38,9 +38,9 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     public void onBindViewHolder(@NonNull NotificationAdapter.ViewHolder holder, int position) {
         Notifications notification = notifications.get(position);
 
-        Picasso.get().load(notification.getNotificationAva()).into(holder.notification_ava);
-        holder.notification_content.setText(notification.getNotificationContent());
-        holder.notification_time.setText(notification.getNotificationTime());
+        Picasso.get().load(notification.getNotification_ava()).into(holder.notification_ava);
+        holder.notification_content.setText(notification.getNotification_content());
+        holder.notification_time.setText(notification.getNotification_time());
     }
 
     @Override

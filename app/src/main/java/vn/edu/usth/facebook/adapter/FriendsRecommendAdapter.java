@@ -39,8 +39,8 @@ public class FriendsRecommendAdapter extends RecyclerView.Adapter<FriendsRecomme
     @Override
     public void onBindViewHolder(@NonNull FriendsRecommendAdapter.ViewHolder holder, int position) {
         Users user = users1.get(position);
-        Picasso.get().load(user.getUserAva()).into(holder.friend_rec_ava);
-        holder.friend_rec_name.setText(user.getFirstName()+" "+user.getSurName());
+        Picasso.get().load(user.getUser_ava()).into(holder.friend_rec_ava);
+        holder.friend_rec_name.setText(user.getFirst_name()+" "+user.getSur_name());
 //        holder.mutual_friends_rec.setText(friend_rec.getMutualFriends_rec());
 
         holder.add_friend.setOnClickListener(new View.OnClickListener() {

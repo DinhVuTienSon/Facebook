@@ -2,37 +2,39 @@ package vn.edu.usth.facebook.model;
 
 public class Notifications {
 
-    private String notificationAva;
-    private String notificationContent;
-    private String notificationTime;
+    private String notification_ava;
+    private String notification_content;
+    private String notification_time;
 
-    public String getNotificationAva() {
-        return notificationAva;
+//  constructors
+
+    public Notifications(String notification_ava, String notification_content, String notification_time) {
+        this.notification_ava = notification_ava;
+        this.notification_content = notification_content;
+        this.notification_time = notification_time;
     }
 
-    public void setNotificationAva(String notificationAva) {
-        this.notificationAva = notificationAva;
+    public String getNotification_ava() {
+        return notification_ava;
     }
 
-    public String getNotificationContent() {
-        return notificationContent;
+    public void setNotification_ava(String notification_ava) {
+        this.notification_ava = notification_ava;
     }
 
-    public void setNotificationContent(String notificationContent) {
-        this.notificationContent = notificationContent;
+    public String getNotification_content() {
+        return notification_content;
     }
 
-    public String getNotificationTime() {
-        return notificationTime;
+    public void setNotification_content(String notification_content) {
+        this.notification_content = notification_content;
     }
 
-    public void setNotificationTime(String notificationTime) {
-        this.notificationTime = notificationTime;
+    public String getNotification_time() {
+        return notification_time;
     }
 
-    public Notifications(String notificationAva, String notificationContent, String notificationTime) {
-        this.notificationAva = notificationAva;
-        this.notificationContent = notificationContent;
-        this.notificationTime = notificationTime;
+    public void setNotification_time(String notification_time) {
+        this.notification_time = notification_time;
     }
 }

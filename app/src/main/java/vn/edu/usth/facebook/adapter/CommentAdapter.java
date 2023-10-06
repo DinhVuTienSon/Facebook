@@ -34,9 +34,9 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull CommentAdapter.ViewHolder holder, int position) {
         Comments comment = comments.get(position);
-        Picasso.get().load(comment.getCommentAva()).into(holder.comment_ava);
-        holder.comment_name.setText(comment.getCommentName());
-        holder.comment_content.setText(comment.getCommentContent());
+        Picasso.get().load(comment.getComment_ava()).into(holder.comment_ava);
+        holder.comment_name.setText(comment.getComment_name());
+        holder.comment_content.setText(comment.getComment_content());
 
     }
 
