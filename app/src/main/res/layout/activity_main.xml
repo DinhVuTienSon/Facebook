@@ -38,6 +38,7 @@
                 />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/upload_post_main_fragment"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:insetLeft="0dp"
