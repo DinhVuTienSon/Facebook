@@ -1,5 +1,6 @@
 package vn.edu.usth.facebook.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -70,6 +71,7 @@ public class ProfileFragment extends Fragment {
     private FirebaseAuth.AuthStateListener mAuthListener;
     private DatabaseReference mDatabase;
     private StorageReference mStorage;
+    private FirebaseUser firebaseUser;
 
     private String uid;
     private ArrayList<Post> posts;
@@ -163,6 +165,16 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
+
+//        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+//        String data = getContext().getSharedPreferences("PROFILE", Context.MODE_PRIVATE).getString("profileId", "none");
+//        if(data.equals("none")){
+//            profileId = firebaseUser.getUid();
+//        }
+//        else {
+//            profileId = data;
+//            getContext().getSharedPreferences("PROFILE", Context.MODE_PRIVATE).edit().clear().apply();
+//        }
 
         toolbar = view.findViewById(R.id.profile_toolbar);
 

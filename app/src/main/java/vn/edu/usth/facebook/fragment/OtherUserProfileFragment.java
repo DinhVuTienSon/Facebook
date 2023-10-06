@@ -54,7 +54,7 @@ import vn.edu.usth.facebook.model.Users;
 public class OtherUserProfileFragment extends Fragment {
     //    for bug fixes and error messages
     private String TAG = "PROFILE FRAGMENT";
-    public Button editBtn;
+    public Button addFriendBtn;
 
     private Toolbar toolbar;
     private ImageView background;
@@ -268,6 +268,14 @@ public class OtherUserProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 activity.onBackPressed();
+            }
+        });
+
+        addFriendBtn = view.findViewById(R.id.btnAddFriend);
+        addFriendBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO: add friend btn function
             }
         });
 
