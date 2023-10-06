@@ -79,6 +79,8 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
 //        holder.req_date.setText(user.getReqDate());
 //        holder.mutual_friends.setText(user.getMutualFriends());
 
+
+        //TODO: add fr here
         holder.accept_friend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
