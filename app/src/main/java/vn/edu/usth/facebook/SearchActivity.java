@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
@@ -32,6 +33,7 @@ import vn.edu.usth.facebook.model.Users;
 //TODO: function get avatar
 
 public class SearchActivity extends AppCompatActivity {
+    private String TAG = "SEARCH ACTIVITY";
     private RecyclerView search_recyclerView;
     private List<Users> users;
     private SearchAdapter searchAdapter;
@@ -87,21 +89,6 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-
-//        for (int i = 0; i < 15; i++) {
-//            String search_ava = "https://picsum.photos/600/300?random&" + i;
-//            String search_name = "ST";
-//            String search_info = "Live in Hanoi, Vietnam";
-//
-//            Users user = new Users(search_ava, search_name, search_info,"");
-//            users.add(user);
-//        }
-//        SearchAdapter adapter = new SearchAdapter(users, SearchActivity.this);
-//        RecyclerView recyclerView = findViewById(R.id.search_recyclerView);
-//        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-//        recyclerView.setLayoutManager(layoutManager);
-//        recyclerView.setAdapter(adapter);
-
     }
     @Override
     public boolean onSupportNavigateUp() {
@@ -120,6 +107,7 @@ public class SearchActivity extends AppCompatActivity {
                     users.clear();
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         Users user = snapshot.getValue(Users.class);
+                        user.setUser_id(snapshot.getKey());
                         users.add(user);
                     }
                     searchAdapter.notifyDataSetChanged();
@@ -149,6 +137,8 @@ public class SearchActivity extends AppCompatActivity {
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Users user = snapshot.getValue(Users.class);
+                    Log.i(TAG, "AUTHOR" + snapshot.getKey());
+                    user.setUser_id(snapshot.getKey());
                     users.add(user);
                 }
 

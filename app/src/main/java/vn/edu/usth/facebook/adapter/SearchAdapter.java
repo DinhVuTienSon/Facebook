@@ -24,6 +24,7 @@ import vn.edu.usth.facebook.R;
 import vn.edu.usth.facebook.model.Users;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder>{
+    private String TAG = "SEARCH ADAPTER";
     private Context context;
     private List<Users> users;
     private StorageReference mStorage = FirebaseStorage.getInstance().getReference();
@@ -43,8 +44,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     public void onBindViewHolder(@NonNull SearchAdapter.ViewHolder holder, int position) {
         Users user = users.get(position);
 
-        //getUserImg(mStorage.child("users").child(user.getUserId()), holder);
-        Picasso.get().load(user.getUser_ava()).into(holder.search_ava);
+        getUserImg(mStorage.child("users").child(user.getUser_id()), holder);
+
         holder.search_name.setText(user.getFirst_name()+" "+user.getSur_name());
 //        holder.search_info.setText(user.getSearch_info());
         holder.search_add_friend.setOnClickListener(new View.OnClickListener() {
@@ -77,6 +78,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     }
 
     //TODO: func get avatar but cant get avatar
+        //    /\
+        //    ||
+//            ||
+//    said the stupid
     public void getUserImg(StorageReference user_storage, @NonNull SearchAdapter.ViewHolder holder){
 //        todo: threading
         user_storage.child("avatar").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {

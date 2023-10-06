@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -29,6 +31,7 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import vn.edu.usth.facebook.R;
+import vn.edu.usth.facebook.fragment.OtherUserProfileFragment;
 import vn.edu.usth.facebook.model.Comments;
 import vn.edu.usth.facebook.model.Users;
 
@@ -57,10 +60,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
         Comments comment = comments.get(position);
 
-
-
-//        Picasso.get().load(comment.getComment_ava()).into(holder.comment_ava);
-//        holder.comment_name.setText(comment.getComment_name());
         holder.comment_content.setText(comment.getContent());
 
         FirebaseDatabase.getInstance().getReference().child("users").child(comment.getAuthor()).addValueEventListener(new ValueEventListener() {
@@ -68,11 +67,10 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Users user = snapshot.getValue(Users.class);
                 holder.comment_name.setText(user.getFirst_name()+" "+user.getSur_name());
-                Log.i(TAG, "AUTHOR" + comment.getAuthor());
+
                 getUserImg(mStorage.child("users").child(comment.getAuthor()), holder);
                 holder.comment_content.setText(comment.getContent());
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 

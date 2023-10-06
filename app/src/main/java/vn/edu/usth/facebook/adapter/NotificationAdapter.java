@@ -52,11 +52,11 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
         getUser(holder.notification_user_name, notification.getUserId());
         getUserImg(mStorage.child("users").child(notification.getUserId()), holder);
-
-
-        Picasso.get().load(notification.getNotification_ava()).into(holder.notification_ava);
-        holder.notification_content.setText(notification.getNotification_content());
-        holder.notification_user_name.setText(notification.getNotification_user_name());
+//
+//
+//        Picasso.get().load(notification.getNotification_ava()).into(holder.notification_ava);
+        holder.notification_content.setText(notification.getText());
+//        holder.notification_user_name.setText(notification.getNotification_user_name());
     }
 
     @Override

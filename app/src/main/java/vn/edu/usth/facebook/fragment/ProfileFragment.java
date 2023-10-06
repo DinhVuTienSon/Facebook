@@ -40,10 +40,12 @@ import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import vn.edu.usth.facebook.EditProfileActivity;
 import vn.edu.usth.facebook.R;
+import vn.edu.usth.facebook.adapter.FriendsRecommendAdapter;
 import vn.edu.usth.facebook.adapter.PostAdapter;
 import vn.edu.usth.facebook.adapter.UserFriendsAdapter;
 import vn.edu.usth.facebook.adapter.UserProfileAdapter;
@@ -67,17 +69,19 @@ public class ProfileFragment extends Fragment {
     private boolean isExpanded = false;
 
     //    firebase stuff
-    private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
-    private DatabaseReference mDatabase;
-    private StorageReference mStorage;
-    private FirebaseUser firebaseUser;
+    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    private StorageReference mStorage = FirebaseStorage.getInstance().getReference();
+    private FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
 
-    private String uid;
+    private String uid = current_user.getUid();
     private ArrayList<Post> posts;
-    private ArrayList<Users> users;
+    private ArrayList<Users> userss;
+    private List<Users> friends;
     private RecyclerView recyclerViewPosts;
+    private RecyclerView recyclerViewFriends;
+    private List<String> not_friends;
     private PostAdapter postAdapter;
+    private UserFriendsAdapter friendsAdapter;
 
     private ProgressBar loadingIndicator;
 
@@ -91,31 +95,6 @@ public class ProfileFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
 
-
-//  get database
-        mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-
-//  get current user ID
-        FirebaseUser c_user = mAuth.getCurrentUser();
-        uid = c_user.getUid();
-
-        mStorage = FirebaseStorage.getInstance().getReference();
-
-//  check if user is logged in
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if(user != null){
-                    Log.d(TAG,"onAuthStateChanged: sign_in: " + uid);
-                }
-                else{
-                    Log.d(TAG, "signed out" + uid);
-                }
-            }
-        };
-
         requireActivity().getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
@@ -124,14 +103,6 @@ public class ProfileFragment extends Fragment {
                 fragmentManager.popBackStack();
             }
         });
-    }
-
-    //    when app start, check if user is still logged in
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        mAuth.addAuthStateListener(mAuthListener);
     }
 
     public void user_info(){
@@ -206,42 +177,24 @@ public class ProfileFragment extends Fragment {
 //        add things to new feed
         readPost();
 
-//        posts = new ArrayList<>();
-//        for (int i = 0; i < 10; i++) {
-//            String author_name = "ST";
-//            String author_image = "https://picsum.photos/600/300?random&"+i;
-//            String post_date = "now";
-//            String post_description = "testing";
-//            String post_image = "https://picsum.photos/600/300?random&"+i;
-//            String post_likes = "2";
-//            String post_comments = "3";
-//
-//            Post post = new Post(author_image, author_name, post_date, post_description, post_image, post_likes, post_comments);
-//            posts.add(post);}
-//        UserProfileAdapter adapter = new UserProfileAdapter(posts, ProfileFragment.this);
-//        RecyclerView recyclerView = view.findViewById(R.id.user_post_recyclerView);
-//
-//        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-//
-//        recyclerView.setLayoutManager(layoutManager);
-//        recyclerView.setAdapter(adapter);
+//        DISPLAY FRIENDS
 
-        users = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            String user_friend_name = "ST";
-            String user_friend_ava = "https://picsum.photos/600/300?random&"+i;
 
-            Users user = new Users(user_friend_ava, user_friend_name,"","");
-            users.add(user);}
-
-        UserFriendsAdapter userFriendsAdapter = new UserFriendsAdapter(getLimitedUserFriends(), getContext());
-        RecyclerView user_friends_recyclerView = view.findViewById(R.id.user_friends_recyclerView);
-
+        recyclerViewFriends = view.findViewById(R.id.user_friends_recyclerView);
+        recyclerViewFriends.setHasFixedSize(true);
         LinearLayoutManager user_friend_layoutManager = new LinearLayoutManager(getContext());
-        user_friends_recyclerView.setLayoutManager(user_friend_layoutManager);
-        user_friends_recyclerView.setAdapter(userFriendsAdapter);
+        user_friend_layoutManager.setStackFromEnd(true);
+        user_friend_layoutManager.setReverseLayout(true);
+        recyclerViewFriends.setLayoutManager(user_friend_layoutManager);
 
-        if (users.size() <= 3) {
+        friends = new ArrayList<>();
+        friendsAdapter = new UserFriendsAdapter(friends ,getContext());
+        recyclerViewFriends.setAdapter(friendsAdapter);
+
+        getFriends();
+
+        userss = new ArrayList<>();
+        if (userss.size() <= 3) {
             see_less_user_friends.setVisibility(View.GONE);
         } else {
             see_all_user_friends.setVisibility(View.VISIBLE);
@@ -250,7 +203,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 isExpanded = true;
-                userFriendsAdapter.setDataUserFriends(users);
+                friendsAdapter.setDataUserFriends(userss);
                 see_all_user_friends.setVisibility(View.GONE);
                 see_less_user_friends.setVisibility(View.VISIBLE);
             }
@@ -260,7 +213,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 isExpanded = false;
-                userFriendsAdapter.setDataUserFriends(getLimitedUserFriends());
+                friendsAdapter.setDataUserFriends(getLimitedUserFriends());
                 see_all_user_friends.setVisibility(View.VISIBLE);
                 see_less_user_friends.setVisibility(View.GONE);
             }
@@ -276,7 +229,6 @@ public class ProfileFragment extends Fragment {
 
 //  add user infos from database to fragment
 //        TODO: check for initial delay when updating name
-
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -325,10 +277,10 @@ public class ProfileFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
     private ArrayList<Users> getLimitedUserFriends() {
-        if (isExpanded || users.size() <= 5) {
-            return users;
+        if (isExpanded || userss.size() <= 5) {
+            return userss;
         } else {
-            return new ArrayList<>(users.subList(0, 5));
+            return new ArrayList<>(userss.subList(0, 5));
         }
     }
     public void readPost(){
@@ -352,6 +304,26 @@ public class ProfileFragment extends Fragment {
                 }
                 postAdapter.notifyDataSetChanged();
             }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void getFriends(){
+        mDatabase.child("users").child(uid).child("friends").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                friends.clear();
+                for(DataSnapshot sp : snapshot.getChildren()){
+                    Users friend = snapshot.getValue(Users.class);
+                    friend.setUser_id(sp.getKey());
+                    friends.add(friend);
+                }
+                friendsAdapter.notifyDataSetChanged();
+            }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 

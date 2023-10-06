@@ -38,6 +38,7 @@ import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import vn.edu.usth.facebook.EditProfileActivity;
@@ -53,7 +54,7 @@ import vn.edu.usth.facebook.model.Users;
 
 public class OtherUserProfileFragment extends Fragment {
     //    for bug fixes and error messages
-    private String TAG = "PROFILE FRAGMENT";
+    private String TAG = "OTHER PROFILE FRAGMENT";
     public Button addFriendBtn;
 
     private Toolbar toolbar;
@@ -64,16 +65,19 @@ public class OtherUserProfileFragment extends Fragment {
     private boolean isExpanded = false;
 
     //    firebase stuff
-    private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
-    private DatabaseReference mDatabase;
-    private StorageReference mStorage;
+    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    private StorageReference mStorage = FirebaseStorage.getInstance().getReference();
+    private FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
 
     private String uid;
     private ArrayList<Post> posts;
-    private ArrayList<Users> users;
+    private ArrayList<Users> userss;
+    private List<Users> friends;
     private RecyclerView recyclerViewPosts;
+    private RecyclerView recyclerViewFriends;
+    private List<String> not_friends;
     private PostAdapter postAdapter;
+    private UserFriendsAdapter friendsAdapter;
 
     private ProgressBar loadingIndicator;
 
@@ -81,36 +85,14 @@ public class OtherUserProfileFragment extends Fragment {
         // Required empty public constructor
     }
 
+    public OtherUserProfileFragment(String profile_id){
+        this.uid = profile_id;
+    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
-//  get database
-        mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-
-//  get current user ID
-        FirebaseUser c_user = mAuth.getCurrentUser();
-        uid = c_user.getUid();
-
-        mStorage = FirebaseStorage.getInstance().getReference();
-
-//  check if user is logged in
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if(user != null){
-                    Log.d(TAG,"onAuthStateChanged: sign_in: " + uid);
-                }
-                else{
-                    Log.d(TAG, "signed out" + uid);
-                }
-            }
-        };
 
         requireActivity().getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
@@ -122,13 +104,6 @@ public class OtherUserProfileFragment extends Fragment {
         });
     }
 
-    //    when app start, check if user is still logged in
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        mAuth.addAuthStateListener(mAuthListener);
-    }
 
     public void user_info(){
 //        getting user storage ref
@@ -178,6 +153,8 @@ public class OtherUserProfileFragment extends Fragment {
 
         user_info();
 
+//        isFriend(uid, addFriendBtn);
+
         recyclerViewPosts = view.findViewById(R.id.user_post_recyclerView);
         recyclerViewPosts.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
@@ -192,42 +169,22 @@ public class OtherUserProfileFragment extends Fragment {
 //        add things to new feed
         readPost();
 
-//        posts = new ArrayList<>();
-//        for (int i = 0; i < 10; i++) {
-//            String author_name = "ST";
-//            String author_image = "https://picsum.photos/600/300?random&"+i;
-//            String post_date = "now";
-//            String post_description = "testing";
-//            String post_image = "https://picsum.photos/600/300?random&"+i;
-//            String post_likes = "2";
-//            String post_comments = "3";
-//
-//            Post post = new Post(author_image, author_name, post_date, post_description, post_image, post_likes, post_comments);
-//            posts.add(post);}
-//        UserProfileAdapter adapter = new UserProfileAdapter(posts, ProfileFragment.this);
-//        RecyclerView recyclerView = view.findViewById(R.id.user_post_recyclerView);
-//
-//        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-//
-//        recyclerView.setLayoutManager(layoutManager);
-//        recyclerView.setAdapter(adapter);
-
-        users = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            String user_friend_name = "ST";
-            String user_friend_ava = "https://picsum.photos/600/300?random&"+i;
-
-            Users user = new Users(user_friend_ava, user_friend_name,"","");
-            users.add(user);}
-
-        UserFriendsAdapter userFriendsAdapter = new UserFriendsAdapter(getLimitedUserFriends(), getContext());
-        RecyclerView user_friends_recyclerView = view.findViewById(R.id.user_friends_recyclerView);
-
+        recyclerViewFriends = view.findViewById(R.id.user_friends_recyclerView);
+        recyclerViewFriends.setHasFixedSize(true);
         LinearLayoutManager user_friend_layoutManager = new LinearLayoutManager(getContext());
-        user_friends_recyclerView.setLayoutManager(user_friend_layoutManager);
-        user_friends_recyclerView.setAdapter(userFriendsAdapter);
+        user_friend_layoutManager.setStackFromEnd(true);
+        user_friend_layoutManager.setReverseLayout(true);
+        recyclerViewFriends.setLayoutManager(user_friend_layoutManager);
 
-        if (users.size() <= 3) {
+        friends = new ArrayList<>();
+        friendsAdapter = new UserFriendsAdapter(friends ,getContext());
+        recyclerViewFriends.setAdapter(friendsAdapter);
+
+        getFriends();
+
+        userss = new ArrayList<>();
+
+        if (userss.size() <= 3) {
             see_less_user_friends.setVisibility(View.GONE);
         } else {
             see_all_user_friends.setVisibility(View.VISIBLE);
@@ -236,17 +193,18 @@ public class OtherUserProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 isExpanded = true;
-                userFriendsAdapter.setDataUserFriends(users);
+                friendsAdapter.setDataUserFriends(userss);
                 see_all_user_friends.setVisibility(View.GONE);
                 see_less_user_friends.setVisibility(View.VISIBLE);
             }
         });
 
+
         see_less_user_friends.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 isExpanded = false;
-                userFriendsAdapter.setDataUserFriends(getLimitedUserFriends());
+                friendsAdapter.setDataUserFriends(getLimitedUserFriends());
                 see_all_user_friends.setVisibility(View.VISIBLE);
                 see_less_user_friends.setVisibility(View.GONE);
             }
@@ -270,15 +228,24 @@ public class OtherUserProfileFragment extends Fragment {
                 activity.onBackPressed();
             }
         });
-
+//todo: save this
         addFriendBtn = view.findViewById(R.id.btnAddFriend);
         addFriendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(addFriendBtn.getTag().equals("add")){
+//                    add_friend_req(uid);
+                }
+                else if (addFriendBtn.getTag().equals("accept req")){
+//                    add_friend(uid);
+                }
+                else if (addFriendBtn.getTag().equals("remove fr")){
+//                    remove_friend(uid);
+                }
                 //TODO: add friend btn function
             }
         });
-
+//        todo: hrere
         return view;
     }
 
@@ -311,10 +278,10 @@ public class OtherUserProfileFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
     private ArrayList<Users> getLimitedUserFriends() {
-        if (isExpanded || users.size() <= 5) {
-            return users;
+        if (isExpanded || userss.size() <= 5) {
+            return userss;
         } else {
-            return new ArrayList<>(users.subList(0, 5));
+            return new ArrayList<>(userss.subList(0, 5));
         }
     }
     public void readPost(){
@@ -343,5 +310,71 @@ public class OtherUserProfileFragment extends Fragment {
 
             }
         });
+    }
+    private void getFriends(){
+        mDatabase.child("users").child(uid).child("friends").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                friends.clear();
+                for(DataSnapshot sp : snapshot.getChildren()){
+                    Users friend = snapshot.getValue(Users.class);
+                    friend.setUser_id(sp.getKey());
+                    friends.add(friend);
+                }
+                friendsAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void isFriend(String profile_id, Button button){
+        mDatabase.child("users").child(current_user.getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.child("friends").child(uid).exists()){
+                    button.setText("already friend");
+                    button.setTag("remove friend");
+                }
+                else{
+                    if(snapshot.child("friend_reqs").child(uid).exists()){
+                        button.setText("requested");
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void add_friend_req(String profile_id){
+//       adding current_user_id -> friend_id/friends_req/ list in db
+//        Log.i(TAG, "FRIEND DATABSE: " + mDatabase.child("users").child(friend_recc.getUser_id()).child("friend_reqs").child(current_user.getUid()));
+        mDatabase.child("users").child(profile_id).child("friend_reqs").child(current_user.getUid()).setValue(true);
+    }
+
+    public void add_friend(String friend_req){
+//       adding friend -> current_user/friends list in db
+        Log.i(TAG, "FRIEND DATABSE: " + mDatabase.child("users").child(current_user.getUid()).child("friends").child(friend_req));
+        mDatabase.child("users").child(current_user.getUid()).child("friends").child(friend_req).setValue(true);
+//       do the same way around
+        mDatabase.child("users").child(friend_req).child("friends").child(current_user.getUid()).setValue(true);
+//        remove request in db
+//        brain fuck: user A(current_user) send request -> save request in user B(friend)
+//                    but now to accept request=> have to login to B(friend) whom is now current user
+//                    ==>B(current_user) and A is friend => delete request -> current user(B)/friend_reqs/friend(A)
+        mDatabase.child("users").child(current_user.getUid()).child("friend_reqs").child(friend_req).removeValue();
+    }
+
+    public void remove_friend(String profile_id){
+        mDatabase.child("users").child(current_user.getUid()).child("friends").child(profile_id).removeValue();
+//       do the same way around
+        mDatabase.child("users").child(profile_id).child("friends").child(current_user.getUid()).removeValue();
     }
 }

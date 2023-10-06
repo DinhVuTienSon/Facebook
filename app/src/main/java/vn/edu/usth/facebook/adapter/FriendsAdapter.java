@@ -79,13 +79,10 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
         getUserImg(mStorage.child("users").child(friend_req.getUser_id()), holder);
 
         Log.i(TAG,"FRIEND REQ NAME CHECK" + friend_req.getFirst_name());
-//        holder.friend_req_name.setText(friend_req.getFirst_name()+" "+friend_req.getSur_name());
-//        holder.req_date.setText(user.getReqDate());
+
         getUser_name(friend_req.getUser_id(), holder);
-//        holder.mutual_friends.setText(user.getMutualFriends());
 
 
-        //TODO: add fr here
         holder.accept_friend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

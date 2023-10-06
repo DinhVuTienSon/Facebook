@@ -38,8 +38,6 @@ import vn.edu.usth.facebook.fragment.OtherUserProfileFragment;
 import vn.edu.usth.facebook.model.Post;
 import vn.edu.usth.facebook.model.Users;
 
-//TODO: function to count the number of likes, comments
-//TODO: function to check if the post is liked or not -> call that function in post_like's onclick
 
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
@@ -83,16 +81,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 //        get post image
         getPostImg(mStorage, holder, post);
 
-//        holder.post_likes.setText(post.getPost_likes());
-//        holder.post_comments.setText(post.getPost_comments());
-
 //        get firebase stuff
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mStorage = FirebaseStorage.getInstance().getReference();
         DatabaseReference user_database = mDatabase.child("users").child(post.getAuthor_id());
         StorageReference user_storage = mStorage.child("users").child(post.getAuthor_id());
 
-//        Log.i(TAG, "STORAGE" + user_storage);
         user_database.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -140,10 +134,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             @Override
             public void onClick(View view) {
                 AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                Fragment myFragment = new OtherUserProfileFragment();
+                Fragment myFragment = new OtherUserProfileFragment(post.getAuthor_id());
                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, myFragment).addToBackStack(null).commit();
             }
         });
+
         getComments(post.getPost_id(), holder.post_comments);
     }
 
@@ -237,10 +232,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                         }
 
                     }
-
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-
                     }
                 });
             }

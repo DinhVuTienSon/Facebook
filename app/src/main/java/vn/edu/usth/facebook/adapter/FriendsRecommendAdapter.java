@@ -66,7 +66,6 @@ public class FriendsRecommendAdapter extends RecyclerView.Adapter<FriendsRecomme
         getUserImg(mStorage.child(friend_recc.getUser_id()),holder);
 
         getUser_name(friend_recc.getUser_id(), holder);
-//        holder.mutual_friends_rec.setText(friend_rec.getMutualFriends_rec());
 
         holder.add_friend.setOnClickListener(new View.OnClickListener() {
             @Override
