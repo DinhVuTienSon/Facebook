@@ -73,6 +73,8 @@ public class HomeFragment extends Fragment {
 
 //        new feeds
 //        recyclerview bs
+
+        Log.i(TAG, "CHECK CRASHING");
         recyclerViewPosts = view.findViewById(R.id.recyclerView);
         recyclerViewPosts.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
@@ -89,6 +91,7 @@ public class HomeFragment extends Fragment {
 
         return view;
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
