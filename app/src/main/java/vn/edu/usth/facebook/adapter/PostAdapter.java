@@ -107,14 +107,23 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             }
         });
 
-//        getPostImg(holder, mStorage);
+
+        isLiked(post.getActual_post_id(), holder.post_likes);
+        noOlikes(post.getActual_post_id(), holder.post_noOlikes);
 
         holder.post_likes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Log.i(TAG, "LIKE TAG: " + holder.post_likes.getTag());
+                if(holder.post_likes.getTag().equals("liked")) {
+                     mDatabase.child("post_likes").child(post.getActual_post_id()).child(user.getUid()).setValue(true);
+                }
+                else{
+                    mDatabase.child("post_likes").child(post.getActual_post_id()).child(user.getUid()).removeValue();
+                }
             }
         });
+
 
         holder.post_comments.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,8 +153,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
         private CircleImageView author_img;
         private TextView author_name, time_post, post_description;
-        private ImageView post_img;
-        private TextView post_likes, post_comments;
+        private ImageView post_img, post_likes;
+        private TextView post_comments, post_noOlikes;
         private LinearLayout post_share;
 
         public ViewHolder(@NonNull View itemView) {
@@ -156,9 +165,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             time_post = itemView.findViewById(R.id.idTVTime);
             post_description = itemView.findViewById(R.id.idTVDescription);
             post_img = itemView.findViewById(R.id.idIVPost);
-            post_likes = itemView.findViewById(R.id.idTVLikes);
+            post_likes = itemView.findViewById(R.id.post_likes);
             post_comments = itemView.findViewById(R.id.idTVComments);
             post_share = itemView.findViewById(R.id.idLLShare);
+            post_noOlikes = itemView.findViewById(R.id.idTVLikes);
         }
     }
 
@@ -193,11 +203,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             }
         });
     }
-    public void getComments (String postId, TextView text){
+
+    public void getComments (String postId, TextView text) {
         FirebaseDatabase.getInstance().getReference().child("comments").child(postId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                text.setText(snapshot.getChildrenCount()+" comments");
+                text.setText(snapshot.getChildrenCount() + " comments");
             }
 
             @Override
@@ -206,4 +217,44 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             }
         });
     }
+        public void isLiked(String post_ID, ImageView imageView) {
+                mDatabase.child("post_likes").child(post_ID).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.child(user.getUid()).exists()) {
+                            imageView.setImageResource(R.drawable.liked_icon);
+                            imageView.setTag("disliked");
+                        } else {
+                            imageView.setImageResource(R.drawable.like_icon);
+                            imageView.setTag("liked");
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+
+
+        public void noOlikes(String post_ID, final TextView text) {
+            mDatabase.child("post_likes").child(post_ID).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.getChildrenCount() <= 0) {
+                        text.setText("likes");
+                    } else {
+                        text.setText(snapshot.getChildrenCount() + " likes");
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
+
 }

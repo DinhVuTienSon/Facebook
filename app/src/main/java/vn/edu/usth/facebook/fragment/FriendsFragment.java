@@ -40,6 +40,7 @@ public class FriendsFragment extends Fragment {
     private AppCompatButton see_all_friend_req, see_less_friend_req;
     private FriendsAdapter adapter;
     private FriendsRecommendAdapter adapter_recc;
+
     private FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
     private boolean isExpanded = false;
 
@@ -112,7 +113,10 @@ public class FriendsFragment extends Fragment {
         return view;
     }
 
-    public void getFriendRecommend() {
+
+
+    public void getFriendRecommend(){
+
         FirebaseDatabase.getInstance().getReference().child("users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -121,12 +125,10 @@ public class FriendsFragment extends Fragment {
 
                 for (DataSnapshot sp : snapshot.getChildren()) {
                     Users friend_recc = sp.getValue(Users.class);
-                    if(sp.getKey().equals(current_user.getUid())){
 
-                    }else {
+                    if(sp.getKey().equals(current_user.getUid())){}
+                    else{
                         friend_recc.setUser_id(sp.getKey());
-                        Log.i(TAG, "FRIEND RECOMMEND ID: " + friend_recc.getUser_id());
-
                         friends_recc.add(friend_recc);
                     }
                 }
