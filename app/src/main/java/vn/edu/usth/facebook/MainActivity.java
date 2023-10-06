@@ -15,6 +15,7 @@ import vn.edu.usth.facebook.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
     MaterialButton search_main_fragment;
+    MaterialButton upload_post_main_fragment;
     private static final int MENU_HOME = R.id.home;
     private static final int MENU_FRIENDS = R.id.friends;
     private static final int MENU_NOTIFICATION = R.id.notification;
@@ -64,6 +65,15 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, SearchActivity.class);
                 startActivity(intent);
 
+
+            }
+        });
+        upload_post_main_fragment = findViewById(R.id.upload_post_main_fragment);
+        upload_post_main_fragment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, UploadPostActivity.class);
+                startActivity(intent);
             }
         });
 
