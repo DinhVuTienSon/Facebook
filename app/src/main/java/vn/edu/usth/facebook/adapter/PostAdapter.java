@@ -111,19 +111,19 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             }
         });
 
-        isLiked(post.getPost_id(), holder.post_likes);
+//        isLiked(post.getPost_id(), holder.post_likes);
 //        getPostImg(holder, mStorage);
 
         holder.post_likes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (holder.post_likes.getTag().equals("Like")){
-                    writeNewPostLike(post, post.toLikesMap(user.getUid()),  mDatabase);
-                    FirebaseDatabase.getInstance().getReference().child("post_likes").child(post.getPost_id()).child(user.getUid()).setValue(true);
-                }
-                else {
-                    FirebaseDatabase.getInstance().getReference().child("post_likes").child(post.getPost_id()).child(user.getUid()).removeValue();
-                }
+//                if (holder.post_likes.getTag().equals("Like")){
+//                    writeNewPostLike(post, post.toLikesMap(user.getUid()),  mDatabase);
+//                    FirebaseDatabase.getInstance().getReference().child("post_likes").child(post.getPost_id()).child(user.getUid()).setValue(true);
+//                }
+//                else {
+//                    FirebaseDatabase.getInstance().getReference().child("post_likes").child(post.getPost_id()).child(user.getUid()).removeValue();
+//                }
             }
         });
 
@@ -201,36 +201,36 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             }
         });
     }
-    public void isLiked(String postId, ImageView imageView){
-        FirebaseDatabase.getInstance().getReference().child("post_likes").child(postId).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.child(user.getUid()).exists()){
-                    imageView.setImageResource(R.drawable.liked_icon);
-                    imageView.setTag("Liked");
-                }
-                else {
-                    imageView.setImageResource(R.drawable.like_icon);
-                    imageView.setTag("Like");
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-    public void writeNewPostLike(Post post, Map<String,Object> post_like, DatabaseReference db){
-        try{
-//            add user_info map to db
-            db.child("posts").child(post.getPost_id()).child("post_likes").updateChildren(post_like);
-//          create pop up message when saved
-//            Toast.makeText(EditProfileActivity.this, type + " updated", Toast.LENGTH_SHORT).show();
-        }catch (Exception e) {
-            Log.e(TAG, "ERROR: " + e);
-
-        }
-
-    }
+//    public void isLiked(String postId, ImageView imageView){
+//        FirebaseDatabase.getInstance().getReference().child("post_likes").child(postId).addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                if (snapshot.child(user.getUid()).exists()){
+//                    imageView.setImageResource(R.drawable.liked_icon);
+//                    imageView.setTag("Liked");
+//                }
+//                else {
+//                    imageView.setImageResource(R.drawable.like_icon);
+//                    imageView.setTag("Like");
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+//    }
+//    public void writeNewPostLike(Post post, Map<String,Object> post_like, DatabaseReference db){
+//        try{
+////            add user_info map to db
+//            db.child("posts").child(post.getPost_id()).child("post_likes").updateChildren(post_like);
+////          create pop up message when saved
+////            Toast.makeText(EditProfileActivity.this, type + " updated", Toast.LENGTH_SHORT).show();
+//        }catch (Exception e) {
+//            Log.e(TAG, "ERROR: " + e);
+//
+//        }
+//
+//    }
 }

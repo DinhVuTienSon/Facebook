@@ -64,16 +64,16 @@ public class Post {
     @Exclude
     public Map<String, Object> toNewTextMap(Map<String, String> date){
         HashMap<String,Object> result = new HashMap<>();
-        HashMap<String,Object> decoy_likes = new HashMap<>();
-        HashMap<String,Object> decoy_comments = new HashMap<>();
-
-        decoy_likes.put("decoy", false);
-        decoy_comments.put("decoy",false);
+//        HashMap<String,Object> decoy_likes = new HashMap<>();
+//        HashMap<String,Object> decoy_comments = new HashMap<>();
+//
+//        decoy_likes.put("decoy", false);
+//        decoy_comments.put("decoy",false);
 
         result.put("post_description", this.post_description);
         result.put("post_date", date);// use Map because
-        result.put("post_likes", decoy_likes);
-        result.put("post_comments", decoy_comments);
+//        result.put("post_likes", decoy_likes);
+//        result.put("post_comments", decoy_comments);
         // saving on db as Map using ServerValue.TIMESTAMP and can be convert to normal date later
 
         return result;
