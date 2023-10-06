@@ -27,7 +27,7 @@ public class Post {
     private String postDate; // dummy var
     private String post_description;
     private String post_image;
-    private String post_likes;
+    private Boolean post_likes;
     private String post_comments;
 
 
@@ -50,7 +50,7 @@ public class Post {
         this.post_description = postDescription;
     }
 
-    public Post(String author_image, String author_name, String postDate, String post_description, String post_image, String post_likes, String post_comments) {
+    public Post(String author_image, String author_name, String postDate, String post_description, String post_image, Boolean post_likes, String post_comments) {
         this.author_image = author_image;
         this.author_name = author_name;
         this.postDate = postDate;
@@ -64,12 +64,30 @@ public class Post {
     @Exclude
     public Map<String, Object> toNewTextMap(Map<String, String> date){
         HashMap<String,Object> result = new HashMap<>();
+        HashMap<String,Object> decoy_likes = new HashMap<>();
+        HashMap<String,Object> decoy_comments = new HashMap<>();
+
+        decoy_likes.put("decoy", false);
+        decoy_comments.put("decoy",false);
+
         result.put("post_description", this.post_description);
         result.put("post_date", date);// use Map because
+        result.put("post_likes", decoy_likes);
+        result.put("post_comments", decoy_comments);
         // saving on db as Map using ServerValue.TIMESTAMP and can be convert to normal date later
 
         return result;
     }
+
+    @Exclude
+    public Map<String, Object> toLikesMap(String user_id){
+        HashMap<String,Object> result = new HashMap<>();
+        result.put(user_id, this.post_likes);
+
+        return result;
+    }
+
+
 
     public String getPost_id() {
         return post_id;
@@ -135,11 +153,11 @@ public class Post {
         this.post_image = post_image;
     }
 
-    public String getPost_likes() {
+    public Boolean getPost_likes() {
         return post_likes;
     }
 
-    public void setPost_likes(String post_likes) {
+    public void setPost_likes(Boolean post_likes) {
         this.post_likes = post_likes;
     }
 

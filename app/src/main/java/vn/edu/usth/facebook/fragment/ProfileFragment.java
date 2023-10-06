@@ -43,6 +43,7 @@ import java.util.ArrayList;
 import de.hdodenhof.circleimageview.CircleImageView;
 import vn.edu.usth.facebook.EditProfileActivity;
 import vn.edu.usth.facebook.R;
+import vn.edu.usth.facebook.adapter.PostAdapter;
 import vn.edu.usth.facebook.adapter.UserFriendsAdapter;
 import vn.edu.usth.facebook.adapter.UserProfileAdapter;
 import vn.edu.usth.facebook.model.Post;
@@ -73,6 +74,8 @@ public class ProfileFragment extends Fragment {
     private String uid;
     private ArrayList<Post> posts;
     private ArrayList<Users> users;
+    private RecyclerView recyclerViewPosts;
+    private PostAdapter postAdapter;
 
     private ProgressBar loadingIndicator;
 
@@ -177,25 +180,39 @@ public class ProfileFragment extends Fragment {
 
         user_info();
 
+        recyclerViewPosts = view.findViewById(R.id.user_post_recyclerView);
+        recyclerViewPosts.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setStackFromEnd(true);// -> latest post put on top
+        linearLayoutManager.setReverseLayout(true);
+        recyclerViewPosts.setLayoutManager(linearLayoutManager);
+
         posts = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            String author_name = "ST";
-            String author_image = "https://picsum.photos/600/300?random&"+i;
-            String post_date = "now";
-            String post_description = "testing";
-            String post_image = "https://picsum.photos/600/300?random&"+i;
-            String post_likes = "2";
-            String post_comments = "3";
+        postAdapter = new PostAdapter(posts, getContext());
+        recyclerViewPosts.setAdapter(postAdapter);
 
-            Post post = new Post(author_image, author_name, post_date, post_description, post_image, post_likes, post_comments);
-            posts.add(post);}
-        UserProfileAdapter adapter = new UserProfileAdapter(posts, ProfileFragment.this);
-        RecyclerView recyclerView = view.findViewById(R.id.user_post_recyclerView);
+//        add things to new feed
+        readPost();
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
+//        posts = new ArrayList<>();
+//        for (int i = 0; i < 10; i++) {
+//            String author_name = "ST";
+//            String author_image = "https://picsum.photos/600/300?random&"+i;
+//            String post_date = "now";
+//            String post_description = "testing";
+//            String post_image = "https://picsum.photos/600/300?random&"+i;
+//            String post_likes = "2";
+//            String post_comments = "3";
+//
+//            Post post = new Post(author_image, author_name, post_date, post_description, post_image, post_likes, post_comments);
+//            posts.add(post);}
+//        UserProfileAdapter adapter = new UserProfileAdapter(posts, ProfileFragment.this);
+//        RecyclerView recyclerView = view.findViewById(R.id.user_post_recyclerView);
+//
+//        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+//
+//        recyclerView.setLayoutManager(layoutManager);
+//        recyclerView.setAdapter(adapter);
 
         users = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
@@ -301,5 +318,32 @@ public class ProfileFragment extends Fragment {
         } else {
             return new ArrayList<>(users.subList(0, 5));
         }
+    }
+    public void readPost(){
+//        get database ref (get to posts)
+        FirebaseDatabase.getInstance().getReference().child("posts").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                clear posts(list)
+                posts.clear();
+//                iterate through all posts in db
+                for (DataSnapshot sp :snapshot.getChildren()){
+//                    set each post key in db as post ojb and add to list
+                    Post post = sp.getValue(Post.class);
+                    post.setPost_id(sp.getKey());
+                    post.getAuthor_ID_from_db();
+                    if (post.getAuthor_id().equals(uid)){
+                        Log.i(TAG, "ID: " + post.getPost_id());
+                        posts.add(post);
+                    }
+//                    post.setAuthor_id(FirebaseAuth.getInstance().getCurrentUser().toString());
+                }
+                postAdapter.notifyDataSetChanged();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

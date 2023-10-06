@@ -42,19 +42,7 @@ public class FriendsFragment extends Fragment {
         users1 = new ArrayList<>();
 //        friends_rec = new ArrayList<>();
 
-        for (int i = 0; i < 16; i++) {
-            String friend_rec_ava = "https://picsum.photos/600/300?random&" + i;
-            String friend_rec_name = "Testing";
-            String mutual_friends_rec = "18 mutual friends";
 
-            Users user1 = new Users(friend_rec_ava, friend_rec_name, mutual_friends_rec, "");
-            users1.add(user1);
-        }
-            FriendsRecommendAdapter adapter1 = new FriendsRecommendAdapter(users1, FriendsFragment.this);
-            RecyclerView recyclerView1 = view.findViewById(R.id.friend_recommend_recyclerView);
-            LinearLayoutManager layoutManager1 = new LinearLayoutManager(getContext());
-            recyclerView1.setLayoutManager(layoutManager1);
-            recyclerView1.setAdapter(adapter1);
 
 
         for (int i = 0; i < 7; i++) {
@@ -97,6 +85,20 @@ public class FriendsFragment extends Fragment {
                 see_less_friend_req.setVisibility(View.GONE);
             }
         });
+
+        for (int i = 0; i < 16; i++) {
+            String friend_rec_ava = "https://picsum.photos/600/300?random&" + i;
+            String friend_rec_name = "Testing";
+            String mutual_friends_rec = "18 mutual friends";
+
+            Users user1 = new Users(friend_rec_ava, friend_rec_name, mutual_friends_rec, "");
+            users1.add(user1);
+        }
+        FriendsRecommendAdapter adapter1 = new FriendsRecommendAdapter(users1, FriendsFragment.this);
+        RecyclerView recyclerView1 = view.findViewById(R.id.friend_recommend_recyclerView);
+        LinearLayoutManager layoutManager1 = new LinearLayoutManager(getContext());
+        recyclerView1.setLayoutManager(layoutManager1);
+        recyclerView1.setAdapter(adapter1);
 
         return view;
     }
