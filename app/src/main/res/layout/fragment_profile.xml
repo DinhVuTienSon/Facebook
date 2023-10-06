@@ -27,7 +27,7 @@
                 android:layout_height="220dp"
                 android:importantForAccessibility="no"
                 android:scaleType="centerCrop"
-                android:src="@drawable/profile_background" />
+                android:src="@drawable/default_banner" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/avatar"
@@ -36,7 +36,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="130dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/pic"
+                android:src="@drawable/default_ava"
                 app:strokeColor="@color/black"
                 app:strokeWidth="10dp" />
 
