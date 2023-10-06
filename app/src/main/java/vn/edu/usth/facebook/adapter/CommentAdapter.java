@@ -1,6 +1,9 @@
 package vn.edu.usth.facebook.adapter;
 
 import android.content.Context;
+import android.net.Uri;
+import android.nfc.Tag;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,12 +12,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -26,9 +33,11 @@ import vn.edu.usth.facebook.model.Comments;
 import vn.edu.usth.facebook.model.Users;
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder>{
+    private String TAG = "COMMENT ADAPTER";
     private Context context;
     private List<Comments> comments;
     private FirebaseUser firebaseUser;
+    private StorageReference mStorage = FirebaseStorage.getInstance().getReference();
 //    public CircleImageView comment_ava;
 //    public TextView comment_content, comment_name;
     public CommentAdapter(List<Comments> comments, Context context){
@@ -48,16 +57,20 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
         Comments comment = comments.get(position);
 
+
+
 //        Picasso.get().load(comment.getComment_ava()).into(holder.comment_ava);
 //        holder.comment_name.setText(comment.getComment_name());
-        holder.comment_content.setText(comment.getComment_content());
+        holder.comment_content.setText(comment.getContent());
 
         FirebaseDatabase.getInstance().getReference().child("users").child(comment.getAuthor()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Users users = snapshot.getValue(Users.class);
-                holder.comment_name.setText(users.getFirst_name()+" "+users.getSur_name());
-                Picasso.get().load(users.getUser_ava()).into(holder.comment_ava);
+                Users user = snapshot.getValue(Users.class);
+                holder.comment_name.setText(user.getFirst_name()+" "+user.getSur_name());
+                Log.i(TAG, "AUTHOR" + comment.getAuthor());
+                getUserImg(mStorage.child("users").child(comment.getAuthor()), holder);
+                holder.comment_content.setText(comment.getContent());
             }
 
             @Override
@@ -84,4 +97,20 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
         }
     }
+    public void getUserImg(StorageReference user_storage, @NonNull CommentAdapter.ViewHolder holder){
+//        todo: threading
+        user_storage.child("avatar").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.get().load(uri).into(holder.comment_ava);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Picasso.get().load(R.drawable.default_ava).into(holder.comment_ava);
+                Log.e(TAG,"GET AVA/BANNER IMG ERROR: SKIPPP");
+            }
+        });
+    }
+
 }
