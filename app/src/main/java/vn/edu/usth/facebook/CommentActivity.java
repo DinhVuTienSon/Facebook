@@ -18,6 +18,7 @@ import vn.edu.usth.facebook.model.Comments;
 
 //TODO: function to call commentator's ava, name, comment's content
 
+
 public class CommentActivity extends AppCompatActivity {
     private RecyclerView comment_recyclerView;
     private ArrayList<Comments> comments;

@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import vn.edu.usth.facebook.adapter.SearchAdapter;
 import vn.edu.usth.facebook.model.Users;
 
+
 //TODO: function to search other users by name
 
 public class SearchActivity extends AppCompatActivity {

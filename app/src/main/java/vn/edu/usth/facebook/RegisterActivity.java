@@ -152,6 +152,5 @@ public class RegisterActivity extends AppCompatActivity {
         catch (Exception e){
             Log.e("WRITE TO DB ERROR: ", "PROBLEM WHEN WRITING TO FIREBASE" + e);
         }
-
     }
 }
