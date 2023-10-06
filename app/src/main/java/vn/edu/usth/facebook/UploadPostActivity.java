@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -36,7 +37,7 @@ import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import vn.edu.usth.facebook.model.Post;
-
+import com.google.android.gms.tasks.Task;
 // TODO: function to upload post after click on post button
 // TODO: function to call user ava, name
 
@@ -124,6 +125,11 @@ public class UploadPostActivity extends AppCompatActivity {
 //                get time of posting (use Map type because ServerValue.TIMESTAMP is Map and can be converted back to date)
                 Map<String,String> post_time = ServerValue.TIMESTAMP;
 
+                Toast.makeText(UploadPostActivity.this, "Post successfully, navigating to newsfeed", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(UploadPostActivity.this, MainActivity.class);
+                startActivity(intent);
+
+
                 if (image_uri != null){//upload post with img
                     uploadPost(post, post_time, mDatabase);
                     uploadImage(post_id,image_uri);
@@ -134,6 +140,7 @@ public class UploadPostActivity extends AppCompatActivity {
 
             }
         });
+
 
         galleryLauncher_img = registerForActivityResult(
                 new ActivityResultContracts.GetContent(),
