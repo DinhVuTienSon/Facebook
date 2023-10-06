@@ -72,24 +72,18 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         mStorage = FirebaseStorage.getInstance().getReference();
 
         Post post = posts.get(position);
-//        Log.i(TAG, "ACTUAL ID: " + getActual_post_id(post.getPost_id()));
 
 //        get post's author
         post.getAuthor_ID_from_db();
-
-        //TODO: add function in Post model to convert this to actual date
-//        Log.i(TAG,"TESTING SETUP DATE" + post.getActual_date());
-//        Log.i(TAG,"TESTING SETUP NEW DATE" + post.date_status());
 
         holder.time_post.setText(post.date_status());
         holder.post_description.setText(post.getPost_description());
 
 //        get post image
         getPostImg(mStorage, holder, post);
-//        Log.i(TAG, "ACTUAL ID: " + getActual_post_id(post.getPost_id()));
 
-//        holder.post_likes.setText(post.getPostLikes());
-//        holder.post_comments.setText(post.getPostComments());
+//        holder.post_likes.setText(post.getPost_likes());
+//        holder.post_comments.setText(post.getPost_comments());
 
 //        get firebase stuff
         mDatabase = FirebaseDatabase.getInstance().getReference();
