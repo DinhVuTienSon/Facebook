@@ -92,7 +92,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         DatabaseReference user_database = mDatabase.child("users").child(post.getAuthor_id());
         StorageReference user_storage = mStorage.child("users").child(post.getAuthor_id());
 
-        Log.i(TAG, "STORAGE" + user_storage);
+//        Log.i(TAG, "STORAGE" + user_storage);
         user_database.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -114,7 +114,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.post_likes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i(TAG, "LIKE TAG: " + holder.post_likes.getTag());
+//                Log.i(TAG, "LIKE TAG: " + holder.post_likes.getTag());
                 if(holder.post_likes.getTag().equals("liked")) {
                      mDatabase.child("post_likes").child(post.getActual_post_id()).child(user.getUid()).setValue(true);
                 }
@@ -182,7 +182,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.e(TAG,"GET AVA/BANNER IMG ERROR:" + e);
+                Log.e(TAG,"GET AVA/BANNER IMG ERROR: SKIPPP");
             }
         });
     }
@@ -199,7 +199,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.e(TAG,"GET POST IMG ERROR:" + e);
+                Log.e(TAG,"GET POST IMG ERROR: NO PROBS" );
             }
         });
     }

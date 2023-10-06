@@ -23,6 +23,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -47,6 +48,7 @@ public class CommentActivity extends AppCompatActivity {
     private String authorId;
     private EditText write_comment;
     FirebaseUser fUser;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,10 +71,14 @@ public class CommentActivity extends AppCompatActivity {
 
         comment_recyclerView = findViewById(R.id.comment_recyclerView);
         comment_recyclerView.setHasFixedSize(true);
-        comment_recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setStackFromEnd(true);
+        linearLayoutManager.setReverseLayout(true);
+        comment_recyclerView.setLayoutManager(linearLayoutManager);
 
         comments = new ArrayList<>();
         commentAdapter = new CommentAdapter(comments, this);
+        comment_recyclerView.setAdapter(commentAdapter);
 
 
 //        for (int i = 0; i < 15; i++) {
@@ -106,21 +112,24 @@ public class CommentActivity extends AppCompatActivity {
         write_comment = findViewById(R.id.write_comment);
         Intent intent = getIntent();
         postId = intent.getStringExtra("postId");
-        Log.i(TAG, "POST ID: " + postId);
+//        Log.i(TAG, "POST ID: " + postId);
         authorId = intent.getStringExtra("authorId");
-        Log.i(TAG, "AUTHOR ID: "+ authorId);
+//        Log.i(TAG, "AUTHOR ID: "+ authorId);
+
         fUser = FirebaseAuth.getInstance().getCurrentUser();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         getComment();
     }
 
     private void getComment() {
-        FirebaseDatabase.getInstance().getReference().child("comments").child(postId).child(getActual_post_id(postId)).addValueEventListener(new ValueEventListener() {
+        mDatabase.child("comments").child(postId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 comments.clear();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Comments comment = snapshot.getValue(Comments.class);
+                for (DataSnapshot sp : snapshot.getChildren()){
+                    Comments comment = sp.getValue(Comments.class);
+                    comment.setComment_id(sp.getKey());
 
                     comments.add(comment);
                 }
@@ -135,10 +144,12 @@ public class CommentActivity extends AppCompatActivity {
     }
 
     private void putComment() {
+        String comment_id = mDatabase.child("comments").child(postId).push().getKey();
         HashMap<String, Object> map = new HashMap<>();
-        map.put("comment", write_comment.getText().toString());
+        map.put("comment_id", comment_id);
+        map.put("content", write_comment.getText().toString());
         map.put("author", fUser.getUid());
-        FirebaseDatabase.getInstance().getReference().child("comments").child(postId).push().setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+        FirebaseDatabase.getInstance().getReference().child("comments").child(postId).child(comment_id).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()){
@@ -150,12 +161,4 @@ public class CommentActivity extends AppCompatActivity {
             }
         });
     }
-
-    public String getActual_post_id(String post_id){
-        String p_id = post_id.substring(0,20);;
-//        String p_id =
-//        Log.i(TAG, "ID: " + p_id);
-        return p_id;
-    }
-
 }

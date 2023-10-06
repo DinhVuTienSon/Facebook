@@ -52,7 +52,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 //        holder.comment_name.setText(comment.getComment_name());
         holder.comment_content.setText(comment.getComment_content());
 
-        FirebaseDatabase.getInstance().getReference().child("users").child(comment.getComment_name()).addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("users").child(comment.getAuthor()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Users users = snapshot.getValue(Users.class);
