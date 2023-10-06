@@ -55,7 +55,6 @@ public class UserProfileAdapter extends RecyclerView.Adapter<UserProfileAdapter.
         holder.post_likes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
             }
         });
 

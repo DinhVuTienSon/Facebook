@@ -159,7 +159,7 @@ public class Post {
         return p_id;
     }
 
-//    only use if the post_id is from FirebaseDatabase
+//    only use if the post_id is from FirebaseDatabase :)
     public void getAuthor_ID_from_db(){
         try{
             String author;

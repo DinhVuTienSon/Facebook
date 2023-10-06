@@ -17,6 +17,7 @@ import vn.edu.usth.facebook.R;
 import vn.edu.usth.facebook.fragment.ProfileFragment;
 import vn.edu.usth.facebook.model.Users;
 
+
 public class UserFriendsAdapter extends RecyclerView.Adapter<UserFriendsAdapter.ViewHolder>{
     private ProfileFragment context;
     private ArrayList<Users> users;

@@ -51,7 +51,6 @@ import vn.edu.usth.facebook.model.Users;
 //TODO: function to call all user information
 //TODO: function to display friend's ava, name
 //TODO: function to display user's post
-
 public class ProfileFragment extends Fragment {
     //    for bug fixes and error messages
     private String TAG = "PROFILE FRAGMENT";

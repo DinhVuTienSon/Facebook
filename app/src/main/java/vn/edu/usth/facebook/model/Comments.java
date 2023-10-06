@@ -13,7 +13,6 @@ public class Comments {
         this.comment_name = comment_name;
         this.comment_content = comment_content;
     }
-
     public String getComment_ava() {
         return comment_ava;
     }

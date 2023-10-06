@@ -35,6 +35,7 @@ import vn.edu.usth.facebook.model.Users;
 
 //TODO: connect to firebase to get and save data
 
+
 public class EditProfileActivity extends AppCompatActivity {
 //    for debugging and checking stuff :)
     private String TAG = "EDIT PROFILE ACTIVITY";

@@ -104,7 +104,6 @@ public class FriendsFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 friends_recc.clear();
-
                 Log.i(TAG, "DATABASE FRIENDS CHECK: " + FirebaseDatabase.getInstance().getReference().child("users"));
 
                 for(DataSnapshot sp : snapshot.getChildren()){
