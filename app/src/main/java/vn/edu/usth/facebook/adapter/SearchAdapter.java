@@ -1,6 +1,7 @@
 package vn.edu.usth.facebook.adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +11,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import vn.edu.usth.facebook.R;
@@ -20,8 +25,9 @@ import vn.edu.usth.facebook.model.Users;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder>{
     private Context context;
-    private ArrayList<Users> users;
-    public SearchAdapter(ArrayList<Users> users, Context context){
+    private List<Users> users;
+    private StorageReference mStorage = FirebaseStorage.getInstance().getReference();
+    public SearchAdapter(List<Users> users, Context context){
         this.users = users;
         this.context = context;
     }
@@ -36,6 +42,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull SearchAdapter.ViewHolder holder, int position) {
         Users user = users.get(position);
+
+        //getUserImg(mStorage.child("users").child(user.getUserId()), holder);
         Picasso.get().load(user.getUser_ava()).into(holder.search_ava);
         holder.search_name.setText(user.getFirst_name()+" "+user.getSur_name());
 //        holder.search_info.setText(user.getSearch_info());
@@ -66,5 +74,21 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             search_add_friend = itemView.findViewById(R.id.search_add_friend);
             search_add_friend_text = itemView.findViewById(R.id.search_add_friend_text);
         }
+    }
+
+    //TODO: func get avatar but cant get avatar
+    public void getUserImg(StorageReference user_storage, @NonNull SearchAdapter.ViewHolder holder){
+//        todo: threading
+        user_storage.child("avatar").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.get().load(uri).into(holder.search_ava);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+//                Log.e(TAG,"GET AVA/BANNER IMG ERROR:" + e);
+            }
+        });
     }
 }

@@ -27,14 +27,14 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
-import java.util.ArrayList;
+
+import java.util.HashMap;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import vn.edu.usth.facebook.CommentActivity;
 import vn.edu.usth.facebook.R;
-import vn.edu.usth.facebook.fragment.HomeFragment;
-import vn.edu.usth.facebook.fragment.ProfileFragment;
+import vn.edu.usth.facebook.fragment.OtherUserProfileFragment;
 import vn.edu.usth.facebook.model.Post;
 import vn.edu.usth.facebook.model.Users;
 
@@ -117,6 +117,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 //                Log.i(TAG, "LIKE TAG: " + holder.post_likes.getTag());
                 if(holder.post_likes.getTag().equals("liked")) {
                      mDatabase.child("post_likes").child(post.getActual_post_id()).child(user.getUid()).setValue(true);
+
+                     addNotification(post.getPost_id(), post.getAuthor_id());
                 }
                 else{
                     mDatabase.child("post_likes").child(post.getActual_post_id()).child(user.getUid()).removeValue();
@@ -138,7 +140,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             @Override
             public void onClick(View view) {
                 AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                Fragment myFragment = new ProfileFragment();
+                Fragment myFragment = new OtherUserProfileFragment();
                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, myFragment).addToBackStack(null).commit();
             }
         });
@@ -260,6 +262,17 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
                 }
             });
+        }
+
+        private void addNotification(String postId, String authorId){
+            HashMap<String, Object> map = new HashMap<>();
+
+            map.put("userId", authorId);
+            map.put("text", "liked your post");
+            map.put("postId", postId);
+            map.put("isPost", true);
+
+            FirebaseDatabase.getInstance().getReference().child("notifications").child(user.getUid()).setValue(map);
         }
 
 }

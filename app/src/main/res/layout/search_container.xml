@@ -17,7 +17,7 @@
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/search_ava"
                 android:layout_width="0dp"
-                android:src="@drawable/pic"
+                android:src="@drawable/default_ava"
                 android:layout_height="115dp"
                 android:layout_margin="5dp"
                 android:layout_weight="1"/>

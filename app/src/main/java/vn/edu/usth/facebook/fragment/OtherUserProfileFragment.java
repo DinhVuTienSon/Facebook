@@ -1,6 +1,5 @@
 package vn.edu.usth.facebook.fragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -24,7 +23,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -46,18 +44,17 @@ import vn.edu.usth.facebook.EditProfileActivity;
 import vn.edu.usth.facebook.R;
 import vn.edu.usth.facebook.adapter.PostAdapter;
 import vn.edu.usth.facebook.adapter.UserFriendsAdapter;
-import vn.edu.usth.facebook.adapter.UserProfileAdapter;
 import vn.edu.usth.facebook.model.Post;
 import vn.edu.usth.facebook.model.Users;
 
-
+//TODO: function to call all user information
 //TODO: function to display friend's ava, name
+//TODO: function to display user's post
 
-
-public class ProfileFragment extends Fragment {
+public class OtherUserProfileFragment extends Fragment {
     //    for bug fixes and error messages
     private String TAG = "PROFILE FRAGMENT";
-    public Button editBtn;
+    public Button addFriendBtn;
 
     private Toolbar toolbar;
     private ImageView background;
@@ -71,7 +68,6 @@ public class ProfileFragment extends Fragment {
     private FirebaseAuth.AuthStateListener mAuthListener;
     private DatabaseReference mDatabase;
     private StorageReference mStorage;
-    private FirebaseUser firebaseUser;
 
     private String uid;
     private ArrayList<Post> posts;
@@ -81,7 +77,7 @@ public class ProfileFragment extends Fragment {
 
     private ProgressBar loadingIndicator;
 
-    public ProfileFragment() {
+    public OtherUserProfileFragment() {
         // Required empty public constructor
     }
 
@@ -164,17 +160,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
-
-//        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-//        String data = getContext().getSharedPreferences("PROFILE", Context.MODE_PRIVATE).getString("profileId", "none");
-//        if(data.equals("none")){
-//            profileId = firebaseUser.getUid();
-//        }
-//        else {
-//            profileId = data;
-//            getContext().getSharedPreferences("PROFILE", Context.MODE_PRIVATE).edit().clear().apply();
-//        }
+        View view = inflater.inflate(R.layout.fragment_other_user_profile, container, false);
 
         toolbar = view.findViewById(R.id.profile_toolbar);
 
@@ -285,14 +271,14 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        editBtn = view.findViewById(R.id.btnEdit);
-        editBtn.setOnClickListener(new View.OnClickListener() {
+        addFriendBtn = view.findViewById(R.id.btnAddFriend);
+        addFriendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), EditProfileActivity.class);
-                startActivity(intent);
+                //TODO: add friend btn function
             }
         });
+
         return view;
     }
 

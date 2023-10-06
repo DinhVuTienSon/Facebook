@@ -1,5 +1,6 @@
 package vn.edu.usth.facebook.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,9 +20,9 @@ import vn.edu.usth.facebook.model.Users;
 
 
 public class UserFriendsAdapter extends RecyclerView.Adapter<UserFriendsAdapter.ViewHolder>{
-    private ProfileFragment context;
+    private Context context;
     private ArrayList<Users> users;
-    public UserFriendsAdapter(ArrayList<Users> users, ProfileFragment context){
+    public UserFriendsAdapter(ArrayList<Users> users, Context context){
         this.users = users;
         this.context = context;
     }

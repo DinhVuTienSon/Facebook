@@ -20,6 +20,7 @@
             android:padding="4dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
+                android:src="@drawable/default_ava"
                 android:id="@+id/comment_ava"
                 android:layout_width="50dp"
                 android:layout_height="50dp"

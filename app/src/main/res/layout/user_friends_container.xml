@@ -23,6 +23,7 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/ava_user_friend"
+                android:src="@drawable/default_ava"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_margin="5dp" />

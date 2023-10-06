@@ -18,6 +18,7 @@
             android:id="@+id/search_toolbar"
             android:background="?android:attr/windowBackground">
             <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                android:id="@+id/search_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/button_style"

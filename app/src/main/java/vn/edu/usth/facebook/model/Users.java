@@ -1,18 +1,10 @@
 package vn.edu.usth.facebook.model;
 
-import android.util.Log;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import vn.edu.usth.facebook.model.Notifications;
-import vn.edu.usth.facebook.model.Post;
 
 public class Users {
     private String user_id;
@@ -33,8 +25,8 @@ public class Users {
     private ArrayList<Notifications> notifications;
     private Map<String,Boolean> friend_reqs;
     //    constructors
-    public Users(String user_id, String first_name, String sur_name, String email) {
-        this.user_id = user_id;
+    public Users(String userId, String first_name, String sur_name, String email) {
+        this.user_id = userId;
         this.first_name = first_name;
         this.sur_name = sur_name;
         this.email = email;

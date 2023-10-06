@@ -35,7 +35,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import vn.edu.usth.facebook.adapter.CommentAdapter;
 import vn.edu.usth.facebook.model.Comments;
 
-//TODO: function to call commentator's ava, name, comment's content
+//TODO: function to call commentator's ava, comment's content (mới chỉ gọi đc name)
 
 
 public class CommentActivity extends AppCompatActivity {
@@ -45,6 +45,7 @@ public class CommentActivity extends AppCompatActivity {
     private List<Comments> comments;
     private ImageView send_comment;
     private String postId;
+    private CircleImageView comment_ava;
     private String authorId;
     private EditText write_comment;
     FirebaseUser fUser;
@@ -79,21 +80,6 @@ public class CommentActivity extends AppCompatActivity {
         comments = new ArrayList<>();
         commentAdapter = new CommentAdapter(comments, this);
         comment_recyclerView.setAdapter(commentAdapter);
-
-
-//        for (int i = 0; i < 15; i++) {
-//            String comment_ava = "https://picsum.photos/600/300?random&" + i;
-//            String comment_name = "ST";
-//            String comment_content = "this is a test comment";
-//
-//            Comments comment = new Comments(comment_ava, comment_name, comment_content);
-//            comments.add(comment);
-//            CommentAdapter adapter = new CommentAdapter(comments, CommentActivity.this);
-//            RecyclerView recyclerView = findViewById(R.id.comment_recyclerView);
-//            LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-//            recyclerView.setLayoutManager(layoutManager);
-//            recyclerView.setAdapter(adapter);
-//        }
 
         send_comment = findViewById(R.id.send_comment);
         send_comment.setOnClickListener(new View.OnClickListener() {
@@ -130,7 +116,6 @@ public class CommentActivity extends AppCompatActivity {
                 for (DataSnapshot sp : snapshot.getChildren()){
                     Comments comment = sp.getValue(Comments.class);
                     comment.setComment_id(sp.getKey());
-
                     comments.add(comment);
                 }
                 commentAdapter.notifyDataSetChanged();
