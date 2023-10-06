@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Users {
-    private String userId;
+    private String user_id;
     private String first_name;
     private String sur_name;
     private String email;
@@ -16,16 +16,17 @@ public class Users {
     private String user_bio;
     private String user_hobbies;
     private String user_links;
+    private String user_location;
     private String user_live_in;
     private String user_work;
     private String user_education;
     private ArrayList<Post> posts;
     //    private ArrayList<user_comments> comments;
     private ArrayList<Notifications> notifications;
-    private ArrayList<String> user_friends;
+    private Map<String,Boolean> friend_reqs;
     //    constructors
     public Users(String userId, String first_name, String sur_name, String email) {
-        this.userId = userId;
+        this.user_id = userId;
         this.first_name = first_name;
         this.sur_name = sur_name;
         this.email = email;
@@ -75,12 +76,12 @@ public class Users {
     }
 
 
-    public String getUserId() {
-        return userId;
+    public String getUser_id() {
+        return user_id;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
     }
 
     public String getFirst_name() {
@@ -121,6 +122,14 @@ public class Users {
 
     public void setUser_background(String user_background) {
         this.user_background = user_background;
+    }
+
+    public String getUser_location() {
+        return user_location;
+    }
+
+    public void setUser_location(String user_location) {
+        this.user_location = user_location;
     }
 
     public String getUser_bio() {
@@ -187,12 +196,11 @@ public class Users {
         this.notifications = notifications;
     }
 
-    public ArrayList<String> getUser_friends() {
-        return user_friends;
+    public Map<String, Boolean> getFriend_reqs() {
+        return friend_reqs;
     }
 
-    public void setUser_friends(ArrayList<String> user_friends) {
-        this.user_friends = user_friends;
+    public void setFriend_reqs(Map<String, Boolean> friend_reqs) {
+        this.friend_reqs = friend_reqs;
     }
-
 }

@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -37,17 +38,26 @@ public class FriendsFragment extends Fragment {
     private List<Users> friends_req;
     private List<Users> friends_recc;
 
+    private List<String> requests;
+    private List<String> not_friends;
+
     private AppCompatButton see_all_friend_req, see_less_friend_req;
     private FriendsAdapter adapter;
     private FriendsRecommendAdapter adapter_recc;
 
     private FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
+    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     private boolean isExpanded = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_friends, container, false);
+
+        requests = new ArrayList<>();
+        not_friends = new ArrayList<>();
+
+//        FRIENDS REQUEST
 
         see_all_friend_req = view.findViewById(R.id.see_all_friend_req);
         see_less_friend_req = view.findViewById(R.id.see_less_friend_req);
@@ -58,6 +68,7 @@ public class FriendsFragment extends Fragment {
         } else {
             see_all_friend_req.setVisibility(View.VISIBLE);
         }
+
         adapter = new FriendsAdapter(friends_req, getContext());
         recycler_view_req = view.findViewById(R.id.friend_request_recyclerView);
         LinearLayoutManager layoutManager2 = new LinearLayoutManager(getContext());
@@ -65,9 +76,8 @@ public class FriendsFragment extends Fragment {
         layoutManager2.setReverseLayout(true);
         recycler_view_req.setLayoutManager(layoutManager2);
         recycler_view_req.setAdapter(adapter);
-        getFriendRequest();
 
-//        FRIENDS REQUEST
+        filter_friend_req();
 
         see_all_friend_req.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,7 +112,7 @@ public class FriendsFragment extends Fragment {
         recycler_view_recc.setAdapter(adapter_recc);
 
 //        get friend recommend
-        getFriendRecommend();
+        filter_friend_rec();
 
         return view;
     }
@@ -111,19 +121,19 @@ public class FriendsFragment extends Fragment {
 
     public void getFriendRecommend(){
 
-        FirebaseDatabase.getInstance().getReference().child("users").addValueEventListener(new ValueEventListener() {
+        mDatabase.child("users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 friends_recc.clear();
-                Log.i(TAG, "DATABASE FRIENDS CHECK: " + FirebaseDatabase.getInstance().getReference().child("users"));
-
+                Log.i(TAG,"NOT FRIENDS:" + not_friends);
                 for (DataSnapshot sp : snapshot.getChildren()) {
-                    Users friend_recc = sp.getValue(Users.class);
-
-                    if(sp.getKey().equals(current_user.getUid())){}
-                    else{
-                        friend_recc.setUserId(sp.getKey());
-                        friends_recc.add(friend_recc);
+                    Users friend_recc = snapshot.getValue(Users.class);
+                    for (String id : not_friends){
+                        Log.i(TAG, "SP KEY: " + sp.getKey());
+                        if(sp.getKey().equals(id)){
+                            friend_recc.setUser_id(sp.getKey());
+                            friends_recc.add(friend_recc);
+                        }
                     }
                 }
                 adapter_recc.notifyDataSetChanged();
@@ -136,29 +146,31 @@ public class FriendsFragment extends Fragment {
         });
     }
         public void getFriendRequest() {
-            FirebaseDatabase.getInstance().getReference().child("users").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    friends_req.clear();
-                    Log.i(TAG, "DATABASE FRIENDS CHECK: " + FirebaseDatabase.getInstance().getReference().child("users"));
+            if(mDatabase.child("users").child(current_user.getUid()).child("friend_reqs") != null){
+                mDatabase.child("users").child(current_user.getUid()).child("friend_reqs").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        friends_req.clear();
+                        for (DataSnapshot sp : snapshot.getChildren()) {
+                            Users friend_req = snapshot.getValue(Users.class);
+                            Log.i(TAG, "DATABASE FRIENDS CHECK: " + sp.getKey());
+                            for (String id : requests) {
+                                if (sp.getKey().equals(id)) {
+                                    friend_req.setUser_id(sp.getKey());
 
-                    for (DataSnapshot sp : snapshot.getChildren()) {
-                        Users friend_req = sp.getValue(Users.class);
-                        friend_req.setUserId(sp.getKey());
-                        Log.i(TAG, "FRIEND RECOMMEND ID: " + friend_req.getUserId());
-
-                        friends_req.add(friend_req);
+                                    friends_req.add(friend_req);
+                                }
+                            }
+                        }
+                        adapter.notifyDataSetChanged();
                     }
-                    adapter.notifyDataSetChanged();
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
+            }
+            else {
+            }
     }
 
     private List<Users> getLimitedFriendRequests() {
@@ -167,5 +179,49 @@ public class FriendsFragment extends Fragment {
         } else {
             return new ArrayList<>(friends_req.subList(0, 5));
         }
+    }
+
+    private void filter_friend_req(){
+        mDatabase.child("users").child(current_user.getUid()).child("friend_reqs").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                requests.clear();
+                for(DataSnapshot sp : snapshot.getChildren()){
+                    requests.add(sp.getKey());
+                }
+                getFriendRequest();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void filter_friend_rec(){
+        mDatabase.child("users").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                not_friends.clear();
+                for(DataSnapshot sp : snapshot.getChildren()){
+                    not_friends.add(sp.getKey());
+                }
+                Log.i(TAG,"USERS ALL:" + not_friends);
+                for(DataSnapshot ss : snapshot.child(current_user.getUid()).child("friends").getChildren()){
+                    not_friends.remove(ss.getKey());
+                    Log.i(TAG,"SS KEY(ALL FRIENDS): " + ss.getKey());
+                }
+                not_friends.remove(current_user.getUid());
+
+                getFriendRecommend();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }
