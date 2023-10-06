@@ -24,13 +24,14 @@ public class Users {
     private String user_bio;
     private String user_hobbies;
     private String user_links;
+    private String user_location;
     private String user_live_in;
     private String user_work;
     private String user_education;
     private ArrayList<Post> posts;
     //    private ArrayList<user_comments> comments;
     private ArrayList<Notifications> notifications;
-    private ArrayList<String> user_friends;
+    private Map<String,Boolean> friend_reqs;
     //    constructors
     public Users(String user_id, String first_name, String sur_name, String email) {
         this.user_id = user_id;
@@ -131,6 +132,14 @@ public class Users {
         this.user_background = user_background;
     }
 
+    public String getUser_location() {
+        return user_location;
+    }
+
+    public void setUser_location(String user_location) {
+        this.user_location = user_location;
+    }
+
     public String getUser_bio() {
         return user_bio;
     }
@@ -195,12 +204,11 @@ public class Users {
         this.notifications = notifications;
     }
 
-    public ArrayList<String> getUser_friends() {
-        return user_friends;
+    public Map<String, Boolean> getFriend_reqs() {
+        return friend_reqs;
     }
 
-    public void setUser_friends(ArrayList<String> user_friends) {
-        this.user_friends = user_friends;
+    public void setFriend_reqs(Map<String, Boolean> friend_reqs) {
+        this.friend_reqs = friend_reqs;
     }
-
 }

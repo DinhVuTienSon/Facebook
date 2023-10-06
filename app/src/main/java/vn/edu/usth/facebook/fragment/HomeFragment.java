@@ -2,6 +2,7 @@ package vn.edu.usth.facebook.fragment;
 
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,11 +19,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +52,8 @@ public class HomeFragment extends Fragment {
     private RecyclerView recyclerViewPosts;
     private PostAdapter postAdapter;
     private List<Post> posts;
+    private StorageReference mStorage = FirebaseStorage.getInstance().getReference();
+    private FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,6 +61,8 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         home_ava = view.findViewById(R.id.profile_home_ava);
+        getUserImg(mStorage.child("users").child(current_user.getUid()));
+
         upload_post = view.findViewById(R.id.upload_user_post);
         home_ava.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,6 +135,22 @@ public class HomeFragment extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+    }
+
+    public void getUserImg(StorageReference user_storage){
+//        todo: threading
+        user_storage.child("avatar").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.get().load(uri).into(home_ava);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Picasso.get().load(R.drawable.default_ava).into(home_ava);
+                Log.e(TAG,"GET AVA/BANNER IMG ERROR: SKIPPP");
             }
         });
     }

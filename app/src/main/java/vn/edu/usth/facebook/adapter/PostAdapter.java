@@ -182,11 +182,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+                Picasso.get().load(R.drawable.default_ava).into(holder.author_img);
                 Log.e(TAG,"GET AVA/BANNER IMG ERROR: SKIPPP");
             }
         });
     }
-    //    Picasso.get().load(post.getPostImage()).into(holder.post_img);
+
 //    get post img
     public void getPostImg(StorageReference mStorage,@NonNull PostAdapter.ViewHolder holder, Post post){
         //        todo: threading
@@ -208,7 +209,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         FirebaseDatabase.getInstance().getReference().child("comments").child(postId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                text.setText(snapshot.getChildrenCount() + " comments");
+                if (snapshot.getChildrenCount() <= 0) {
+                    text.setText("comments");
+                } else {
+                    text.setText(snapshot.getChildrenCount() + "");
+                }
             }
 
             @Override
@@ -246,7 +251,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                     if (snapshot.getChildrenCount() <= 0) {
                         text.setText("likes");
                     } else {
-                        text.setText(snapshot.getChildrenCount() + " likes");
+                        text.setText(snapshot.getChildrenCount() + "");
                     }
                 }
 

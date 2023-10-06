@@ -14,9 +14,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
@@ -36,7 +40,7 @@ public class FriendsRecommendAdapter extends RecyclerView.Adapter<FriendsRecomme
 
     private DatabaseReference mDatabase;
     private StorageReference mStorage;
-    private FirebaseUser user;
+    private FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
     public FriendsRecommendAdapter(List<Users> friends_recc, Context context){
         this.friends_recc = friends_recc;
         this.context = context;
@@ -62,7 +66,7 @@ public class FriendsRecommendAdapter extends RecyclerView.Adapter<FriendsRecomme
 //      get friends recc ava
         getUserImg(mStorage.child(friend_recc.getUser_id()),holder);
 
-        holder.friend_rec_name.setText(friend_recc.getFirst_name()+" "+friend_recc.getSur_name());
+        getUser_name(friend_recc.getUser_id(), holder);
 //        holder.mutual_friends_rec.setText(friend_rec.getMutualFriends_rec());
 
         holder.add_friend.setOnClickListener(new View.OnClickListener() {
@@ -71,6 +75,8 @@ public class FriendsRecommendAdapter extends RecyclerView.Adapter<FriendsRecomme
                 holder.friend_sent.setVisibility(View.VISIBLE);
                 holder.add_friend.setVisibility(View.GONE);
                 holder.remove_friend_rec.setVisibility(View.GONE);
+
+                add_friend_req(friend_recc);
             }
         });
         holder.remove_friend_rec.setOnClickListener(new View.OnClickListener() {
@@ -115,8 +121,27 @@ public class FriendsRecommendAdapter extends RecyclerView.Adapter<FriendsRecomme
             @Override
             public void onFailure(@NonNull Exception e) {
                 Picasso.get().load(R.drawable.default_ava).into(holder.friend_rec_ava);
-                Log.e(TAG,"GET AVA/BANNER IMG ERROR:" + e);
+//                Log.e(TAG,"GET AVA/BANNER IMG ERROR:" + e);
             }
         });
+    }
+
+    public void getUser_name(String friend_id, @NonNull FriendsRecommendAdapter.ViewHolder holder){
+        mDatabase.child("users").child(friend_id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                holder.friend_rec_name.setText(snapshot.child("first_name").getValue()+ " " + snapshot.child("sur_name").getValue());
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void add_friend_req(Users friend_recc){
+//       adding current_user_id -> friend_id/friends_req/ list in db
+//        Log.i(TAG, "FRIEND DATABSE: " + mDatabase.child("users").child(friend_recc.getUser_id()).child("friend_reqs").child(current_user.getUid()));
+        mDatabase.child("users").child(friend_recc.getUser_id()).child("friend_reqs").child(current_user.getUid()).setValue(true);
     }
 }

@@ -15,8 +15,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
@@ -36,7 +40,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
     private Context context;
 
     //    firebase stuff
-    private FirebaseAuth mAuth;
+    private FirebaseUser current_user;
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     private StorageReference mStorage = FirebaseStorage.getInstance().getReference();
 
@@ -70,13 +74,16 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull FriendsAdapter.ViewHolder holder, int position) {
+        current_user = FirebaseAuth.getInstance().getCurrentUser();
 
         Users friend_req = friends_req.get(position);
 //        get friends ava
         getUserImg(mStorage.child("users").child(friend_req.getUser_id()), holder);
 
-        holder.friend_req_name.setText(friend_req.getFirst_name()+" "+friend_req.getSur_name());
+        Log.i(TAG,"FRIEND REQ NAME CHECK" + friend_req.getFirst_name());
+//        holder.friend_req_name.setText(friend_req.getFirst_name()+" "+friend_req.getSur_name());
 //        holder.req_date.setText(user.getReqDate());
+        getUser_name(friend_req.getUser_id(), holder);
 //        holder.mutual_friends.setText(user.getMutualFriends());
 
 
@@ -87,6 +94,8 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
                 holder.friend_accepted.setVisibility(View.VISIBLE);
                 holder.accept_friend.setVisibility(View.GONE);
                 holder.not_accept_friend.setVisibility(View.GONE);
+
+                add_friend(friend_req);
             }
         });
         holder.not_accept_friend.setOnClickListener(new View.OnClickListener() {
@@ -136,8 +145,35 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.e(TAG,"GET AVA/BANNER IMG ERROR:" + e);
+                Picasso.get().load(R.drawable.default_ava).into(holder.friend_req_ava);
+//                Log.e(TAG,"GET AVA/BANNER IMG ERROR:" + e);
             }
         });
+    }
+
+    public void getUser_name(String friend_id, @NonNull FriendsAdapter.ViewHolder holder){
+        mDatabase.child("users").child(friend_id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                holder.friend_req_name.setText(snapshot.child("first_name").getValue()+ " " + snapshot.child("sur_name").getValue());
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void add_friend(Users friend_req){
+//       adding friend -> current_user/friends list in db
+        Log.i(TAG, "FRIEND DATABSE: " + mDatabase.child("users").child(current_user.getUid()).child("friends").child(friend_req.getUser_id()));
+        mDatabase.child("users").child(current_user.getUid()).child("friends").child(friend_req.getUser_id()).setValue(true);
+//       do the same way around
+        mDatabase.child("users").child(friend_req.getUser_id()).child("friends").child(current_user.getUid()).setValue(true);
+//        remove request in db
+//        brain fuck: user A(current_user) send request -> save request in user B(friend)
+//                    but now to accept request=> have to login to B(friend) whom is now current user
+//                    ==>B(current_user) and A is friend => delete request -> current user(B)/friend_reqs/friend(A)
+        mDatabase.child("users").child(current_user.getUid()).child("friend_reqs").child(friend_req.getUser_id()).removeValue();
     }
 }
