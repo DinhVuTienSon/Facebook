@@ -7,6 +7,7 @@ import android.os.Handler;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+
 public class SplashScreenActivity extends AppCompatActivity {
 
     private static final long TIME = 0000;

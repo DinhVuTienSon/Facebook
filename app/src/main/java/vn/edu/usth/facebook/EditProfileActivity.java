@@ -35,8 +35,9 @@ import vn.edu.usth.facebook.model.Users;
 
 //TODO: connect to firebase to get and save data
 
+
 public class EditProfileActivity extends AppCompatActivity {
-//    for debugging and checking stuff :)
+    //    for debugging and checking stuff :)
     private String TAG = "EDIT PROFILE ACTIVITY";
     private CircleImageView avatar;
     private ImageView background;
@@ -46,7 +47,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private ActivityResultLauncher<String> galleryLauncher_avatar;
     private ActivityResultLauncher<String> galleryLauncher_background;
 
-//    firebase stuff
+    //    firebase stuff
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private DatabaseReference mDatabase;
@@ -227,7 +228,7 @@ public class EditProfileActivity extends AppCompatActivity {
         });
     }
 
-//    when app start, check if user is still logged in
+    //    when app start, check if user is still logged in
     @Override
     public void onStart() {
         super.onStart();

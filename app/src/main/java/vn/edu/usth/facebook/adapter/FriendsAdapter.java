@@ -1,5 +1,6 @@
 package vn.edu.usth.facebook.adapter;
 
+import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,11 +30,10 @@ import vn.edu.usth.facebook.fragment.FriendsFragment;
 import vn.edu.usth.facebook.model.Users;
 
 //TODO: function to add friend after click on accept
-
 public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHolder> {
     private String TAG = "FRIENDS ADAPTER";
-    private List<Users> users;
-    private FriendsFragment context;
+    private List<Users> friends_req;
+    private Context context;
 
     //    firebase stuff
     private FirebaseAuth mAuth;
@@ -41,23 +41,23 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
     private StorageReference mStorage = FirebaseStorage.getInstance().getReference();
 
 
-    public FriendsAdapter(List<Users> users, FriendsFragment context){
-        this.users = users;
+    public FriendsAdapter(List<Users> friends_req, Context context){
+        this.friends_req = friends_req;
         this.context = context;
     }
 
     public void setData(List<Users> newFriendsList) {
-        users.clear();
-        users.addAll(newFriendsList);
+        friends_req.clear();
+        friends_req.addAll(newFriendsList);
         notifyDataSetChanged();
     }
 
     public List<Users> getFriends() {
-        return users;
+        return friends_req;
     }
 
     public void removeFriend(int position) {
-        users.remove(position);
+        friends_req.remove(position);
         notifyItemRemoved(position);
     }
 
@@ -71,11 +71,11 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull FriendsAdapter.ViewHolder holder, int position) {
 
-        Users friend = users.get(position);
+        Users friend_req = friends_req.get(position);
 //        get friends ava
-        getUserImg(mStorage.child("users").child(friend.getUser_id()), holder);
+        getUserImg(mStorage.child("users").child(friend_req.getUser_id()), holder);
 
-        holder.friend_req_name.setText(friend.getFirst_name()+" "+friend.getSur_name());
+        holder.friend_req_name.setText(friend_req.getFirst_name()+" "+friend_req.getSur_name());
 //        holder.req_date.setText(user.getReqDate());
 //        holder.mutual_friends.setText(user.getMutualFriends());
 
@@ -103,7 +103,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        return users.size();
+        return friends_req.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

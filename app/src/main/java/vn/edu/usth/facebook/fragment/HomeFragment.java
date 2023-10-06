@@ -92,6 +92,7 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -101,7 +102,7 @@ public class HomeFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-//    woowowowwwo adding posts to posts(list) to run on new feeds
+    //    woowowowwwo adding posts to posts(list) to run on new feeds
     public void readPost(){
 //        get database ref (get to posts)
         FirebaseDatabase.getInstance().getReference().child("posts").addValueEventListener(new ValueEventListener() {

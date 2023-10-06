@@ -10,8 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -30,13 +28,10 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import vn.edu.usth.facebook.CommentActivity;
-import vn.edu.usth.facebook.EditProfileActivity;
 import vn.edu.usth.facebook.R;
 import vn.edu.usth.facebook.fragment.HomeFragment;
 import vn.edu.usth.facebook.fragment.ProfileFragment;
@@ -45,6 +40,7 @@ import vn.edu.usth.facebook.model.Users;
 
 //TODO: function to count the number of likes, comments
 //TODO: function to check if the post is liked or not -> call that function in post_like's onclick
+
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     private String TAG = "POSTADAPTER";
@@ -111,19 +107,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             }
         });
 
-//        isLiked(post.getPost_id(), holder.post_likes);
 //        getPostImg(holder, mStorage);
 
         holder.post_likes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                if (holder.post_likes.getTag().equals("Like")){
-//                    writeNewPostLike(post, post.toLikesMap(user.getUid()),  mDatabase);
-//                    FirebaseDatabase.getInstance().getReference().child("post_likes").child(post.getPost_id()).child(user.getUid()).setValue(true);
-//                }
-//                else {
-//                    FirebaseDatabase.getInstance().getReference().child("post_likes").child(post.getPost_id()).child(user.getUid()).removeValue();
-//                }
+
             }
         });
 
@@ -131,6 +120,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), CommentActivity.class);
+                intent.putExtra("postId", post.getPost_id());
+                intent.putExtra("authorId", user.getUid());
                 view.getContext().startActivity(intent);
             }
         });
@@ -142,6 +133,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, myFragment).addToBackStack(null).commit();
             }
         });
+        getComments(post.getPost_id(), holder.post_comments);
     }
 
     @Override
@@ -152,8 +144,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
         private CircleImageView author_img;
         private TextView author_name, time_post, post_description;
-        private ImageView post_img, post_likes;
-        private TextView post_comments;
+        private ImageView post_img;
+        private TextView post_likes, post_comments;
         private LinearLayout post_share;
 
         public ViewHolder(@NonNull View itemView) {
@@ -164,7 +156,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             time_post = itemView.findViewById(R.id.idTVTime);
             post_description = itemView.findViewById(R.id.idTVDescription);
             post_img = itemView.findViewById(R.id.idIVPost);
-            post_likes = itemView.findViewById(R.id.post_likes);
+            post_likes = itemView.findViewById(R.id.idTVLikes);
             post_comments = itemView.findViewById(R.id.idTVComments);
             post_share = itemView.findViewById(R.id.idLLShare);
         }
@@ -184,10 +176,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             }
         });
     }
-//    Picasso.get().load(post.getPostImage()).into(holder.post_img);
+    //    Picasso.get().load(post.getPostImage()).into(holder.post_img);
 //    get post img
     public void getPostImg(StorageReference mStorage,@NonNull PostAdapter.ViewHolder holder, Post post){
-    //        todo: threading
+        //        todo: threading
 //        need to get actual post id because post id in storage is
         mStorage.child("posts").child(post.getActual_post_id()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
@@ -201,36 +193,17 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             }
         });
     }
-//    public void isLiked(String postId, ImageView imageView){
-//        FirebaseDatabase.getInstance().getReference().child("post_likes").child(postId).addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                if (snapshot.child(user.getUid()).exists()){
-//                    imageView.setImageResource(R.drawable.liked_icon);
-//                    imageView.setTag("Liked");
-//                }
-//                else {
-//                    imageView.setImageResource(R.drawable.like_icon);
-//                    imageView.setTag("Like");
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//    }
-//    public void writeNewPostLike(Post post, Map<String,Object> post_like, DatabaseReference db){
-//        try{
-////            add user_info map to db
-//            db.child("posts").child(post.getPost_id()).child("post_likes").updateChildren(post_like);
-////          create pop up message when saved
-////            Toast.makeText(EditProfileActivity.this, type + " updated", Toast.LENGTH_SHORT).show();
-//        }catch (Exception e) {
-//            Log.e(TAG, "ERROR: " + e);
-//
-//        }
-//
-//    }
+    public void getComments (String postId, TextView text){
+        FirebaseDatabase.getInstance().getReference().child("comments").child(postId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                text.setText(snapshot.getChildrenCount()+" comments");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
 }

@@ -54,6 +54,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+
     private void loginUser(String username, String password) {
 //TODO: threading
         mAuth.signInWithEmailAndPassword(username , password).addOnCompleteListener(task -> {

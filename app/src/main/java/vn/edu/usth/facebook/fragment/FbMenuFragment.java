@@ -37,7 +37,7 @@ public class FbMenuFragment extends Fragment {
             // Log out the user from Firebase
             FirebaseAuth.getInstance().signOut();
 
-            // Show a message indicating that the user is logging out
+            // Show a message indicating that the user is logging out.
             Toast.makeText(getActivity(), "Logging out...", Toast.LENGTH_SHORT).show();
 
             // Delay for 2 seconds before navigating to the login screen

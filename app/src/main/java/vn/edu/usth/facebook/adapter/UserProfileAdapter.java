@@ -72,17 +72,17 @@ public class UserProfileAdapter extends RecyclerView.Adapter<UserProfileAdapter.
 //        holder.post_likes.se(post.getPost_likes());
         holder.post_comments.setText(post.getPost_comments());
 
-        isLiked(post.getPost_id(), holder.post_likes);
+//        isLiked(post.getPost_id(), holder.post_likes);
 
         holder.post_likes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (holder.post_likes.getTag().equals("Like")){
-                    FirebaseDatabase.getInstance().getReference().child("post_likes").child(post.getPost_id()).child(user.getUid()).setValue(true);
-                }
-                else {
-                    FirebaseDatabase.getInstance().getReference().child("post_likes").child(post.getPost_id()).child(user.getUid()).removeValue();
-                }
+//                if (holder.post_likes.getTag().equals("Like")){
+//                    FirebaseDatabase.getInstance().getReference().child("post_likes").child(post.getPost_id()).child(user.getUid()).setValue(true);
+//                }
+//                else {
+//                    FirebaseDatabase.getInstance().getReference().child("post_likes").child(post.getPost_id()).child(user.getUid()).removeValue();
+//                }
             }
         });
 
@@ -199,24 +199,24 @@ public class UserProfileAdapter extends RecyclerView.Adapter<UserProfileAdapter.
             }
         });
     }
-    public void isLiked(String postId, ImageView imageView){
-        FirebaseDatabase.getInstance().getReference().child("post_likes").child(postId).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.child(user.getUid()).exists()){
-                    imageView.setImageResource(R.drawable.liked_icon);
-                    imageView.setTag("Liked");
-                }
-                else {
-                    imageView.setImageResource(R.drawable.like_icon);
-                    imageView.setTag("Like");
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
+//    public void isLiked(String postId, ImageView imageView){
+//        FirebaseDatabase.getInstance().getReference().child("post_likes").child(postId).addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                if (snapshot.child(user.getUid()).exists()){
+//                    imageView.setImageResource(R.drawable.liked_icon);
+//                    imageView.setTag("Liked");
+//                }
+//                else {
+//                    imageView.setImageResource(R.drawable.like_icon);
+//                    imageView.setTag("Like");
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+//    }
 }

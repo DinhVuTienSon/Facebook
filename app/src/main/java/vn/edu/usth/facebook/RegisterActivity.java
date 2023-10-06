@@ -30,7 +30,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     private FirebaseAuth mAuth;
-//get database
+    //get database
     private DatabaseReference mDatabase;
 
     ProgressDialog pd;
@@ -152,6 +152,5 @@ public class RegisterActivity extends AppCompatActivity {
         catch (Exception e){
             Log.e("WRITE TO DB ERROR: ", "PROBLEM WHEN WRITING TO FIREBASE" + e);
         }
-
     }
 }

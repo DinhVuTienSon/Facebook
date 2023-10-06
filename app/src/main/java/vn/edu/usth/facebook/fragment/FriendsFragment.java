@@ -2,16 +2,26 @@ package vn.edu.usth.facebook.fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
+import java.util.List;
 
 import vn.edu.usth.facebook.adapter.FriendsAdapter;
 import vn.edu.usth.facebook.adapter.FriendsRecommendAdapter;
@@ -21,13 +31,16 @@ import vn.edu.usth.facebook.model.Users;
 //TODO: function to call other user ava, name, number of mutual friend
 
 public class FriendsFragment extends Fragment {
-
-    private RecyclerView recyclerView;
-    private ArrayList<Users> users;
-    private ArrayList<Users> users1;
+    private String TAG = "FRIENDS FRAGMENT";
+    private RecyclerView recycler_view_req;
+    private RecyclerView recycler_view_recc;
+    private List<Users> friends_req;
+    private List<Users> friends_recc;
 
     private AppCompatButton see_all_friend_req, see_less_friend_req;
     private FriendsAdapter adapter;
+    private FriendsRecommendAdapter adapter_recc;
+    private FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
     private boolean isExpanded = false;
 
     @Override
@@ -38,51 +51,34 @@ public class FriendsFragment extends Fragment {
         see_all_friend_req = view.findViewById(R.id.see_all_friend_req);
         see_less_friend_req = view.findViewById(R.id.see_less_friend_req);
 
-        users = new ArrayList<>();
-        users1 = new ArrayList<>();
-//        friends_rec = new ArrayList<>();
-
-        for (int i = 0; i < 16; i++) {
-            String friend_rec_ava = "https://picsum.photos/600/300?random&" + i;
-            String friend_rec_name = "Testing";
-            String mutual_friends_rec = "18 mutual friends";
-
-            Users user1 = new Users(friend_rec_ava, friend_rec_name, mutual_friends_rec, "");
-            users1.add(user1);
-        }
-            FriendsRecommendAdapter adapter1 = new FriendsRecommendAdapter(users1, getContext());
-            RecyclerView recyclerView1 = view.findViewById(R.id.friend_recommend_recyclerView);
-            LinearLayoutManager layoutManager1 = new LinearLayoutManager(getContext());
-            recyclerView1.setLayoutManager(layoutManager1);
-            recyclerView1.setAdapter(adapter1);
-
-
-        for (int i = 0; i < 7; i++) {
-            String friendReqAva = "https://picsum.photos/600/300?random&" + i;
-            String friendReqName = "ST";
-            String reqDate = "2d";
-            String mutualFriends = "16 mutual friends";
-
-            Users user = new Users(friendReqAva, friendReqName, reqDate, mutualFriends);
-            users.add(user);
-        }
-            recyclerView = view.findViewById(R.id.friend_request_recyclerView);
-            LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-            recyclerView.setLayoutManager(layoutManager);
-            adapter = new FriendsAdapter(getLimitedFriendRequests(), FriendsFragment.this);
-            recyclerView.setAdapter(adapter);
-
-        if (users.size() <= 5) {
+        friends_req = new ArrayList<>();
+        if (friends_req.size() <= 5) {
             see_all_friend_req.setVisibility(View.GONE);
         } else {
             see_all_friend_req.setVisibility(View.VISIBLE);
         }
+        adapter = new FriendsAdapter(friends_req, getContext());
+        recycler_view_req = view.findViewById(R.id.friend_request_recyclerView);
+        LinearLayoutManager layoutManager2 = new LinearLayoutManager(getContext());
+        layoutManager2.setStackFromEnd(true);// -> latest friend first
+        layoutManager2.setReverseLayout(true);
+        recycler_view_req.setLayoutManager(layoutManager2);
+        recycler_view_req.setAdapter(adapter);
+        getFriendRequest();
+
+//        FRIENDS REQUEST
+//        recycler_view_req = view.findViewById(R.id.friend_request_recyclerView);
+//        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+//        recycler_view_req.setLayoutManager(layoutManager);
+//        adapter = new FriendsAdapter(getLimitedFriendRequests(), FriendsFragment.this);
+//        recycler_view_req.setAdapter(adapter);
+//
 
         see_all_friend_req.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 isExpanded = true;
-                adapter.setData(users);
+                adapter.setData(friends_req);
                 see_all_friend_req.setVisibility(View.GONE);
                 see_less_friend_req.setVisibility(View.VISIBLE);
             }
@@ -98,15 +94,82 @@ public class FriendsFragment extends Fragment {
             }
         });
 
+        //    FRIEND RECOMMEND
+        adapter_recc = new FriendsRecommendAdapter(friends_recc, getContext());
+        recycler_view_recc = view.findViewById(R.id.friend_recommend_recyclerView);
+        LinearLayoutManager layoutManager1 = new LinearLayoutManager(getContext());
+        layoutManager1.setStackFromEnd(true);// -> latest friend first
+        layoutManager1.setReverseLayout(true);
+        recycler_view_recc.setLayoutManager(layoutManager1);
+
+        friends_recc = new ArrayList<>();
+        adapter_recc = new FriendsRecommendAdapter(friends_recc, getContext());
+        recycler_view_recc.setAdapter(adapter_recc);
+
+//        get friend recommend
+        getFriendRecommend();
+
         return view;
     }
 
-    private ArrayList<Users> getLimitedFriendRequests() {
-        if (isExpanded || users.size() <= 5) {
-            return users;
-        } else {
-            return new ArrayList<>(users.subList(0, 5));
-        }
+    public void getFriendRecommend() {
+        FirebaseDatabase.getInstance().getReference().child("users").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                friends_recc.clear();
+                Log.i(TAG, "DATABASE FRIENDS CHECK: " + FirebaseDatabase.getInstance().getReference().child("users"));
+
+                for (DataSnapshot sp : snapshot.getChildren()) {
+                    Users friend_recc = sp.getValue(Users.class);
+                    if(sp.getKey().equals(current_user.getUid())){
+
+                    }else {
+                        friend_recc.setUser_id(sp.getKey());
+                        Log.i(TAG, "FRIEND RECOMMEND ID: " + friend_recc.getUser_id());
+
+                        friends_recc.add(friend_recc);
+                    }
+                }
+                adapter_recc.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+        public void getFriendRequest() {
+            FirebaseDatabase.getInstance().getReference().child("users").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    friends_req.clear();
+                    Log.i(TAG, "DATABASE FRIENDS CHECK: " + FirebaseDatabase.getInstance().getReference().child("users"));
+
+                    for (DataSnapshot sp : snapshot.getChildren()) {
+                        Users friend_req = sp.getValue(Users.class);
+                        friend_req.setUser_id(sp.getKey());
+                        Log.i(TAG, "FRIEND RECOMMEND ID: " + friend_req.getUser_id());
+
+                        friends_req.add(friend_req);
+                    }
+                    adapter.notifyDataSetChanged();
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
     }
 
+    private List<Users> getLimitedFriendRequests() {
+        if (isExpanded || friends_req.size() <= 5) {
+            return friends_req;
+        } else {
+            return new ArrayList<>(friends_req.subList(0, 5));
+        }
+    }
 }

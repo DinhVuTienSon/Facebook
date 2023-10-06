@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import vn.edu.usth.facebook.adapter.SearchAdapter;
 import vn.edu.usth.facebook.model.Users;
 
+
 //TODO: function to search other users by name
 
 public class SearchActivity extends AppCompatActivity {
@@ -51,11 +52,11 @@ public class SearchActivity extends AppCompatActivity {
             Users user = new Users(search_ava, search_name, search_info,"");
             users.add(user);
         }
-            SearchAdapter adapter = new SearchAdapter(users, SearchActivity.this);
-            RecyclerView recyclerView = findViewById(R.id.search_recyclerView);
-            LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-            recyclerView.setLayoutManager(layoutManager);
-            recyclerView.setAdapter(adapter);
+        SearchAdapter adapter = new SearchAdapter(users, SearchActivity.this);
+        RecyclerView recyclerView = findViewById(R.id.search_recyclerView);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
 
     }
     @Override

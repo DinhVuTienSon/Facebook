@@ -13,7 +13,6 @@ public class Notifications {
         this.notification_content = notification_content;
         this.notification_time = notification_time;
     }
-
     public String getNotification_ava() {
         return notification_ava;
     }
