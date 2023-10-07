@@ -76,6 +76,15 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
             }
         });
+        holder.comment_ava.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i(TAG, "#ABC"+comment.getAuthor());
+                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                Fragment myFragment = new OtherUserProfileFragment(comment.getAuthor());
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.comment_layout, myFragment).addToBackStack(null).commit();
+            }
+        });
     }
 
     @Override

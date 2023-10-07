@@ -8,7 +8,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -21,6 +23,7 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import vn.edu.usth.facebook.R;
+import vn.edu.usth.facebook.fragment.OtherUserProfileFragment;
 import vn.edu.usth.facebook.model.Users;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder>{
@@ -45,6 +48,15 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         Users user = users.get(position);
 
         getUserImg(mStorage.child("users").child(user.getUser_id()), holder);
+
+        holder.search_ava.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                Fragment myFragment = new OtherUserProfileFragment(user.getUser_id());
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.search_layout, myFragment).addToBackStack(null).commit();
+            }
+        });
 
         holder.search_name.setText(user.getFirst_name()+" "+user.getSur_name());
 //        holder.search_info.setText(user.getSearch_info());

@@ -1,13 +1,18 @@
 package vn.edu.usth.facebook.fragment;
 
+import android.net.Uri;
 import android.os.Bundle;
 
 import android.content.Intent;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Button;
 
@@ -17,16 +22,35 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 import vn.edu.usth.facebook.R;
 import vn.edu.usth.facebook.LoginActivity;
+import vn.edu.usth.facebook.model.Users;
 
 //TODO: function to call current user ava, name
 
 
 public class FbMenuFragment extends Fragment {
-
+    private CircleImageView profile_menu_ava;
+    private TextView profile_menu_name;
+    private String TAG = "MENU GRAG";
+    private FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
+    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    private StorageReference mStorage = FirebaseStorage.getInstance().getReference();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -51,8 +75,24 @@ public class FbMenuFragment extends Fragment {
                 }
             }, 2000);
         });
+        getUserImg(mStorage.child("users").child(current_user.getUid()));
 
-        CircleImageView profile_menu_ava = view.findViewById(R.id.profile_menu_ava);
+        profile_menu_name = view.findViewById(R.id.profile_menu_name);
+
+        mDatabase.child("users").child(current_user.getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Users users = snapshot.getValue(Users.class);
+                profile_menu_name.setText(users.getFirst_name() + " " + users.getSur_name());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        profile_menu_ava = view.findViewById(R.id.profile_menu_ava);
         profile_menu_ava.setOnClickListener(view12 -> {
             FragmentManager fragmentManager = getParentFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -62,5 +102,21 @@ public class FbMenuFragment extends Fragment {
         });
 
         return view;
+    }
+
+    public void getUserImg(StorageReference user_storage){
+//        todo: threading
+        user_storage.child("avatar").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.get().load(uri).into(profile_menu_ava);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Picasso.get().load(R.drawable.default_ava).into(profile_menu_ava);
+                Log.e(TAG,"GET AVA/BANNER IMG ERROR: SKIPPP");
+            }
+        });
     }
 }

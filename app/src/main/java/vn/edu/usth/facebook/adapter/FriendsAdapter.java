@@ -9,7 +9,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -29,6 +31,7 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import vn.edu.usth.facebook.R;
+import vn.edu.usth.facebook.fragment.OtherUserProfileFragment;
 import vn.edu.usth.facebook.model.Users;
 
 //TODO: function to add friend after click on accept
@@ -73,14 +76,24 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull FriendsAdapter.ViewHolder holder, int position) {
         current_user = FirebaseAuth.getInstance().getCurrentUser();
-
         Users friend_req = friends_req.get(position);
+        holder.friend_req_ava.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                Fragment myFragment = new OtherUserProfileFragment(friend_req.getUser_id());
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.friend_fragment, myFragment).addToBackStack(null).commit();
+            }
+        });
+
+
 //        get friends ava
         getUserImg(mStorage.child("users").child(friend_req.getUser_id()), holder);
 
         Log.i(TAG,"FRIEND REQ NAME CHECK" + friend_req.getFirst_name());
 
         getUser_name(friend_req.getUser_id(), holder);
+
 
 
         holder.accept_friend.setOnClickListener(new View.OnClickListener() {

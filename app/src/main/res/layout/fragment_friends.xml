@@ -11,7 +11,8 @@
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:id="@+id/friend_fragment">
 
     <ScrollView
         android:layout_width="match_parent"

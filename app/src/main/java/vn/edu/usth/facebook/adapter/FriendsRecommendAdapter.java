@@ -9,7 +9,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -29,6 +31,7 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import vn.edu.usth.facebook.R;
+import vn.edu.usth.facebook.fragment.OtherUserProfileFragment;
 import vn.edu.usth.facebook.model.Users;
 
 //TODO: function to send friend request after click add friend
@@ -66,6 +69,15 @@ public class FriendsRecommendAdapter extends RecyclerView.Adapter<FriendsRecomme
         getUserImg(mStorage.child(friend_recc.getUser_id()),holder);
 
         getUser_name(friend_recc.getUser_id(), holder);
+
+        holder.friend_rec_ava.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                Fragment myFragment = new OtherUserProfileFragment(friend_recc.getUser_id());
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.friend_fragment, myFragment).addToBackStack(null).commit();
+            }
+        });
 
         holder.add_friend.setOnClickListener(new View.OnClickListener() {
             @Override
